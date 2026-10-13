@@ -244,75 +244,15 @@ h2{font-size:clamp(34px,4.6vw,56px)}
 .hint{font-family:var(--mono);font-size:12px;color:var(--mut-d);margin-top:14px}
 .hint::before{content:"↖ ";color:var(--lemon)}
 
-.vis3{margin-top:24px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.vis3 .card{padding:28px}
-.mini{height:72px;margin-bottom:18px;border-radius:14px;background:rgba(247,243,233,.03);border:1px solid var(--line-d);position:relative;overflow:hidden;display:flex;align-items:center;padding:0 16px}
-.trk{flex:1;height:6px;border-radius:9px;background:rgba(247,243,233,.1);position:relative}
-.trk::after{content:"";position:absolute;left:0;top:0;bottom:0;border-radius:9px;background:linear-gradient(90deg,var(--violet),var(--lemon));animation:fill 5s cubic-bezier(.6,0,.3,1) infinite}
-.trk i{position:absolute;top:50%;width:12px;height:12px;margin:-6px;border-radius:50%;background:var(--night-2);border:2px solid rgba(247,243,233,.3);z-index:1}
-@keyframes fill{0%{width:0}80%,100%{width:100%}}
-.files{display:grid;gap:5px;width:100%;font-family:var(--mono);font-size:11px}
-.files span{padding:2px 8px;border-radius:6px;background:rgba(169,155,255,.12);color:var(--fg-d);width:max-content;animation:slide 6s infinite both}
-.files span:nth-child(2){animation-delay:.5s}.files span:nth-child(3){animation-delay:1s}
-@keyframes slide{0%{opacity:0;transform:translateX(-12px)}10%,80%{opacity:1;transform:none}95%,100%{opacity:0}}
-.inbox{display:flex;align-items:center;gap:14px;font-size:13px}
-.bell{width:38px;height:38px;border-radius:12px;background:rgba(228,213,90,.14);display:grid;place-items:center;position:relative;animation:wiggle 3s ease-in-out infinite}
-.bell svg{width:20px;height:20px;stroke:var(--lemon);fill:none;stroke-width:1.8;stroke-linecap:round}
-.bell b{position:absolute;top:-6px;right:-6px;min-width:18px;height:18px;border-radius:9px;background:var(--lemon);color:var(--ink);font-size:11px;display:grid;place-items:center;animation:ping 1.6s infinite}
-@keyframes wiggle{0%,70%,100%{transform:none}75%{transform:rotate(-12deg)}80%{transform:rotate(10deg)}85%{transform:rotate(-6deg)}}
-
-/* how */
-.relay{margin-top:64px;display:grid;grid-template-columns:1fr 1.4fr 1fr;gap:20px}
-.workers{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
-.worker{border:1px dashed var(--line-l);border-radius:14px;padding:12px;text-align:center;font-size:12px;background:var(--cream);color:var(--mut-l)}
-.worker img{width:64px;height:64px;margin:0 auto 6px;border-radius:12px;animation:bob 3.2s ease-in-out infinite}
-.worker:nth-child(2) img{animation-delay:-1s}.worker:nth-child(3) img{animation-delay:-2s}
-.worker b{display:block;font-size:13px;color:var(--ink)}
-.tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:14px}
-.tag{font-family:var(--mono);font-size:11px;padding:4px 8px;border-radius:6px;background:var(--lilac);color:var(--ink)}
 @keyframes bob{50%{transform:translateY(-5px)}}
-
-.bento{margin-top:64px;display:grid;grid-template-columns:repeat(6,1fr);gap:16px}
-.bento .card{grid-column:span 2}
-.bento .w4{grid-column:span 4}
-.bento .w6{grid-column:span 6}
-.kernel-viz{display:flex;align-items:center;gap:10px;margin-top:22px;flex-wrap:wrap;font-family:var(--mono);font-size:12px}
-.node{padding:8px 12px;border-radius:10px;border:1px solid var(--line-d);color:var(--mut-d);animation:bob 3.6s ease-in-out infinite}
-.node:nth-child(2){animation-delay:-.9s}.node:nth-child(3){animation-delay:-1.8s}.node:nth-child(5){animation-delay:-2.7s}
-.node.dash{border-style:dashed}
-.core{padding:10px 16px;border-radius:12px;background:var(--lemon);color:var(--ink);font-weight:700;animation:ping 2s ease-out infinite}
-
 .trust{margin-top:64px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 .trust h3{display:flex;gap:10px;align-items:center;font-size:17px}
 .trust h3::before{content:"";width:8px;height:8px;border-radius:2px;background:var(--lemon);transform:rotate(45deg);flex:none;transition:transform .4s}
 .trust .card:hover h3::before{transform:rotate(225deg) scale(1.3)}
 .trust code{display:inline-block;margin-top:14px;font-family:var(--mono);font-size:11px;color:var(--mut-l)}
 
-.away{margin-top:64px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.away .card{padding:30px}
 .ico{width:40px;height:40px;border-radius:12px;background:rgba(228,213,90,.12);display:grid;place-items:center;color:var(--lemon);margin-bottom:18px}
 .ico svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-
-.crew-head{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:end}
-.crew{margin-top:56px;display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-.pose{border-radius:22px;overflow:hidden;background:#FBF8F1;border:1px solid var(--line-l);transition:transform .35s cubic-bezier(.3,1.4,.5,1),box-shadow .35s}
-.pose:hover{transform:translateY(-6px) rotate(-1deg);box-shadow:0 24px 40px -24px rgba(53,38,62,.45)}
-.pose img{aspect-ratio:1;object-fit:cover;width:100%;animation:bob 4s ease-in-out infinite;animation-delay:calc(var(--i,0)*-.5s)}
-.pose figcaption{padding:14px 18px 18px;border-top:1px solid var(--line-l);background:#FBF8F1;position:relative}
-.pose b{font-size:15px}
-.pose span{display:block;font-size:13px;color:var(--mut-l)}
-.quote{border-left:3px solid var(--lemon);padding:6px 0 6px 20px;margin-top:24px}
-.quote b{font-size:18px}
-
-table{width:100%;border-collapse:collapse;margin-top:72px;font-size:15px}
-th{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;text-align:left;font-weight:500;color:var(--mut-l);padding:12px 16px;border-bottom:1px solid var(--line-l)}
-td{padding:20px 16px;border-bottom:1px solid var(--line-l);vertical-align:top}
-tbody tr{transition:background .2s}tbody tr:hover{background:rgba(53,38,62,.04)}
-td:first-child{font-weight:800}
-td.k{font-family:var(--mono);font-weight:700;letter-spacing:.04em}
-.st{display:inline-block;font-size:12px;padding:3px 10px;border-radius:999px;border:1px solid var(--line-l);white-space:nowrap}
-.st.on{background:var(--ink);color:var(--cream);border-color:var(--ink)}
-
 .bound{margin-top:64px;display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .bound h3{font-size:18px}
 .bound ul{list-style:none;padding:0;margin-top:14px;display:grid;gap:12px;font-size:15px}
@@ -408,9 +348,8 @@ footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
 .chart.in .bars i{transform:scaleY(1)}
 .chart p{display:flex;justify-content:space-between;font-size:12.5px;color:var(--mut-d);margin-top:8px}
 .chart p strong{color:#9BE3B4}
-.fw-cards{margin-top:48px;display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-.fw-cards .card{padding:24px}
-.fw-cards h3{font-size:17px}
+.fw-note{margin-top:32px;font-size:14px;color:var(--mut-d);max-width:860px}
+.fw-note b{color:var(--lemon);font-weight:700}
 
 /* computer: every bot has its own machine you can watch */
 .pc{background:var(--cream);color:var(--ink)}
@@ -468,7 +407,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
   .wrap{padding:0 20px}
   nav ul{display:none}
   nav .wrap{justify-content:space-between}
-  .hero .wrap,.crew-head,.bound,.relay,.trust,.away,.vis3,.hd-grid{grid-template-columns:1fr}
+  .hero .wrap,.bound,.trust,.hd-grid{grid-template-columns:1fr}
   .hd-cards{grid-template-columns:1fr 1fr}
   .ex-grid,.fw-grid{grid-template-columns:1fr}
   .fw-cards{grid-template-columns:1fr 1fr}
@@ -479,11 +418,8 @@ footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
   .ex-stage{padding:28px 14px 32px}
   .ex-cap{margin-left:40px}
   .sticker{width:80px}.sticker.s1{width:92px}
-  .crew{grid-template-columns:repeat(2,1fr)}
-  .bento .card,.bento .w4{grid-column:span 6}
   .cv-body{grid-template-columns:1fr}
   .drawer{border-left:0;border-top:1px solid var(--line-d)}
-  th:nth-child(2),td:nth-child(2){display:none}
 }
 </style>
 </head>
@@ -500,9 +436,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
       <li><a href="#hodor">Hodor</a></li>
       <li><a href="#flywheel">复盘飞轮</a></li>
       <li><a href="#computer">Bot 的电脑</a></li>
-      <li><a href="#how">怎么协作</a></li>
       <li><a href="#trust">为什么放心</a></li>
-      <li><a href="#crew">小队</a></li>
       <li><a href="#boundary">阶段边界</a></li>
       <li><a href="#faq">常见问题</a></li>
     </ul>
@@ -548,27 +482,6 @@ footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
       </div>
     </div>
     <p class="hint reveal">点任一步骤，右侧显示它的上下文、循环记录和在整张图里的位置；鼠标移上去可以看整条链路</p>
-
-    <div class="vis3">
-      <div class="card reveal">
-        <div class="mini"><div class="trk"><i style="left:0"></i><i style="left:25%"></i><i style="left:50%"></i><i style="left:75%"></i><i style="left:100%"></i></div></div>
-        <div class="no">01 / 走到哪</div>
-        <h3>当前位置一眼可见</h3>
-        <p class="mut">每个流程实例停在哪一步、哪些在并行、哪些已完成，都在图上。</p>
-      </div>
-      <div class="card reveal">
-        <div class="mini"><div class="files"><span>素材.zip</span><span>数据.csv</span><span>草稿.md</span></div></div>
-        <div class="no">02 / 产出了什么</div>
-        <h3>产出挂在步骤上</h3>
-        <p class="mut">每一步交付的内容跟着步骤走，执行环境没了也能取回。</p>
-      </div>
-      <div class="card reveal">
-        <div class="mini"><div class="inbox"><div class="bell"><svg viewBox="0 0 24 24"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15zM10 20a2 2 0 0 0 4 0"/></svg><b>1</b></div><span>Hodor · 第 4 步等你开门</span></div></div>
-        <div class="no">03 / 等谁拍板</div>
-        <h3>待裁决事项不会埋没</h3>
-        <p class="mut">需要你判断的步骤亮起来、排好队；你确认后从原处继续。</p>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -585,7 +498,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
           <button class="tile" data-ex="2" aria-pressed="false"><img src="img/09-wave.jpg" alt=""><b>每日数据</b><small>你不在也照跑</small></button>
           <button class="tile" data-ex="3" aria-pressed="false"><img src="img/07-carry.jpg" alt=""><b>视频渲染</b><small>机器没了，产出还在</small></button>
           <button class="tile" data-ex="4" aria-pressed="false"><img src="img/08-direct.jpg" alt=""><b>批量退款</b><small>失联就停，不重复</small></button>
-          <a class="tile more" href="#kernel"><img src="img/01-explore.jpg" alt=""><b>你的下一类业务</b><small>写节点定义，内核不变 →</small></a>
+          <a class="tile more" href="#faq"><img src="img/01-explore.jpg" alt=""><b>你的下一类业务</b><small>写节点定义，内核不变</small></a>
         </div>
       </div>
       <div class="ex-stage reveal">
@@ -671,12 +584,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
         </div>
       </div>
     </div>
-    <div class="fw-cards">
-      <div class="card reveal"><div class="no">01</div><h3>提议带证据</h3><p class="mut">写清是哪一类情形、出现过几次、涉及哪些流程，而不是一句「建议改进」。</p></div>
-      <div class="card reveal"><div class="no">02</div><h3>你点头才生效</h3><p class="mut">复盘成员只提建议。没经过你批准的内容，不会变成小队长期沿用的记忆。</p></div>
-      <div class="card reveal"><div class="no">03</div><h3>无效就退回</h3><p class="mut">更新后停顿没少，或者冒出新问题，你可以撤回，或重新发布上一版。</p></div>
-      <div class="card reveal"><div class="no">04</div><h3>记忆不串门</h3><p class="mut">一个工作区学到的经验只留在该工作区；要用到别处，由你另行发布方法。</p></div>
-    </div>
+    <p class="fw-note reveal">复盘提议要带证据；只有你批准的内容才会变成长期记忆；没效果可以退回上一版；一个工作区的经验不会自动流到别的工作区。<b>当前状态：设计已定稿，实现中。</b></p>
   </div>
 </section>
 
@@ -713,71 +621,9 @@ footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
   </div>
 </section>
 
-<section class="light" id="how">
-  <div class="wrap">
-    <div class="kicker reveal"><b>// 06</b><span>How the crew works</span></div>
-    <h2 class="reveal">你给目标，小队分工，<br>关键处交还你判断。</h2>
-    <p class="lede mut reveal">一条流程拆成若干步骤，每一步交给有对应能力的执行体。你不用手工分配机器，也不用盯着每个会话。</p>
-    <div class="relay">
-      <div class="card hi reveal">
-        <div class="no">STEP 1 · 你</div>
-        <h3>提出目标</h3>
-        <p class="mut">选一套流程定义，交代这次要做成什么、哪里必须由你拍板。</p>
-        <div class="tags"><span class="tag">流程定义</span><span class="tag">Hodor 门</span></div>
-      </div>
-      <div class="card reveal">
-        <div class="no">STEP 2 · 小队</div>
-        <h3>按能力分头推进</h3>
-        <p class="mut">执行体分布在你的多台机器上，按声明的能力领取步骤。</p>
-        <div class="workers">
-          <div class="worker"><img src="img/01-explore.jpg" alt=""><b>调研</b>Mac mini</div>
-          <div class="worker"><img src="img/02-build.jpg" alt=""><b>构建</b>Linux 服务器</div>
-          <div class="worker"><img src="img/05-write.jpg" alt=""><b>撰写</b>笔记本</div>
-        </div>
-      </div>
-      <div class="card hi reveal">
-        <div class="no">STEP 3 · 你</div>
-        <h3>在 Hodor 门前拍板</h3>
-        <p class="mut">需要判断时流程挂起等你；你确认后从原处继续，不重来。</p>
-        <div class="tags"><span class="tag">通过</span><span class="tag">打回</span><span class="tag">改道</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="dark" id="kernel">
-  <div class="wrap">
-    <div class="kicker reveal"><b>// 07</b><span>One kernel · many businesses</span></div>
-    <h2 class="reveal">换一类工作，<br>不用换一套工具。</h2>
-    <p class="lede mut reveal">业务差异由外部的节点定义承载，编排内核本身不随业务种类改变。今天跑研发流程，明天跑内容流程，用的是同一套概念、同一张图。</p>
-    <div class="bento">
-      <div class="card w4 hi reveal">
-        <div class="no">01 / 内核与业务分离</div>
-        <h3>新增业务 = 新增节点</h3>
-        <p class="mut">内核不改、不分支，已经验证过的编排能力可以直接复用。</p>
-        <div class="kernel-viz">
-          <span class="node">研发交付</span><span class="node">内容生产</span><span class="node">数据整理</span>
-          <span class="core">Atta 内核</span>
-          <span class="node dash">你的下一类业务</span>
-        </div>
-      </div>
-      <div class="card reveal">
-        <div class="no">02 / 按能力分派</div>
-        <h3>机器不用你挑</h3>
-        <p class="mut">执行体声明能力，步骤落到能干这件事的机器上。</p>
-      </div>
-      <div class="card w6 reveal">
-        <div class="no">03 / 方法复用</div>
-        <h3>批准过的方法，跨工作区沿用</h3>
-        <p class="mut">一个工作区里沉淀下来的做法，经你批准后可在其他工作区继续用。</p>
-      </div>
-    </div>
-  </div>
-</section>
-
 <section class="light" id="trust">
   <div class="wrap">
-    <div class="kicker reveal"><b>// 08</b><span>Trust</span></div>
+    <div class="kicker reveal"><b>// 06</b><span>Trust</span></div>
     <h2 class="reveal">放心交给小队</h2>
     <p class="lede mut reveal">下面每一条都是内核必须守住的护栏，卡片下方标着对应的护栏编号。</p>
     <div class="trust">
@@ -791,73 +637,9 @@ footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
   </div>
 </section>
 
-<section class="dark" id="away">
-  <div class="wrap">
-    <div class="kicker reveal"><b>// 09</b><span>While you're away</span></div>
-    <h2 class="reveal">你不在，小队也在干活</h2>
-    <p class="lede mut reveal">合上电脑、断开网络，运行中的流程照常推进；你回来时，图上已经标好了待你拍板的事。</p>
-    <div class="away">
-      <div class="card reveal">
-        <div class="ico"><svg viewBox="0 0 24 24"><path d="M2 8.8a15 15 0 0 1 20 0M5 12.5a10 10 0 0 1 14 0M8.5 16a5 5 0 0 1 7 0"/><path d="M3 3l18 18"/></svg></div>
-        <h3>控制端离线照常推进</h3>
-        <p class="mut">工作台离线不中止流程；裁决在你重新连上时补上。</p>
-      </div>
-      <div class="card reveal">
-        <div class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
-        <h3>定时工作，原班人马</h3>
-        <p class="mut">周期性的活按时启动，交给当初负责它的那位成员。</p>
-      </div>
-      <div class="card reveal">
-        <div class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></div>
-        <h3>跨机器，优先直连</h3>
-        <p class="mut">设备之间优先直接通信，直连不通时才经你自建的中心服务中转。</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="light" id="crew">
-  <div class="wrap">
-    <div class="crew-head">
-      <div>
-        <div class="kicker reveal"><b>// 10</b><span>Meet the crew</span></div>
-        <h2 class="reveal">能干、亲切、可靠，<br>有一点好奇心。</h2>
-      </div>
-      <div class="reveal">
-        <p class="mut" style="font-size:17px">每一只蚂蚁都是同一个伙伴的不同时刻：探索、搭建、规划、搬运、指路。它们代表协作中的不同活动，不是固定的产品角色。</p>
-        <div class="quote"><b>Give the team a job.</b><p class="mut" style="font-size:13px;margin-top:4px">目标由你提出，判断权始终在你手上。</p></div>
-      </div>
-    </div>
-    <div class="crew">
-      <figure class="pose reveal"><img src="img/01-explore.jpg" alt="拿放大镜探索的蚂蚁"><figcaption><b>探索</b><span>先把情况摸清楚</span></figcaption></figure>
-      <figure class="pose reveal"><img src="img/04-plan.jpg" alt="看地图规划的蚂蚁"><figcaption><b>规划</b><span>拆成能推进的步骤</span></figcaption></figure>
-      <figure class="pose reveal"><img src="img/02-build.jpg" alt="拿锤子搭建的蚂蚁"><figcaption><b>搭建</b><span>在合适的机器上动手</span></figcaption></figure>
-      <figure class="pose reveal"><img src="img/07-carry.jpg" alt="搬运箱子的蚂蚁"><figcaption><b>交付</b><span>产出带回来，留得住</span></figcaption></figure>
-      <figure class="pose reveal"><img src="img/05-write.jpg" alt="坐着写笔记的蚂蚁"><figcaption><b>记录</b><span>每一步都有迹可查</span></figcaption></figure>
-      <figure class="pose reveal"><img src="img/08-direct.jpg" alt="伸手指路的蚂蚁"><figcaption><b>指路</b><span>到岔路口就来问你</span></figcaption></figure>
-      <figure class="pose reveal"><img src="img/09-wave.jpg" alt="挥手的蚂蚁"><figcaption><b>汇报</b><span>回来时告诉你进展</span></figcaption></figure>
-      <figure class="pose reveal"><img src="img/10-celebrate.jpg" alt="跳起庆祝的蚂蚁"><figcaption><b>收工</b><span>真的完成了才庆祝</span></figcaption></figure>
-    </div>
-    <table class="reveal">
-      <caption class="mut" style="text-align:left;font-size:13px;padding-bottom:8px">能力与阶段</caption>
-      <thead><tr><th>你得到什么</th><th>靠什么</th><th>会发生什么</th><th>阶段</th></tr></thead>
-      <tbody>
-        <tr><td>实时编排画布</td><td class="k">VISIBILITY</td><td class="mut">流程走到哪一步、产出了什么、哪些事在等你裁决，随时查得到。</td><td><span class="st on">本阶段承诺</span></td></tr>
-        <tr><td>Hodor 门控</td><td class="k">HODOR</td><td class="mut">需要你判断的步骤由 Hodor 挂起，你确认后从原处继续。</td><td><span class="st on">本阶段承诺</span></td></tr>
-        <tr><td>Bot 的电脑</td><td class="k">COMPUTER</td><td class="mut">执行体在你登记的机器上干活，本机或你自己的云主机都行，按声明的能力接受任务，屏幕随时可看。</td><td><span class="st on">本阶段承诺</span></td></tr>
-        <tr><td>离线不中断</td><td class="k">AUTHORITY</td><td class="mut">控制端或中心服务不可达时，运行中的流程不中止、权威状态不变。</td><td><span class="st on">本阶段承诺</span></td></tr>
-        <tr><td>业务定义分发给他人</td><td class="k">DISTRIBUTE</td><td class="mut">把写好的业务定义交给外部使用者。</td><td><span class="st">长期方向</span></td></tr>
-        <tr><td>执行体失效后自动接管</td><td class="k">TAKEOVER</td><td class="mut">本阶段执行体失效即失败并交还给你，不自动重派。</td><td><span class="st">长期方向</span></td></tr>
-        <tr><td>复盘飞轮与记忆</td><td class="k">FLYWHEEL</td><td class="mut">反复出现的情形整理成方法更新提议，你批准后，之后的流程在同类情形上少停或不停。</td><td><span class="st">设计已定稿</span></td></tr>
-        <tr><td>在画布上拖拽编辑流程</td><td class="k">EDITOR</td><td class="mut">本阶段流程定义由你自己编写，画布负责把运行看清楚。</td><td><span class="st">长期方向</span></td></tr>
-      </tbody>
-    </table>
-  </div>
-</section>
-
 <section class="dark" id="boundary">
   <div class="wrap">
-    <div class="kicker reveal"><b>// 11</b><span>Stage boundary</span></div>
+    <div class="kicker reveal"><b>// 07</b><span>Stage boundary</span></div>
     <h2 class="reveal">现在能做什么、不能做什么，<br>说清楚。</h2>
     <p class="lede mut reveal">Atta 处于自用验证阶段：使用者与产品负责人是同一个人，用差异足够大的多类业务验证同一套内核。</p>
     <div class="bound">
@@ -887,16 +669,13 @@ footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
 
 <section class="light" id="faq">
   <div class="wrap">
-    <div class="kicker reveal"><b>// 12</b><span>FAQ</span></div>
+    <div class="kicker reveal"><b>// 08</b><span>FAQ</span></div>
     <h2 class="reveal">常见问题</h2>
     <div class="faq">
-      <details><summary>「可视化编排」是指拖拽着编辑流程吗？</summary><p>不是。本阶段流程定义由你编写；Atta 把它的运行实时画成一张图，让你看见每一步走到哪、谁在干、产出了什么、在等谁。拖拽式编辑属于长期方向。</p></details>
-      <details><summary>为什么叫 Atta 和 Hodor？</summary><p>Atta 是切叶蚁属：分工明确、整队协作的蚂蚁。Hodor 来自《权力的游戏》：Hold the door，守住门，等你来开。Atta 是品牌名，MyrmexSwarm 是背后的编排内核与代码仓库。</p></details>
+      <details><summary>「可视化编排」是指拖拽着编辑流程吗？</summary><p>不是。本阶段流程定义由你编写，Atta 负责把运行实时画出来。拖拽式编辑属于长期方向。</p></details>
+      <details><summary>为什么叫 Atta 和 Hodor？</summary><p>Atta 是切叶蚁属，分工明确、整队协作。Hodor 来自《权力的游戏》：Hold the door。MyrmexSwarm 是背后的编排内核与代码仓库。</p></details>
       <details><summary>我可以注册一个账号试用吗？</summary><p>暂时不行。当前是自用验证阶段，只服务部署者本人；工作台登录走你自己部署的中心服务。</p></details>
-      <details><summary>小队会不会替我做不可逆的决定？</summary><p>需要判断的地方由 Hodor 守门，流程在门前挂起等你。同一步骤也不会在多个执行体上重复产生外部副作用。</p></details>
-      <details><summary>中心服务挂了会怎样？</summary><p>运行中的流程不中止、权威状态不变；已有有效本地登录状态的工作台仍可离线进入，重新登录须等中心服务恢复。</p></details>
-      <details><summary>某台机器上的执行体掉线了，会自动换一台吗？</summary><p>本阶段不会。执行体失效时该步骤失败并交给你处理，不做存活探测加自动重派。</p></details>
-      <details><summary>小队的记忆会自己变吗？</summary><p>不会自己变。复盘成员只把反复出现的情形整理成提议，记忆和方法只在你批准后更新，而且只影响之后开始的流程。一个工作区的经验也不会自动流到别的工作区。</p></details>
+      <details><summary>换一类业务要改内核吗？</summary><p>不用。新增一类业务只需写新的节点定义，内核不随业务种类改变。</p></details>
       <details><summary>Atta 用哪个模型？</summary><p>执行体内部的推理过程与模型选择不归内核管；内核负责流程怎么推进、谁来做、什么时候找你。</p></details>
     </div>
   </div>
@@ -1299,7 +1078,6 @@ footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
     io.observe(el);
   });
   io.observe(vs);
-  document.querySelectorAll('.pose').forEach((p, i) => p.style.setProperty('--i', i));
 
   const prog = document.getElementById('prog');
   addEventListener('scroll', () => {
