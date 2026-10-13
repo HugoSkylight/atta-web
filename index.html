@@ -357,6 +357,82 @@ footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
 .hd-card p{font-size:14px;color:rgba(53,38,62,.75)}
 .hd-card code{display:inline-block;margin-top:12px;font:11px var(--mono);color:rgba(53,38,62,.6)}
 
+/* flywheel: review → propose → you approve → fewer stops */
+.fw{background:radial-gradient(800px 500px at 85% 20%,rgba(228,213,90,.10),transparent 70%),var(--night)}
+.fw-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;margin-top:56px}
+.wheel{position:relative;aspect-ratio:1;max-width:440px;margin:0 auto;width:100%}
+.wheel svg{width:100%;height:100%;overflow:visible}
+.wheel .track{fill:none;stroke:rgba(247,243,233,.12);stroke-width:2;stroke-dasharray:3 7}
+.wheel .comet{fill:none;stroke:url(#cg);stroke-width:4;stroke-linecap:round;transform-origin:220px 220px;animation:spin 6s linear infinite}
+.wheel .st circle{fill:var(--night-2);stroke:rgba(247,243,233,.2);stroke-width:1.5;transition:fill .3s,stroke .3s}
+.wheel .st text{fill:var(--fg-d);font-size:15px;font-weight:800;text-anchor:middle}
+.wheel .st .sub{fill:var(--mut-d);font-size:11px;font-weight:500;font-family:var(--mono)}
+.wheel .st.on circle{fill:#3A3226;stroke:var(--lemon)}
+.wheel .core{fill:var(--lemon)}
+.wheel .core-t{fill:var(--ink);font-size:13px;font-weight:900;text-anchor:middle}
+.wheel .core-v{fill:var(--ink);font-size:22px;font-weight:900;text-anchor:middle;font-family:var(--mono)}
+.prop{border-radius:18px;background:var(--night-2);border:1px solid var(--line-d);padding:20px 22px}
+.prop .no{font-family:var(--mono);font-size:12px;color:var(--lemon);letter-spacing:.08em}
+.prop h3{font-size:18px;margin:8px 0 6px}
+.prop dl{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:13.5px;margin-top:12px}
+.prop dt{color:var(--mut-d)}
+.prop .acts{display:flex;gap:8px;margin-top:16px}
+.prop .acts span{font-size:12.5px;font-weight:800;padding:6px 16px;border-radius:999px;border:1px solid rgba(247,243,233,.25)}
+.prop .acts .y{background:var(--lemon);color:var(--ink);border-color:var(--lemon);animation:press 6s infinite}
+.chart{margin-top:16px;border-radius:18px;background:var(--night-2);border:1px solid var(--line-d);padding:18px 22px 14px}
+.chart small{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--mut-d)}
+.bars{display:flex;align-items:flex-end;gap:5px;height:110px;margin-top:12px;position:relative}
+.bars i{flex:1;border-radius:4px 4px 2px 2px;background:rgba(232,131,122,.75);height:var(--h);transform-origin:bottom;transform:scaleY(0);transition:transform .6s cubic-bezier(.3,1.4,.5,1) calc(var(--k)*45ms)}
+.bars i.after{background:#9BE3B4}
+.bars b{width:2px;align-self:stretch;background:var(--lemon);margin:0 4px;position:relative}
+.bars b::after{content:"你批准 · 方法 v3 生效";position:absolute;top:-4px;left:8px;white-space:nowrap;font:600 11px var(--mono);color:var(--lemon)}
+.chart.in .bars i{transform:scaleY(1)}
+.chart p{display:flex;justify-content:space-between;font-size:12.5px;color:var(--mut-d);margin-top:8px}
+.chart p strong{color:#9BE3B4}
+.fw-cards{margin-top:48px;display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.fw-cards .card{padding:24px}
+.fw-cards h3{font-size:17px}
+
+/* computer: every bot has its own machine you can watch */
+.pc{background:var(--cream);color:var(--ink)}
+.pc-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:center;margin-top:24px}
+.pc-list{list-style:none;padding:0;margin-top:28px;display:grid;gap:14px}
+.pc-list li{display:grid;grid-template-columns:36px 1fr;gap:14px;align-items:start}
+.pc-list .ico{background:var(--ink);color:var(--lemon);width:36px;height:36px;margin:0}
+.pc-list b{display:block;font-size:16px}
+.pc-list span{font-size:14px;color:var(--mut-l)}
+.screens{position:relative;height:440px}
+.scr{position:absolute;border-radius:16px;background:#1E1724;border:1px solid rgba(53,38,62,.3);box-shadow:0 30px 60px -30px rgba(53,38,62,.7);overflow:hidden;color:var(--fg-d);transition:transform .5s cubic-bezier(.3,1.3,.5,1)}
+.scr:hover{transform:translateY(-6px) rotate(0deg)!important;z-index:5}
+.scr .bar{display:flex;align-items:center;gap:8px;padding:9px 12px;border-bottom:1px solid var(--line-d);font:12px var(--mono);background:rgba(27,20,32,.7)}
+.scr .bar img{width:22px;height:22px;border-radius:50%;object-fit:cover}
+.scr .bar b{font:700 12.5px var(--sans)}
+.scr .bar em{margin-left:auto;font-style:normal;color:#9BE3B4;display:flex;align-items:center;gap:6px}
+.scr .bar em::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor;animation:blink 1s infinite}
+.scr.s-a{left:0;top:0;width:62%;transform:rotate(-2deg)}
+.scr.s-b{right:0;top:70px;width:52%;transform:rotate(2.5deg);z-index:2}
+.scr.s-c{left:14%;bottom:0;width:56%;transform:rotate(-1deg);z-index:3}
+.term{padding:12px 14px;font:12px/1.75 var(--mono);height:170px;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end}
+.term div{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.term .p{color:var(--lemon)}
+.term .ok{color:#9BE3B4}
+.term .cur::after{content:"▋";color:var(--lemon);animation:blink 1s steps(1) infinite}
+.web{padding:12px}
+.web .url{font:11px var(--mono);background:rgba(247,243,233,.06);border-radius:8px;padding:5px 10px;color:var(--mut-d)}
+.web .pg{margin-top:10px;display:grid;gap:7px}
+.web .pg i{display:block;height:9px;border-radius:5px;background:rgba(247,243,233,.1)}
+.web .pg i:nth-child(1){width:70%;background:rgba(169,155,255,.4)}
+.web .pg i:nth-child(3){width:85%}.web .pg i:nth-child(4){width:55%}
+.web .hl{position:relative}
+.web .hl::after{content:"";position:absolute;inset:-3px -4px;border:2px solid var(--lemon);border-radius:7px;animation:hl 3s ease-in-out infinite}
+@keyframes hl{0%,100%{opacity:0;transform:scale(.96)}30%,70%{opacity:1;transform:none}}
+.mcur{position:absolute;width:14px;height:20px;animation:mc 6s ease-in-out infinite;z-index:3}
+@keyframes mc{0%,100%{left:70%;top:80%}40%{left:30%;top:52%}60%{left:30%;top:52%}80%{left:62%;top:30%}}
+.files2{padding:12px 14px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;font:11px var(--mono);text-align:center;color:var(--mut-d)}
+.files2 span::before{content:"";display:block;height:34px;margin:0 auto 4px;width:28px;border-radius:5px;background:rgba(228,213,90,.22);border:1px solid rgba(228,213,90,.5)}
+.files2 span.new{animation:pop2 .5s cubic-bezier(.3,1.6,.5,1) both;animation-delay:var(--d)}
+.pc-note{margin-top:18px;font-size:13px;color:var(--mut-l)}
+
 .reveal{opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
 .reveal.in{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){
@@ -365,6 +441,8 @@ footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
   .mark{background-size:100% 100%}
   #see-svg .gn,#see-svg .ge,#see-svg .greg,#see-svg .gm{opacity:1}
   .hd-tok.t1{left:42%}.hd-tok.t2{left:24%}.b-open{opacity:0}
+  .bars i{transform:none}
+  .mcur{left:30%;top:52%}
 }
 @media (max-width:900px){
   section{padding:80px 0}
@@ -373,7 +451,11 @@ footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
   nav .wrap{justify-content:space-between}
   .hero .wrap,.crew-head,.bound,.relay,.trust,.away,.vis3,.hd-grid{grid-template-columns:1fr}
   .hd-cards{grid-template-columns:1fr 1fr}
-  .ex-grid{grid-template-columns:1fr}
+  .ex-grid,.fw-grid{grid-template-columns:1fr}
+  .fw-cards{grid-template-columns:1fr 1fr}
+  .pc-grid{grid-template-columns:1fr}
+  .screens{height:520px}
+  .scr.s-a{width:88%}.scr.s-b{width:80%;top:150px}.scr.s-c{width:84%;left:4%}
   .ex-left{position:static}
   .ex-stage{padding:28px 14px 32px}
   .ex-cap{margin-left:40px}
@@ -397,6 +479,8 @@ footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
       <li><a href="#see">可视化编排</a></li>
       <li><a href="#examples">场景</a></li>
       <li><a href="#hodor">Hodor</a></li>
+      <li><a href="#flywheel">复盘飞轮</a></li>
+      <li><a href="#computer">Bot 的电脑</a></li>
       <li><a href="#how">怎么协作</a></li>
       <li><a href="#trust">为什么放心</a></li>
       <li><a href="#crew">小队</a></li>
@@ -480,17 +564,17 @@ footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
         <h2 class="reveal">一个内核，<br>跑你的每一类长流程。</h2>
         <p class="lede mut reveal">点开一个场景，看它在图上怎么跑。每个场景演示 Atta 的一项特长。</p>
         <div class="tiles reveal">
-          <button class="tile" data-ex="0" aria-pressed="false"><img src="img/02-build.png" alt=""><b>研发交付</b><small>多机器并行</small></button>
-          <button class="tile" data-ex="1" aria-pressed="false"><img src="img/05-write.png" alt=""><b>内容生产</b><small>Hodor 打回重写</small></button>
-          <button class="tile" data-ex="2" aria-pressed="false"><img src="img/09-wave.png" alt=""><b>每日数据</b><small>你不在也照跑</small></button>
-          <button class="tile" data-ex="3" aria-pressed="false"><img src="img/07-carry.png" alt=""><b>视频渲染</b><small>机器没了，产出还在</small></button>
-          <button class="tile" data-ex="4" aria-pressed="false"><img src="img/08-direct.png" alt=""><b>批量退款</b><small>失联就停，不重复</small></button>
-          <a class="tile more" href="#kernel"><img src="img/01-explore.png" alt=""><b>你的下一类业务</b><small>写节点定义，内核不变 →</small></a>
+          <button class="tile" data-ex="0" aria-pressed="false"><img src="img/02-build.jpg" alt=""><b>研发交付</b><small>多机器并行</small></button>
+          <button class="tile" data-ex="1" aria-pressed="false"><img src="img/05-write.jpg" alt=""><b>内容生产</b><small>Hodor 打回重写</small></button>
+          <button class="tile" data-ex="2" aria-pressed="false"><img src="img/09-wave.jpg" alt=""><b>每日数据</b><small>你不在也照跑</small></button>
+          <button class="tile" data-ex="3" aria-pressed="false"><img src="img/07-carry.jpg" alt=""><b>视频渲染</b><small>机器没了，产出还在</small></button>
+          <button class="tile" data-ex="4" aria-pressed="false"><img src="img/08-direct.jpg" alt=""><b>批量退款</b><small>失联就停，不重复</small></button>
+          <a class="tile more" href="#kernel"><img src="img/01-explore.jpg" alt=""><b>你的下一类业务</b><small>写节点定义，内核不变 →</small></a>
         </div>
       </div>
       <div class="ex-stage reveal">
-        <img class="sticker s2" src="img/04-plan.png" alt="">
-        <img class="sticker s1" src="img/10-celebrate.png" alt="">
+        <img class="sticker s2" src="img/04-plan.jpg" alt="">
+        <img class="sticker s1" src="img/10-celebrate.jpg" alt="">
         <p class="ex-cap" id="ex-cap"><b></b><span></span></p>
         <div class="ex-win">
           <div class="gbar"><span class="dots"><i></i><i></i><i></i></span><b>Graph</b><span class="mut" id="ex-title"></span><span class="ctl" id="ex-ctl">● 控制端在线</span></div>
@@ -529,9 +613,93 @@ footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
   </div>
 </section>
 
+<section class="fw dark" id="flywheel">
+  <div class="wrap">
+    <div class="kicker reveal"><b>// 04</b><span>Review flywheel · memory that grows</span></div>
+    <h2 class="reveal">同一类问题，<br>只问你一次。</h2>
+    <p class="lede mut reveal">复盘成员定期回看你的裁决和接管记录，把反复出现的情形整理成一条方法更新提议。你批准后，之后开始的流程遇到同类情形会自己处理，不再停下来等你。小队的记忆就这样一点点长起来，每一次都经过你点头。</p>
+    <div class="fw-grid">
+      <div class="wheel reveal" aria-hidden="true">
+        <svg viewBox="0 0 440 440">
+          <defs><linearGradient id="cg" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#E4D55A" stop-opacity="0"/><stop offset="1" stop-color="#E4D55A"/></linearGradient></defs>
+          <circle class="track" cx="220" cy="220" r="160"/>
+          <path class="comet" d="M220 60 A160 160 0 0 1 380 220"/>
+          <g class="st" data-i="0"><circle cx="220" cy="60" r="50"/><text x="220" y="58">你裁决</text><text class="sub" x="220" y="76">一次次停下</text></g>
+          <g class="st" data-i="1"><circle cx="380" cy="220" r="50"/><text x="380" y="218">复盘</text><text class="sub" x="380" y="236">找出反复情形</text></g>
+          <g class="st" data-i="2"><circle cx="220" cy="380" r="50"/><text x="220" y="378">你批准</text><text class="sub" x="220" y="396">方法更新生效</text></g>
+          <g class="st" data-i="3"><circle cx="60" cy="220" r="50"/><text x="60" y="218">少停一次</text><text class="sub" x="60" y="236">同类自己处理</text></g>
+          <circle class="core" cx="220" cy="220" r="62"/>
+          <text class="core-t" x="220" y="206">小队记忆</text>
+          <text class="core-v" x="220" y="238" id="fw-ver">v1</text>
+        </svg>
+      </div>
+      <div>
+        <div class="prop reveal">
+          <div class="no">复盘提议 · 内容工作区</div>
+          <h3>情形：封面图尺寸不对</h3>
+          <dl>
+            <dt>证据</dt><dd>最近 10 次发布中有 7 次停在这里，都由你手动裁剪</dd>
+            <dt>建议方法</dt><dd>发布前统一裁剪为 1200×630，再交给 Hodor</dd>
+            <dt>生效范围</dt><dd>只影响之后开始的流程，正在跑的不动</dd>
+          </dl>
+          <div class="acts"><span class="y">批准</span><span>拒绝</span></div>
+        </div>
+        <div class="chart reveal">
+          <small>同类情形的停顿次数 · 每个流程实例</small>
+          <div class="bars">
+            <i style="--h:80%;--k:0"></i><i style="--h:100%;--k:1"></i><i style="--h:60%;--k:2"></i><i style="--h:80%;--k:3"></i><i style="--h:100%;--k:4"></i><i style="--h:60%;--k:5"></i><i style="--h:80%;--k:6"></i><i style="--h:80%;--k:7"></i><i style="--h:100%;--k:8"></i><i style="--h:60%;--k:9"></i>
+            <b></b>
+            <i class="after" style="--h:20%;--k:10"></i><i class="after" style="--h:4%;--k:11"></i><i class="after" style="--h:4%;--k:12"></i><i class="after" style="--h:20%;--k:13"></i><i class="after" style="--h:4%;--k:14"></i><i class="after" style="--h:4%;--k:15"></i><i class="after" style="--h:4%;--k:16"></i><i class="after" style="--h:20%;--k:17"></i><i class="after" style="--h:4%;--k:18"></i><i class="after" style="--h:4%;--k:19"></i>
+          </div>
+          <p><span>批准前 10 个实例</span><span>批准后 10 个实例 · <strong>停顿明显减少</strong></span></p>
+        </div>
+      </div>
+    </div>
+    <div class="fw-cards">
+      <div class="card reveal"><div class="no">01</div><h3>提议带证据</h3><p class="mut">写清是哪一类情形、出现过几次、涉及哪些流程，而不是一句「建议改进」。</p></div>
+      <div class="card reveal"><div class="no">02</div><h3>你点头才生效</h3><p class="mut">复盘成员只提建议。没经过你批准的内容，不会变成小队长期沿用的记忆。</p></div>
+      <div class="card reveal"><div class="no">03</div><h3>无效就退回</h3><p class="mut">更新后停顿没少，或者冒出新问题，你可以撤回，或重新发布上一版。</p></div>
+      <div class="card reveal"><div class="no">04</div><h3>记忆不串门</h3><p class="mut">一个工作区学到的经验只留在该工作区；要用到别处，由你另行发布方法。</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="pc" id="computer">
+  <div class="wrap">
+    <div class="kicker reveal"><b>// 05</b><span>Every bot gets a computer</span></div>
+    <div class="pc-grid">
+      <div>
+        <h2 class="reveal">每个 Bot，<br>都有电脑可用。</h2>
+        <p class="lede mut reveal">Bot 不只会在聊天窗口里回复。它在一台真正的电脑上干活：开终端、跑脚本、打开浏览器、读写文件。这台电脑可以是你的本机，也可以是你自己开的云主机，登记到工作台后就能分给 Bot 用。</p>
+        <ul class="pc-list">
+          <li class="reveal"><div class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></div><div><b>随时看它的屏幕</b><span>在工作台点「看 Computer」，就能看到 Bot 正在操作的画面，不用等它汇报。</span></div></li>
+          <li class="reveal"><div class="ico"><svg viewBox="0 0 24 24"><path d="M4 17l6-6-6-6M12 19h8"/></svg></div><div><b>一台机器，几位成员</b><span>同一台机器上的 Bot 共用这台电脑的环境；一个工作区也可以横跨好几台机器。</span></div></li>
+          <li class="reveal"><div class="ico"><svg viewBox="0 0 24 24"><path d="M17 18a4 4 0 0 0 0-8 6 6 0 0 0-11.6 1.5A3.5 3.5 0 0 0 6 18z"/></svg></div><div><b>云主机也行，合上电脑也在跑</b><span>把活交给云主机上的 Bot，你的笔记本合上了，它照样干。机器优先直连，连不上再经你的中心服务中转。</span></div></li>
+        </ul>
+        <p class="pc-note reveal">云主机由你自己开、自己登记；Atta 本阶段不提供托管的云电脑。</p>
+      </div>
+      <div class="screens reveal" aria-hidden="true">
+        <div class="scr s-a">
+          <div class="bar"><img src="img/02-build.jpg" alt=""><b>构建 Bot</b><span class="mut">· 云主机 Linux</span><em>运行中</em></div>
+          <div class="term" id="term"></div>
+        </div>
+        <div class="scr s-b">
+          <div class="bar"><img src="img/01-explore.jpg" alt=""><b>探索 Bot</b><span class="mut">· Mac mini</span><em>运行中</em></div>
+          <div class="web"><div class="url">https://news.example.com/weekly</div><div class="pg"><i></i><i class="hl"></i><i></i><i></i><i></i></div></div>
+          <svg class="mcur" viewBox="0 0 13 20"><path d="M0 0L0 17L4.5 13L8 20.5L11 19L7.5 12L13 12Z" fill="#F7F3E9" stroke="#1B1420" stroke-width="1.2"/></svg>
+        </div>
+        <div class="scr s-c">
+          <div class="bar"><img src="img/05-write.jpg" alt=""><b>写作 Bot</b><span class="mut">· 笔记本</span><em>运行中</em></div>
+          <div class="files2"><span>素材.zip</span><span>数据.csv</span><span class="new" style="--d:.6s">草稿.md</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="light" id="how">
   <div class="wrap">
-    <div class="kicker reveal"><b>// 04</b><span>How the crew works</span></div>
+    <div class="kicker reveal"><b>// 06</b><span>How the crew works</span></div>
     <h2 class="reveal">你给目标，小队分工，<br>关键处交还你判断。</h2>
     <p class="lede mut reveal">一条流程拆成若干步骤，每一步交给有对应能力的执行体。你不用手工分配机器，也不用盯着每个会话。</p>
     <div class="relay">
@@ -546,9 +714,9 @@ footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
         <h3>按能力分头推进</h3>
         <p class="mut">执行体分布在你的多台机器上，按声明的能力领取步骤。</p>
         <div class="workers">
-          <div class="worker"><img src="img/01-explore.png" alt=""><b>调研</b>Mac mini</div>
-          <div class="worker"><img src="img/02-build.png" alt=""><b>构建</b>Linux 服务器</div>
-          <div class="worker"><img src="img/05-write.png" alt=""><b>撰写</b>笔记本</div>
+          <div class="worker"><img src="img/01-explore.jpg" alt=""><b>调研</b>Mac mini</div>
+          <div class="worker"><img src="img/02-build.jpg" alt=""><b>构建</b>Linux 服务器</div>
+          <div class="worker"><img src="img/05-write.jpg" alt=""><b>撰写</b>笔记本</div>
         </div>
       </div>
       <div class="card hi reveal">
@@ -563,7 +731,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
 
 <section class="dark" id="kernel">
   <div class="wrap">
-    <div class="kicker reveal"><b>// 05</b><span>One kernel · many businesses</span></div>
+    <div class="kicker reveal"><b>// 07</b><span>One kernel · many businesses</span></div>
     <h2 class="reveal">换一类工作，<br>不用换一套工具。</h2>
     <p class="lede mut reveal">业务差异由外部的节点定义承载，编排内核本身不随业务种类改变。今天跑研发流程，明天跑内容流程，用的是同一套概念、同一张图。</p>
     <div class="bento">
@@ -593,7 +761,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
 
 <section class="light" id="trust">
   <div class="wrap">
-    <div class="kicker reveal"><b>// 06</b><span>Trust</span></div>
+    <div class="kicker reveal"><b>// 08</b><span>Trust</span></div>
     <h2 class="reveal">放心交给小队</h2>
     <p class="lede mut reveal">下面每一条都是内核必须守住的护栏，卡片下方标着对应的护栏编号。</p>
     <div class="trust">
@@ -609,7 +777,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
 
 <section class="dark" id="away">
   <div class="wrap">
-    <div class="kicker reveal"><b>// 07</b><span>While you're away</span></div>
+    <div class="kicker reveal"><b>// 09</b><span>While you're away</span></div>
     <h2 class="reveal">你不在，小队也在干活</h2>
     <p class="lede mut reveal">合上电脑、断开网络，运行中的流程照常推进；你回来时，图上已经标好了待你拍板的事。</p>
     <div class="away">
@@ -636,7 +804,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
   <div class="wrap">
     <div class="crew-head">
       <div>
-        <div class="kicker reveal"><b>// 08</b><span>Meet the crew</span></div>
+        <div class="kicker reveal"><b>// 10</b><span>Meet the crew</span></div>
         <h2 class="reveal">能干、亲切、可靠，<br>有一点好奇心。</h2>
       </div>
       <div class="reveal">
@@ -645,14 +813,14 @@ footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
       </div>
     </div>
     <div class="crew">
-      <figure class="pose reveal"><img src="img/01-explore.png" alt="拿放大镜探索的蚂蚁"><figcaption><b>探索</b><span>先把情况摸清楚</span></figcaption></figure>
-      <figure class="pose reveal"><img src="img/04-plan.png" alt="看地图规划的蚂蚁"><figcaption><b>规划</b><span>拆成能推进的步骤</span></figcaption></figure>
-      <figure class="pose reveal"><img src="img/02-build.png" alt="拿锤子搭建的蚂蚁"><figcaption><b>搭建</b><span>在合适的机器上动手</span></figcaption></figure>
-      <figure class="pose reveal"><img src="img/07-carry.png" alt="搬运箱子的蚂蚁"><figcaption><b>交付</b><span>产出带回来，留得住</span></figcaption></figure>
-      <figure class="pose reveal"><img src="img/05-write.png" alt="坐着写笔记的蚂蚁"><figcaption><b>记录</b><span>每一步都有迹可查</span></figcaption></figure>
-      <figure class="pose reveal"><img src="img/08-direct.png" alt="伸手指路的蚂蚁"><figcaption><b>指路</b><span>到岔路口就来问你</span></figcaption></figure>
-      <figure class="pose reveal"><img src="img/09-wave.png" alt="挥手的蚂蚁"><figcaption><b>汇报</b><span>回来时告诉你进展</span></figcaption></figure>
-      <figure class="pose reveal"><img src="img/10-celebrate.png" alt="跳起庆祝的蚂蚁"><figcaption><b>收工</b><span>真的完成了才庆祝</span></figcaption></figure>
+      <figure class="pose reveal"><img src="img/01-explore.jpg" alt="拿放大镜探索的蚂蚁"><figcaption><b>探索</b><span>先把情况摸清楚</span></figcaption></figure>
+      <figure class="pose reveal"><img src="img/04-plan.jpg" alt="看地图规划的蚂蚁"><figcaption><b>规划</b><span>拆成能推进的步骤</span></figcaption></figure>
+      <figure class="pose reveal"><img src="img/02-build.jpg" alt="拿锤子搭建的蚂蚁"><figcaption><b>搭建</b><span>在合适的机器上动手</span></figcaption></figure>
+      <figure class="pose reveal"><img src="img/07-carry.jpg" alt="搬运箱子的蚂蚁"><figcaption><b>交付</b><span>产出带回来，留得住</span></figcaption></figure>
+      <figure class="pose reveal"><img src="img/05-write.jpg" alt="坐着写笔记的蚂蚁"><figcaption><b>记录</b><span>每一步都有迹可查</span></figcaption></figure>
+      <figure class="pose reveal"><img src="img/08-direct.jpg" alt="伸手指路的蚂蚁"><figcaption><b>指路</b><span>到岔路口就来问你</span></figcaption></figure>
+      <figure class="pose reveal"><img src="img/09-wave.jpg" alt="挥手的蚂蚁"><figcaption><b>汇报</b><span>回来时告诉你进展</span></figcaption></figure>
+      <figure class="pose reveal"><img src="img/10-celebrate.jpg" alt="跳起庆祝的蚂蚁"><figcaption><b>收工</b><span>真的完成了才庆祝</span></figcaption></figure>
     </div>
     <table class="reveal">
       <caption class="mut" style="text-align:left;font-size:13px;padding-bottom:8px">能力与阶段</caption>
@@ -660,10 +828,11 @@ footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
       <tbody>
         <tr><td>实时编排画布</td><td class="k">VISIBILITY</td><td class="mut">流程走到哪一步、产出了什么、哪些事在等你裁决，随时查得到。</td><td><span class="st on">本阶段承诺</span></td></tr>
         <tr><td>Hodor 门控</td><td class="k">HODOR</td><td class="mut">需要你判断的步骤由 Hodor 挂起，你确认后从原处继续。</td><td><span class="st on">本阶段承诺</span></td></tr>
-        <tr><td>多机器多环境协作</td><td class="k">CAPABILITY</td><td class="mut">执行体分布在你能访问的机器上，按声明的能力接受任务。</td><td><span class="st on">本阶段承诺</span></td></tr>
+        <tr><td>Bot 的电脑</td><td class="k">COMPUTER</td><td class="mut">执行体在你登记的机器上干活，本机或你自己的云主机都行，按声明的能力接受任务，屏幕随时可看。</td><td><span class="st on">本阶段承诺</span></td></tr>
         <tr><td>离线不中断</td><td class="k">AUTHORITY</td><td class="mut">控制端或中心服务不可达时，运行中的流程不中止、权威状态不变。</td><td><span class="st on">本阶段承诺</span></td></tr>
         <tr><td>业务定义分发给他人</td><td class="k">DISTRIBUTE</td><td class="mut">把写好的业务定义交给外部使用者。</td><td><span class="st">长期方向</span></td></tr>
         <tr><td>执行体失效后自动接管</td><td class="k">TAKEOVER</td><td class="mut">本阶段执行体失效即失败并交还给你，不自动重派。</td><td><span class="st">长期方向</span></td></tr>
+        <tr><td>复盘飞轮与记忆</td><td class="k">FLYWHEEL</td><td class="mut">反复出现的情形整理成方法更新提议，你批准后，之后的流程在同类情形上少停或不停。</td><td><span class="st">设计已定稿</span></td></tr>
         <tr><td>在画布上拖拽编辑流程</td><td class="k">EDITOR</td><td class="mut">本阶段流程定义由你自己编写，画布负责把运行看清楚。</td><td><span class="st">长期方向</span></td></tr>
       </tbody>
     </table>
@@ -672,7 +841,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
 
 <section class="dark" id="boundary">
   <div class="wrap">
-    <div class="kicker reveal"><b>// 09</b><span>Stage boundary</span></div>
+    <div class="kicker reveal"><b>// 11</b><span>Stage boundary</span></div>
     <h2 class="reveal">现在能做什么、不能做什么，<br>说清楚。</h2>
     <p class="lede mut reveal">Atta 处于自用验证阶段：使用者与产品负责人是同一个人，用差异足够大的多类业务验证同一套内核。</p>
     <div class="bound">
@@ -702,7 +871,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
 
 <section class="light" id="faq">
   <div class="wrap">
-    <div class="kicker reveal"><b>// 10</b><span>FAQ</span></div>
+    <div class="kicker reveal"><b>// 12</b><span>FAQ</span></div>
     <h2 class="reveal">常见问题</h2>
     <div class="faq">
       <details><summary>「可视化编排」是指拖拽着编辑流程吗？</summary><p>不是。本阶段流程定义由你编写；Atta 把它的运行实时画成一张图，让你看见每一步走到哪、谁在干、产出了什么、在等谁。拖拽式编辑属于长期方向。</p></details>
@@ -711,6 +880,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
       <details><summary>小队会不会替我做不可逆的决定？</summary><p>需要判断的地方由 Hodor 守门，流程在门前挂起等你。同一步骤也不会在多个执行体上重复产生外部副作用。</p></details>
       <details><summary>中心服务挂了会怎样？</summary><p>运行中的流程不中止、权威状态不变；已有有效本地登录状态的工作台仍可离线进入，重新登录须等中心服务恢复。</p></details>
       <details><summary>某台机器上的执行体掉线了，会自动换一台吗？</summary><p>本阶段不会。执行体失效时该步骤失败并交给你处理，不做存活探测加自动重派。</p></details>
+      <details><summary>小队的记忆会自己变吗？</summary><p>不会自己变。复盘成员只把反复出现的情形整理成提议，记忆和方法只在你批准后更新，而且只影响之后开始的流程。一个工作区的经验也不会自动流到别的工作区。</p></details>
       <details><summary>Atta 用哪个模型？</summary><p>执行体内部的推理过程与模型选择不归内核管；内核负责流程怎么推进、谁来做、什么时候找你。</p></details>
     </div>
   </div>
@@ -718,7 +888,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
 
 <section class="final dark" id="enter">
   <div class="wrap">
-    <img class="reveal" src="img/banner.png" alt="五只蚂蚁伙伴并排站立，分别拿着放大镜、锤子、地图和笔记本，代表团队分工">
+    <img class="reveal" src="img/banner.jpg" alt="五只蚂蚁伙伴并排站立，分别拿着放大镜、锤子、地图和笔记本，代表团队分工">
     <h2 class="reveal">Give the team a job.</h2>
     <p class="lede mut reveal" style="margin:18px auto 0">已经部署了中心服务？登录你的工作台，把下一条长流程交出去，然后看着它走完。</p>
     <div class="cta reveal">
@@ -795,11 +965,11 @@ footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
   /* ---------- hero: a run that plays itself ---------- */
   const hs = document.getElementById('hero-svg');
   const N = {
-    a: { x: 16,  y: 34,  t: '收集素材', where: 'Mac mini', img: 'img/01-explore.png' },
-    b: { x: 16,  y: 154, t: '整理数据', where: 'Linux',    img: 'img/04-plan.png' },
-    c: { x: 202, y: 94,  t: '撰写草稿', where: '笔记本',   img: 'img/05-write.png' },
+    a: { x: 16,  y: 34,  t: '收集素材', where: 'Mac mini', img: 'img/01-explore.jpg' },
+    b: { x: 16,  y: 154, t: '整理数据', where: 'Linux',    img: 'img/04-plan.jpg' },
+    c: { x: 202, y: 94,  t: '撰写草稿', where: '笔记本',   img: 'img/05-write.jpg' },
     d: { x: 392, y: 94,  t: 'Hodor 门', where: '工作台' },
-    e: { x: 392, y: 270, t: '发布',     where: 'Linux',    img: 'img/07-carry.png' },
+    e: { x: 392, y: 270, t: '发布',     where: 'Linux',    img: 'img/07-carry.jpg' },
   };
   Object.values(N).forEach((n, i) => node(hs, n, i));
   const E = { ac: edge(hs, N.a, N.c), bc: edge(hs, N.b, N.c), cd: edge(hs, N.c, N.d), de: edge(hs, N.d, N.e) };
@@ -893,12 +1063,12 @@ footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
   });
   const BL = { idle: '空闲', run: '执行中', wait: '在线', done: '已交付' };
   const B = {
-    explore: { x: 14,  y: 300, t: '探索 Bot', where: '检索', img: 'img/01-explore.png', s: 'done', r: 'mac', label: BL },
-    plan:    { x: 184, y: 300, t: '规划 Bot', where: '整理', img: 'img/04-plan.png',    s: 'done', r: 'mac', label: BL },
-    write:   { x: 386, y: 300, t: '写作 Bot', where: '撰写', img: 'img/05-write.png',   s: 'done', r: 'note', label: BL },
+    explore: { x: 14,  y: 300, t: '探索 Bot', where: '检索', img: 'img/01-explore.jpg', s: 'done', r: 'mac', label: BL },
+    plan:    { x: 184, y: 300, t: '规划 Bot', where: '整理', img: 'img/04-plan.jpg',    s: 'done', r: 'mac', label: BL },
+    write:   { x: 386, y: 300, t: '写作 Bot', where: '撰写', img: 'img/05-write.jpg',   s: 'done', r: 'note', label: BL },
     me:      { x: 556, y: 300, t: '你',       where: '工作台', s: 'wait', r: 'note', label: { wait: '待你裁决' } },
-    carry:   { x: 758, y: 300, t: '搬运 Bot', where: '发布', img: 'img/07-carry.png',   s: 'idle', r: 'linux', label: BL },
-    build:   { x: 928, y: 300, t: '构建 Bot', where: '构建', img: 'img/02-build.png',   s: 'idle', r: 'linux', label: BL },
+    carry:   { x: 758, y: 300, t: '搬运 Bot', where: '发布', img: 'img/07-carry.jpg',   s: 'idle', r: 'linux', label: BL },
+    build:   { x: 928, y: 300, t: '构建 Bot', where: '构建', img: 'img/02-build.jpg',   s: 'idle', r: 'linux', label: BL },
   };
   const SL = { idle: '待开始', run: '运行中', wait: '等你确认', done: '已完成' };
   const P = [
@@ -995,7 +1165,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
     xcap.style.animation = 'none'; void xcap.offsetWidth; xcap.style.animation = '';
 
     const N = {}, E = {};
-    Object.entries(sc.nodes).forEach(([k, [x, y, t, where, img]], j) => { N[k] = { x, y, t, where, img: img && `img/${img}.png` }; node(xs, N[k], j); });
+    Object.entries(sc.nodes).forEach(([k, [x, y, t, where, img]], j) => { N[k] = { x, y, t, where, img: img && `img/${img}.jpg` }; node(xs, N[k], j); });
     sc.edges.split(' ').forEach(s => { const [a, b] = s.split('>'); E[s] = Object.assign(edge(xs, N[a], N[b]), { a, b }); });
     const into = k => Object.values(E).filter(e => e.b === k), out = k => Object.values(E).filter(e => e.a === k);
     txt({ class: 'glbl', x: 16, y: 322 }, '产出', xs);
@@ -1038,6 +1208,33 @@ footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
   tiles.forEach((t, j) => t.addEventListener('click', () => cycle(j)));
   const exIo = new IntersectionObserver(([e]) => { if (e.isIntersecting) { exIo.disconnect(); cycle(0); } }, { threshold: .25 });
   exIo.observe(xs);
+
+  /* ---------- flywheel: light stations in turn, bump memory version each lap ---------- */
+  {
+    const st = [...document.querySelectorAll('.wheel .st')], ver = document.getElementById('fw-ver');
+    let i = 0, v = 1;
+    const tick = () => {
+      st.forEach((s, j) => s.classList.toggle('on', j === i));
+      if (i === 2) ver.textContent = 'v' + (++v > 9 ? (v = 2) : v);
+      i = (i + 1) % 4;
+    };
+    tick();
+    if (!reduce) setInterval(tick, 1500);
+  }
+  /* ---------- bot computer: a terminal that types itself ---------- */
+  {
+    const term = document.getElementById('term');
+    const L = [['p', '$ git pull && pnpm build'], ['', '✓ 132 modules transformed'], ['ok', '✓ built in 4.2s'], ['p', '$ pnpm test'], ['', ' RUN  v3 /work/site'], ['ok', ' ✓ 48 passed'], ['p', '$ ./deploy.sh --stage'], ['ok', '→ 产出已交付：site.tar.gz']];
+    let k = 0;
+    const line = () => {
+      term.querySelector('.cur')?.classList.remove('cur');
+      const d = document.createElement('div');
+      d.className = L[k][0] + ' cur'; d.textContent = L[k][1]; term.appendChild(d);
+      while (term.children.length > 7) term.firstChild.remove();
+      k = (k + 1) % L.length;
+    };
+    if (reduce) L.slice(0, 6).forEach(line); else setInterval(line, 900);
+  }
 
   /* ---------- page-level motion ---------- */
   const io = new IntersectionObserver(es => es.forEach(e => {
