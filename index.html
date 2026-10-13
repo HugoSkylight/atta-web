@@ -455,7 +455,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
           <button class="tile" data-ex="0" aria-pressed="false"><img src="img/02-build.jpg" alt=""><b>研发交付</b><small>多机器并行</small></button>
           <button class="tile" data-ex="1" aria-pressed="false"><img src="img/05-write.jpg" alt=""><b>内容生产</b><small>Hodor 打回重写</small></button>
           <button class="tile" data-ex="2" aria-pressed="false"><img src="img/09-wave.jpg" alt=""><b>每日数据</b><small>你不在也照跑</small></button>
-          <button class="tile" data-ex="3" aria-pressed="false"><img src="img/07-carry.jpg" alt=""><b>视频渲染</b><small>机器没了，产出还在</small></button>
+          <button class="tile" data-ex="3" aria-pressed="false"><img src="img/04-plan.jpg" alt=""><b>跨机器对话</b><small>机器之间只传文字</small></button>
           <button class="tile" data-ex="4" aria-pressed="false"><img src="img/08-direct.jpg" alt=""><b>批量退款</b><small>失联就停，不重复</small></button>
           <a class="tile more" href="#faq"><img src="img/01-explore.jpg" alt=""><b>你的下一类业务</b><small>写节点定义，内核不变</small></a>
         </div>
@@ -485,8 +485,8 @@ footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
       </div>
       <div class="hd-stage reveal" aria-hidden="true">
         <div class="hd-lane"></div>
-        <div class="hd-tok t1">草稿.md</div>
-        <div class="hd-tok t2">数据.csv</div>
+        <div class="hd-tok t1">草稿 v2</div>
+        <div class="hd-tok t2">审校意见</div>
         <div class="hd-frame"><div class="hd-door"><span>HODOR</span><i></i></div></div>
         <div class="hd-badge"><span class="b-hold">● 守门中 · 等你</span><span class="b-open">✓ 你已通过 · 放行</span></div>
         <div class="hd-btn">通过</div>
@@ -603,6 +603,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
           <li>开放注册，或多人共用的服务</li>
           <li>产品方托管的中心服务（须本人自建并部署）</li>
           <li>权限隔离、操作审计与付费方案</li>
+          <li>机器之间共享文件（本阶段只传文字消息）</li>
           <li>无需人工裁决、自动完成任意任务</li>
         </ul>
       </div>
@@ -619,6 +620,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
       <details><summary>为什么叫 Atta 和 Hodor？</summary><p>Atta 是切叶蚁属，分工明确、整队协作。Hodor 来自《权力的游戏》：Hold the door。MyrmexSwarm 是背后的编排内核与代码仓库。</p></details>
       <details><summary>我可以注册一个账号试用吗？</summary><p>暂时不行。当前是自用验证阶段，只服务部署者本人；工作台登录走你自己部署的中心服务。</p></details>
       <details><summary>换一类业务要改内核吗？</summary><p>不用。新增一类业务只需写新的节点定义，内核不随业务种类改变。</p></details>
+      <details><summary>不同机器上的 Bot 能互相传文件吗？</summary><p>本阶段不能。机器之间只传文字消息，优先直连，连不上再经你的中心服务中转。文件留在产生它的那台机器上。</p></details>
       <details><summary>Atta 用哪个模型？</summary><p>执行体内部的推理过程与模型选择不归内核管；内核负责流程怎么推进、谁来做、什么时候找你。</p></details>
     </div>
   </div>
@@ -732,16 +734,16 @@ footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
   const SL = { idle: '待开始', run: '运行中', wait: '等你确认', done: '已完成' };
   // ctx = what this step was given: [source, content]; loop = step sits inside the Loop
   const P = [
-    { t: '收集素材', s: 'done', b: 'explore', x: 16,  st: '已完成', o: '素材.zip · 32 项',
+    { t: '收集素材', s: 'done', b: 'explore', x: 16,  st: '已完成', o: '素材要点 · 32 条',
       ctx: [['你选定的讨论', '#周会 · 3 条消息'], ['交办说明', '本周周报，周五前发出']] },
-    { t: '撰写草稿', s: 'done', b: 'write',   x: 236, st: '已完成 · 第 2 轮', o: '草稿 v2.md · 2,140 字', loop: 1,
-      ctx: [['上一步产出', '素材.zip'], ['审校意见 · 第 1 轮', '开头太长'], ['你补充的事实', '这周重点是发布会']] },
+    { t: '撰写草稿', s: 'done', b: 'write',   x: 236, st: '已完成 · 第 2 轮', o: '草稿 v2 · 2,140 字', loop: 1,
+      ctx: [['上一步发来的消息', '素材要点 · 32 条'], ['审校意见 · 第 1 轮', '开头太长'], ['你补充的事实', '这周重点是发布会']] },
     { t: '审校',     s: 'run',  b: 'review',  x: 452, st: '运行中 · 第 2 轮', o: '审校中…', loop: 1,
-      ctx: [['上一步产出', '草稿 v2.md'], ['审校方法', 'v3 · 你批准过的复盘更新']] },
+      ctx: [['上一步发来的消息', '草稿 v2 全文'], ['审校方法', 'v3 · 你批准过的复盘更新']] },
     { t: 'Hodor 门', s: 'idle', b: 'me',      x: 676, st: '待开始', o: '你的决定：通过 / 打回',
-      ctx: [['将呈给你', '终稿与两轮审校记录']] },
+      ctx: [['将呈给你', '终稿与两轮审校意见']] },
     { t: '发布',     s: 'idle', b: 'carry',   x: 906, st: '待开始', o: '—',
-      ctx: [['Hodor 放行后', '终稿.md']] },
+      ctx: [['Hodor 放行后', '终稿全文']] },
   ].map((p, i) => Object.assign(p, { y: 96, where: '第 ' + (i + 1) + ' 步', label: SL, img: B[p.b].img }));
 
   let k = 4;
@@ -817,23 +819,23 @@ footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
     { t: '研发交付', tag: '多机器并行', cap: '一份需求拆成三路，同时落到 Mac、Linux、Windows 上实现；集成测试通过后，Hodor 在合并前等你。',
       nodes: { plan: [16, 130, '拆解需求', '笔记本', '04-plan'], fe: [210, 30, '实现 · 前端', 'Mac mini', '02-build'], be: [210, 130, '实现 · 服务端', 'Linux', '02-build'], sc: [210, 230, '实现 · 脚本', 'Windows', '05-write'], test: [404, 130, '集成测试', 'Linux', '01-explore'], gate: [598, 40, 'Hodor · 合并', '工作台'], ship: [598, 230, '发布', 'Linux', '07-carry'] },
       edges: 'plan>fe plan>be plan>sc fe>test be>test sc>test test>gate gate>ship',
-      steps: [['run', 'plan'], 1300, ['done', 'plan'], ['art', '任务拆解.md'], ['run', 'fe', 'be', 'sc'], ['log', '三路实现按能力分派到 <b>3 台机器</b>'], 1800, ['done', 'be'], ['art', 'api.diff'], 600, ['done', 'fe'], ['art', 'ui.diff'], 700, ['done', 'sc'], ['run', 'test'], ['log', '三路汇合，开始集成测试'], 1600, ['done', 'test'], ['art', '测试报告'], ['wait', 'gate'], ['log', '<b>Hodor</b>：合并前等你确认'], 2200, ['ok', 'gate'], ['run', 'ship'], 1400, ['done', 'ship'], ['log', '发布完成 ✓']] },
+      steps: [['run', 'plan'], 1300, ['done', 'plan'], ['art', '拆解说明'], ['run', 'fe', 'be', 'sc'], ['log', '三路实现按能力分派到 <b>3 台机器</b>'], 1800, ['done', 'be'], ['art', 'PR #41'], 600, ['done', 'fe'], ['art', 'PR #42'], 700, ['done', 'sc'], ['art', 'PR #43'], ['run', 'test'], ['log', '三路各自提交到你的代码仓库，测试机从仓库拉取'], 1600, ['done', 'test'], ['art', '测试报告'], ['wait', 'gate'], ['log', '<b>Hodor</b>：合并前等你确认'], 2200, ['ok', 'gate'], ['run', 'ship'], 1400, ['done', 'ship'], ['log', '发布完成 ✓']] },
     { t: '内容生产', tag: 'Hodor 打回重写', cap: '你在 Hodor 门前点了「打回」，只有撰写这一步按意见重来，前面找好的资料和数据都不用重做。',
       nodes: { topic: [16, 130, '选题', '笔记本', '04-plan'], res: [210, 40, '找资料', 'Mac mini', '01-explore'], data: [210, 220, '拉数据', 'Linux', '04-plan'], draft: [404, 130, '撰写', '笔记本', '05-write'], gate: [598, 40, 'Hodor · 审稿', '工作台'], pub: [598, 220, '分发三平台', 'Linux', '07-carry'] },
       edges: 'topic>res topic>data res>draft data>draft draft>gate gate>pub',
-      steps: [['run', 'topic'], 1000, ['done', 'topic'], ['run', 'res', 'data'], 1500, ['done', 'res'], ['art', '资料 12 篇'], 400, ['done', 'data'], ['art', '数据.csv'], ['run', 'draft'], 1500, ['done', 'draft'], ['art', '初稿.md'], ['wait', 'gate'], ['log', '<b>Hodor</b>：初稿等你审'], 1800, ['no', 'gate', '开头太长'], ['run', 'draft'], ['log', '只重写这一步，资料和数据原样保留'], 1500, ['done', 'draft'], ['art', '二稿.md'], ['wait', 'gate'], 1500, ['ok', 'gate'], ['run', 'pub'], 1300, ['done', 'pub'], ['log', '三个平台已发出 ✓']] },
+      steps: [['run', 'topic'], 1000, ['done', 'topic'], ['run', 'res', 'data'], 1500, ['done', 'res'], ['art', '资料摘要 12 条'], 400, ['done', 'data'], ['art', '数据要点'], ['run', 'draft'], 1500, ['done', 'draft'], ['art', '初稿'], ['wait', 'gate'], ['log', '<b>Hodor</b>：初稿等你审'], 1800, ['no', 'gate', '开头太长'], ['run', 'draft'], ['log', '只重写这一步，资料和数据原样保留'], 1500, ['done', 'draft'], ['art', '二稿'], ['wait', 'gate'], 1500, ['ok', 'gate'], ['run', 'pub'], 1300, ['done', 'pub'], ['log', '三个平台已发出 ✓']] },
     { t: '每日数据', tag: '你不在也照跑', cap: '每天 08:00 定时开工，交给原来那组成员。你的电脑合着，流程照样跑完；你回来时日报已经在收件箱。',
-      nodes: { clock: [16, 130, '每天 08:00', '定时', '09-wave'], fetch: [210, 130, '抓取', 'Linux', '01-explore'], clean: [404, 130, '清洗', 'Linux', '04-plan'], rep: [598, 40, '生成日报', 'Mac mini', '05-write'], push: [598, 220, '推送给你', 'Mac mini', '07-carry'] },
+      nodes: { clock: [16, 130, '每天 08:00', '定时', '09-wave'], fetch: [210, 130, '抓取', 'Linux', '01-explore'], clean: [404, 130, '清洗', 'Linux', '04-plan'], rep: [598, 40, '生成日报', 'Linux', '05-write'], push: [598, 220, '推送给你', 'Linux', '07-carry'] },
       edges: 'clock>fetch fetch>clean clean>rep rep>push',
       steps: [['off', true], ['log', '你合上了电脑 · 控制端离线'], 1000, ['done', 'clock'], ['log', '08:00 定时触发，交给原班成员'], ['run', 'fetch'], 1500, ['done', 'fetch'], ['art', 'raw.json'], ['run', 'clean'], 1400, ['done', 'clean'], ['art', 'clean.csv'], ['run', 'rep'], 1400, ['done', 'rep'], ['art', '日报.pdf'], ['run', 'push'], 1100, ['done', 'push'], 1000, ['off', false], ['log', '你回来了：日报已经在收件箱 ✓']] },
-    { t: '视频渲染', tag: '机器没了，产出还在', cap: '渲染跑在一台临时 GPU 机上，跑完就回收；成片已经交付到流程里，机器没了照样能取回、能审、能发。',
-      nodes: { script: [16, 130, '写脚本', '笔记本', '05-write'], render: [210, 130, '渲染', '临时 GPU 机', '02-build'], gate: [404, 40, 'Hodor · 看片', '工作台'], up: [404, 220, '上传', 'Linux', '07-carry'], notify: [598, 220, '通知你', 'Mac mini', '09-wave'] },
-      edges: 'script>render render>gate gate>up up>notify',
-      steps: [['run', 'script'], 1200, ['done', 'script'], ['art', '分镜.md'], ['run', 'render'], 2000, ['done', 'render'], ['art', '成片.mp4'], 700, ['gone', 'render'], ['log', '渲染机已回收，<b>成片.mp4</b> 仍可取回'], ['wait', 'gate'], ['log', '<b>Hodor</b>：成片等你看'], 2000, ['ok', 'gate'], ['run', 'up'], 1300, ['done', 'up'], ['run', 'notify'], 900, ['done', 'notify'], ['log', '已上线 ✓']] },
+    { t: '跨机器对话', tag: '机器之间只传文字', cap: '笔记本上的写作 Bot 遇到问题，直接给 Linux 上的构建 Bot 发消息；回答沿原路回来。优先直连，连不上再经你的中心服务中转。本阶段机器之间只传文字，不传文件。',
+      nodes: { ask: [16, 130, '写作 Bot 提问', '笔记本', '05-write'], answer: [260, 130, '构建 Bot 回答', 'Linux', '02-build'], cont: [504, 130, '继续撰写', '笔记本', '05-write'] },
+      edges: 'ask>answer answer>cont',
+      steps: [['run', 'ask'], 1000, ['log', '写作 Bot → 构建 Bot：「staging 地址是多少？」'], ['done', 'ask'], ['art', '提问'], ['run', 'answer'], 900, ['log', '直连不通，<b>经中心服务中转</b>'], 1100, ['done', 'answer'], ['art', '回答'], ['log', '构建 Bot → 写作 Bot：「staging.example.com」'], ['run', 'cont'], 1600, ['done', 'cont'], ['log', '只传了两条文字消息，文件都留在各自机器上 ✓']] },
     { t: '批量退款', tag: '失联就停，不重复', cap: '执行体中途失联，这一步记为失败并交给你。Atta 不做存活探测、不自动换一台重发，同一笔退款不会发两次。',
       nodes: { exp: [16, 130, '导出订单', 'Linux', '04-plan'], refund: [210, 130, '批量退款', 'Windows', '07-carry'], rec: [404, 30, '对账', 'Mac mini', '05-write'], you: [404, 230, '交还给你', '工作台'] },
       edges: 'exp>refund refund>rec refund>you',
-      steps: [['run', 'exp'], 1200, ['done', 'exp'], ['art', '订单.csv'], ['run', 'refund'], ['log', '退款交给 Windows 上的执行体'], 2000, ['fail', 'refund'], ['log', 'Windows 失联：记为失败，<b>不自动换机重跑</b>'], ['flow', 'refund>you'], 700, ['wait', 'you'], ['log', '可能已经发出一部分，下一步由你决定'], 2600] },
+      steps: [['run', 'exp'], 1200, ['done', 'exp'], ['art', '订单号清单 · 128 条'], ['run', 'refund'], ['log', '退款交给 Windows 上的执行体'], 2000, ['fail', 'refund'], ['log', 'Windows 失联：记为失败，<b>不自动换机重跑</b>'], ['flow', 'refund>you'], 700, ['wait', 'you'], ['log', '可能已经发出一部分，下一步由你决定'], 2600] },
   ];
   const xs = document.getElementById('ex-svg'), xlog = document.getElementById('ex-log'), xctl = document.getElementById('ex-ctl');
   const xcap = document.getElementById('ex-cap'), xtitle = document.getElementById('ex-title');
@@ -860,7 +862,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
     Object.entries(sc.nodes).forEach(([k, [x, y, t, where, img]], j) => { N[k] = { x, y, t, where, img: img && `img/${img}.jpg` }; node(xs, N[k], j); });
     sc.edges.split(' ').forEach(s => { const [a, b] = s.split('>'); E[s] = Object.assign(edge(xs, N[a], N[b]), { a, b }); });
     const into = k => Object.values(E).filter(e => e.b === k), out = k => Object.values(E).filter(e => e.a === k);
-    txt({ class: 'glbl', x: 16, y: 322 }, '产出', xs);
+    txt({ class: 'glbl', x: 16, y: 322 }, '交接', xs);
     const arts = mk('g', {}, xs); let ax = 60;
     const A = {
       run: (...ks) => ks.forEach(k => { into(k).forEach(flowOff); setState(N[k], 'run'); }),
@@ -916,7 +918,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
   /* ---------- bot computer: a terminal that types itself ---------- */
   {
     const term = document.getElementById('term');
-    const L = [['p', '$ git pull && pnpm build'], ['', '✓ 132 modules transformed'], ['ok', '✓ built in 4.2s'], ['p', '$ pnpm test'], ['', ' RUN  v3 /work/site'], ['ok', ' ✓ 48 passed'], ['p', '$ ./deploy.sh --stage'], ['ok', '→ 产出已交付：site.tar.gz']];
+    const L = [['p', '$ git pull && pnpm build'], ['', '✓ 132 modules transformed'], ['ok', '✓ built in 4.2s'], ['p', '$ pnpm test'], ['', ' RUN  v3 /work/site'], ['ok', ' ✓ 48 passed'], ['p', '$ ./deploy.sh --stage'], ['ok', '→ 已部署到 staging，结果已回报']];
     let k = 0;
     const line = () => {
       term.querySelector('.cur')?.classList.remove('cur');
