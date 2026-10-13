@@ -231,14 +231,18 @@ h2{font-size:clamp(34px,4.6vw,56px)}
 @keyframes bob{50%{transform:translateY(-5px)}}
 .ico{width:40px;height:40px;border-radius:12px;background:rgba(228,213,90,.12);display:grid;place-items:center;color:var(--lemon);margin-bottom:18px}
 .ico svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.bound{margin-top:64px;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.bound{margin-top:64px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 .bound h3{font-size:18px}
 .bound ul{list-style:none;padding:0;margin-top:14px;display:grid;gap:12px;font-size:15px}
 .bound li{display:flex;gap:12px}
 .bound .yes li::before{content:"✓";color:var(--lemon);font-weight:800}
-.bound .nope li::before{content:"✕";color:#E8837A;font-weight:800}
-.bound .nope{border-top:2px solid #E8837A}
-.bound .nope .no{color:#E8837A}
+.bound .next li::before{content:"→";color:#9C8CF0;font-weight:800}
+.bound .next{border-top:2px solid #9C8CF0}
+.bound .next .no{color:#9C8CF0}
+.bound .later li::before{content:"○";color:var(--mut-d);font-weight:800}
+.bound .later{border-top:2px solid var(--line-d)}
+.bound .later .no{color:var(--mut-d)}
+.rm-out{margin-top:28px;font-size:14px}
 
 .faq{margin-top:48px;border-top:1px solid var(--line-l)}
 details{border-bottom:1px solid var(--line-l);padding:22px 0}
@@ -414,7 +418,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
       <li><a href="#hodor">Hodor</a></li>
       <li><a href="#flywheel">复盘飞轮</a></li>
       <li><a href="#computer">Bot 的电脑</a></li>
-      <li><a href="#boundary">阶段边界</a></li>
+      <li><a href="#roadmap">Roadmap</a></li>
       <li><a href="#faq">常见问题</a></li>
     </ul>
     <a class="btn btn-y" href="#enter">进入工作台</a>
@@ -429,7 +433,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
     <div class="en reveal">One person. A whole team.</div>
     <div class="cta reveal">
       <a class="btn btn-y" href="#enter">进入我的工作台 →</a>
-      <a class="btn btn-o" href="#boundary">先看阶段边界</a>
+      <a class="btn btn-o" href="#roadmap">看 Roadmap</a>
     </div>
     <p class="note reveal">仅供已部署中心服务的本人登录 · 当前不开放注册</p>
 
@@ -580,34 +584,42 @@ footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
   </div>
 </section>
 
-<section class="dark" id="boundary">
+<section class="dark" id="roadmap">
   <div class="wrap">
-    <div class="kicker reveal"><b>// 05</b><span>Stage boundary</span></div>
-    <h2 class="reveal">现在能做什么、不能做什么，<br>说清楚。</h2>
+    <div class="kicker reveal"><b>// 05</b><span>Roadmap</span></div>
+    <h2 class="reveal">现在做到哪，<br>接下来往哪走。</h2>
     <p class="lede mut reveal">Atta 处于自用验证阶段：使用者与产品负责人是同一个人，用差异足够大的多类业务验证同一套内核。</p>
     <div class="bound">
       <div class="card hi yes reveal">
-        <div class="no">本阶段提供</div>
+        <div class="no">NOW · 自用验证</div>
         <h3>只给你本人用的工作台</h3>
         <ul>
           <li>以 GitHub 或 Google 登录你自建的中心服务</li>
           <li>登录有效期内断网，仍可离线进入本地工作台</li>
           <li>设备登记与撤回，由你的中心服务确认归属</li>
-          <li>推进流程、在 Hodor 门前裁决、查看产出</li>
+          <li>跨机器文字对话：优先直连，不通再经中心服务中转</li>
+          <li>推进流程、在 Hodor 门前裁决</li>
         </ul>
       </div>
-      <div class="card nope reveal">
-        <div class="no">本阶段不提供</div>
-        <h3>这些我们不承诺</h3>
+      <div class="card next reveal">
+        <div class="no">NEXT · 计划中</div>
+        <h3>机器之间共享产出</h3>
         <ul>
-          <li>开放注册，或多人共用的服务</li>
-          <li>产品方托管的中心服务（须本人自建并部署）</li>
-          <li>权限隔离、操作审计与付费方案</li>
-          <li>机器之间共享文件（本阶段只传文字消息）</li>
-          <li>无需人工裁决、自动完成任意任务</li>
+          <li>一台机器的产出交给另一台机器上的下一步</li>
+          <li>执行环境回收后，产出仍可取回</li>
+        </ul>
+      </div>
+      <div class="card later reveal">
+        <div class="no">LATER · 长期方向</div>
+        <h3>走出自用</h3>
+        <ul>
+          <li>面向外部使用者分发业务定义</li>
+          <li>执行体失效后的流程接管</li>
+          <li>业务定义的可视化编辑</li>
         </ul>
       </div>
     </div>
+    <p class="rm-out mut reveal">暂不在路线上：开放注册或多人共用、产品方托管的中心服务、权限隔离与操作审计、付费方案、无需人工裁决自动完成任意任务。</p>
   </div>
 </section>
 
@@ -620,7 +632,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
       <details><summary>为什么叫 Atta 和 Hodor？</summary><p>Atta 是切叶蚁属，分工明确、整队协作。Hodor 来自《权力的游戏》：Hold the door。MyrmexSwarm 是背后的编排内核与代码仓库。</p></details>
       <details><summary>我可以注册一个账号试用吗？</summary><p>暂时不行。当前是自用验证阶段，只服务部署者本人；工作台登录走你自己部署的中心服务。</p></details>
       <details><summary>换一类业务要改内核吗？</summary><p>不用。新增一类业务只需写新的节点定义，内核不随业务种类改变。</p></details>
-      <details><summary>不同机器上的 Bot 能互相传文件吗？</summary><p>本阶段不能。机器之间只传文字消息，优先直连，连不上再经你的中心服务中转。文件留在产生它的那台机器上。</p></details>
+      <details><summary>不同机器上的 Bot 能互相传文件吗？</summary><p>现在还不能。机器之间只传文字消息，优先直连，连不上再经你的中心服务中转；文件留在产生它的那台机器上。机器之间共享产出已列入 Roadmap。</p></details>
       <details><summary>Atta 用哪个模型？</summary><p>执行体内部的推理过程与模型选择不归内核管；内核负责流程怎么推进、谁来做、什么时候找你。</p></details>
     </div>
   </div>
@@ -633,7 +645,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
     <p class="lede mut reveal" style="margin:18px auto 0">已经部署了中心服务？登录你的工作台，把下一条长流程交出去，然后看着它走完。</p>
     <div class="cta reveal">
       <a class="btn btn-y" href="#">本人登录工作台 →</a>
-      <a class="btn btn-o" href="#boundary">先看阶段边界</a>
+      <a class="btn btn-o" href="#roadmap">看 Roadmap</a>
     </div>
   </div>
 </section>
