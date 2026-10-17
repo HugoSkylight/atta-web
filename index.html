@@ -138,12 +138,17 @@ h1,h2,.h1like{font-size:var(--s-display);font-weight:700;letter-spacing:-.03em;l
 .win-bar{display:flex;gap:12px;align-items:baseline;padding:14px 20px;background:#191320;color:var(--soft);font-size:13px}
 .win-bar b{color:var(--ink);font-weight:500;font-size:14px}
 .win-body{padding:20px;min-height:400px}
-.rows{list-style:none;padding:0;display:grid;gap:6px}
-.rows li{display:grid;grid-template-columns:40px 1fr auto;gap:14px;align-items:center;padding:10px 12px;border-radius:10px;background:var(--s2)}
-.rows img,.me{width:40px;height:40px;border-radius:50%;object-fit:cover}
-.me{display:grid;place-items:center;background:var(--lemon);color:var(--bg);font-weight:700}
-.rows b{display:block;font-weight:500}
-.rows small{font-size:13px;color:var(--soft)}
+.mini{display:block;width:100%;height:auto;font-family:var(--sans)}
+.mini rect{fill:var(--s2)}
+.mini rect.me{fill:var(--lemon)}
+.mini .c .me~text{fill:var(--bg)}
+.mini rect.ld{fill:#3A2E47}
+.mini .on rect{stroke:var(--run);stroke-width:1.5}
+.mini .nm{fill:var(--ink);font-size:14px;font-weight:500}
+.mini .sb{fill:var(--soft);font-size:12px}
+.mini .ok{fill:var(--ok)}.mini .run{fill:var(--run)}.mini .idle{fill:var(--s3)}
+.mini .gate{fill:none;stroke:rgba(228,213,90,.5);stroke-width:1.5;stroke-dasharray:3 5}
+.mini .gl{fill:var(--lemon);font-size:12px}
 .chip{font-size:13px;padding:3px 10px;border-radius:999px;white-space:nowrap}
 .chip.ok{background:rgba(155,227,180,.14);color:var(--ok)}
 .chip.run{background:rgba(169,155,255,.16);color:var(--run)}
@@ -315,11 +320,12 @@ footer{padding:var(--sec) var(--m) 32px;max-width:1440px;margin-inline:auto}
   .feats.auto .feat.on .bar{opacity:1}
   .feats.auto.run .feat.on .bar::after{animation:fill 5.5s linear forwards}
   @keyframes fill{to{transform:scaleX(1)}}
-  .feat.on .rows li,.feat.on .mc,.feat.on .msg,.feat.on .card>*{animation:rise .55s var(--ease-out) both}
-  .feat.on .rows li:nth-child(2),.feat.on .mc:nth-child(2),.feat.on .card>:nth-child(2){animation-delay:70ms}
-  .feat.on .rows li:nth-child(3),.feat.on .mc:nth-child(3),.feat.on .card>:nth-child(3){animation-delay:140ms}
-  .feat.on .rows li:nth-child(4),.feat.on .msg,.feat.on .card>:nth-child(4){animation-delay:210ms}
-  .feat.on .rows li:nth-child(5),.feat.on .card>:nth-child(5){animation-delay:280ms}
+  .feat.on .mini .c,.feat.on .mc,.feat.on .msg,.feat.on .card>*{animation:rise .55s var(--ease-out) both}
+  .feat.on .mini g:nth-of-type(2) .c,.feat.on .mc:nth-child(2),.feat.on .card>:nth-child(2){animation-delay:70ms}
+  .feat.on .mini g:nth-of-type(3) .c,.feat.on .mc:nth-child(3),.feat.on .card>:nth-child(3){animation-delay:140ms}
+  .feat.on .mini g:nth-of-type(4) .c,.feat.on .msg,.feat.on .card>:nth-child(4){animation-delay:210ms}
+  .feat.on .mini g:nth-of-type(5) .c,.feat.on .card>:nth-child(5){animation-delay:280ms}
+  .feat.on .mini g:nth-of-type(6) .c{animation-delay:350ms}
   @keyframes rise{from{opacity:0;transform:translateY(14px)}}
   .chip{transition:background-color .3s ease,color .3s ease}
   .chip.flip{animation:flip .45s var(--ease-out)}
@@ -423,13 +429,21 @@ footer{padding:var(--sec) var(--m) 32px;max-width:1440px;margin-inline:auto}
         <div class="win" data-ui>
           <div class="win-bar"><b>团队</b><span>周报发布 · run #128</span></div>
           <div class="win-body">
-            <ul class="rows">
-              <li><img src="img/01-explore.jpg" alt="" width="40" height="40"><div><b>探索 Bot</b><small>收集本周素材 · Mac mini</small></div><span class="chip ok">已完成</span></li>
-              <li><img src="img/05-write.jpg" alt="" width="40" height="40"><div><b>写作 Bot</b><small>写周报初稿 · 笔记本</small></div><span class="chip ok">草稿 v2</span></li>
-              <li><img src="img/04-plan.jpg" alt="" width="40" height="40"><div><b>审校 Bot</b><small>审校草稿 v2 · Mac mini</small></div><span class="chip run">运行中</span></li>
-              <li><span class="me">你</span><div><b>你</b><small>Hodor 门 · 发布前确认</small></div><span class="chip idle">待开始</span></li>
-              <li><img src="img/07-carry.jpg" alt="" width="40" height="40"><div><b>搬运 Bot</b><small>发布到三个平台 · Linux 云主机</small></div><span class="chip idle">待开始</span></li>
-            </ul>
+            <svg class="mini" viewBox="0 0 560 340" role="img" aria-label="周报发布的团队拓扑：你在最上面，下面是流程，再下面是四个 Bot：探索已完成、写作已完成、审校运行中、搬运待开始">
+              <path class="tl" d="M280 64C280 82 280 82 280 100"/>
+              <path class="tl" d="M280 150C280 175 76 175 76 200"/>
+              <path class="tl" d="M280 150C280 175 212 175 212 200"/>
+              <path class="tl hot" d="M280 150C280 175 348 175 348 200"/>
+              <path class="tl" d="M280 150C280 175 484 175 484 200"/>
+              <path class="gate" d="M500 200C520 110 480 37 380 37"/>
+              <text class="gl" x="462" y="110">发布前问你</text>
+              <g transform="translate(180 10)"><g class="c"><rect class="me" width="200" height="54" rx="14"/><text class="nm" x="100" y="24" text-anchor="middle">你</text><text class="sb" x="100" y="42" text-anchor="middle">Hodor 门 · 只在关键处拍板</text></g></g>
+              <g transform="translate(180 100)"><g class="c"><rect class="ld" width="200" height="50" rx="14"/><text class="nm" x="100" y="22" text-anchor="middle">周报发布 · run #128</text><text class="sb" x="100" y="39" text-anchor="middle">周五前发出本周周报</text></g></g>
+              <g transform="translate(14 200)"><g class="c"><rect width="124" height="128" rx="12"/><image href="img/01-explore.jpg" width="60" height="60" clip-path="url(#av)"/><text class="nm" x="14" y="72">探索 Bot</text><text class="sb" x="14" y="91">收集本周素材</text><text class="sb" x="14" y="108">Mac mini</text><circle class="ok" cx="108" cy="22" r="5"/></g></g>
+              <g transform="translate(150 200)"><g class="c"><rect width="124" height="128" rx="12"/><image href="img/05-write.jpg" width="60" height="60" clip-path="url(#av)"/><text class="nm" x="14" y="72">写作 Bot</text><text class="sb" x="14" y="91">写周报初稿</text><text class="sb" x="14" y="108">笔记本</text><circle class="ok" cx="108" cy="22" r="5"/></g></g>
+              <g transform="translate(286 200)"><g class="c on"><rect width="124" height="128" rx="12"/><image href="img/04-plan.jpg" width="60" height="60" clip-path="url(#av)"/><text class="nm" x="14" y="72">审校 Bot</text><text class="sb" x="14" y="91">审校草稿 v2</text><text class="sb" x="14" y="108">Mac mini</text><circle class="run" cx="108" cy="22" r="5"/></g></g>
+              <g transform="translate(422 200)"><g class="c"><rect width="124" height="128" rx="12"/><image href="img/07-carry.jpg" width="60" height="60" clip-path="url(#av)"/><text class="nm" x="14" y="72">搬运 Bot</text><text class="sb" x="14" y="91">发布到三个平台</text><text class="sb" x="14" y="108">Linux 云主机</text><circle class="idle" cx="108" cy="22" r="5"/></g></g>
+            </svg>
           </div>
         </div>
       </div>
