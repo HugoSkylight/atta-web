@@ -49,7 +49,21 @@ h1,h2,.h1like{font-size:var(--s-display);font-weight:700;letter-spacing:-.03em;l
 .nav ul a{text-decoration:none}
 .nav .btn{height:40px;padding:0 20px;font-size:var(--s-small)}
 
-/* hero: terminals collapse into one graph as you scroll */
+/* splash: key art first screen */
+.splash{position:relative;height:100svh;min-height:680px;max-height:1100px;overflow:hidden;isolation:isolate;display:flex;flex-direction:column}
+.splash-art{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:72% 50%;z-index:-2}
+.splash::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,#08050C 0%,rgba(8,5,12,.85) 28%,rgba(8,5,12,0) 58%),linear-gradient(0deg,var(--bg) 0%,rgba(20,16,22,0) 22%)}
+.splash-in{flex:1;display:flex;flex-direction:column;width:100%}
+.splash-copy{margin-block:auto;max-width:min(46vw,720px);padding-bottom:40px}
+.kick{font-size:13px;letter-spacing:.18em;color:var(--lemon);font-weight:500}
+.splash h1{margin-top:20px;font-size:clamp(3rem,1.4rem + 5.4vw,6.75rem);line-height:1;letter-spacing:-.04em}
+.splash h1 .line:last-child>span{color:var(--lemon)}
+.splash-sub{margin-top:28px;max-width:25em;color:#CFC7D3;font-size:clamp(1rem,.95rem + .25vw,1.2rem)}
+.splash .hero-act{margin-top:36px}
+.ticker{position:relative;background:var(--lemon);color:var(--bg);overflow:hidden;white-space:nowrap;transform:rotate(-1.2deg);margin:0 -2vw 28px;padding:12px 0;font-weight:600;font-size:15px}
+.ticker-in{display:inline-flex}
+.ticker span{padding-inline:28px;position:relative}
+.ticker span::after{content:"◆";position:absolute;right:-6px;font-size:10px;top:50%;transform:translateY(-50%)}
 .hero-top{padding-top:clamp(56px,8vw,120px);align-items:end}
 .say{grid-column:1/8;position:relative}
 .say-a{display:none}
@@ -299,6 +313,10 @@ footer{padding:var(--sec) var(--m) 32px;max-width:1440px;margin-inline:auto}
   .lines .line>span{display:block;transition:transform .7s var(--ease-out)}
   .js .lines .line>span{animation:line-in .9s var(--ease-out) backwards;animation-delay:calc(var(--i)*110ms + 150ms)}
   @keyframes line-in{from{transform:translateY(105%)}}
+  .ticker-in{animation:tick 38s linear infinite}
+  @keyframes tick{to{transform:translateX(-50%)}}
+  .splash-art{animation:art-in 1.6s var(--ease-out) both}
+  @keyframes art-in{from{opacity:0;transform:scale(1.06)}}
   /* intro morph (desktop): six loose terminals fly into one graph */
   .morph{height:290svh}
   .morph .stick{position:sticky;top:0;height:100svh;overflow:hidden}
@@ -347,6 +365,11 @@ footer{padding:var(--sec) var(--m) 32px;max-width:1440px;margin-inline:auto}
   .nav .btn{margin-left:auto}
   .say,.hero-side,.cta h2,.cta-side{grid-column:1/-1}
   .hero-side,.cta-side{margin-top:20px}
+  .splash{height:auto;min-height:100svh;max-height:none}
+  .splash-art{position:relative;inset:auto;height:auto;width:170%;max-width:none;margin:-4vw 0 0 -62%;aspect-ratio:16/9;order:2;-webkit-mask-image:linear-gradient(180deg,transparent,#000 22%);mask-image:linear-gradient(180deg,transparent,#000 22%)}
+  .splash::before{display:none}
+  .splash-copy{max-width:none;margin-block:24px 0;padding-bottom:0}
+  .ticker{order:3}
   .cv-body{grid-template-columns:1fr}
   .feats{display:block;margin-top:40px}
   .feat{display:block;margin-bottom:8px}
@@ -376,30 +399,42 @@ footer{padding:var(--sec) var(--m) 32px;max-width:1440px;margin-inline:auto}
 </head>
 <body>
 
-<header class="hero intro" id="top">
- <div class="stick wrap">
-  <nav class="nav" aria-label="主导航">
-    <a class="brand" href="#top"><img src="img/icon.png" alt="" width="30" height="30">Atta</a>
-    <ul>
-      <li><a class="tlink" href="#core">工作台</a></li>
-      <li><a class="tlink" href="#topo">团队拓扑</a></li>
-      <li><a class="tlink" href="#fly">复盘飞轮</a></li>
-      <li><a class="tlink" href="#faq">常见问题</a></li>
-    </ul>
-    <a class="btn" href="#enter">本人登录</a>
-  </nav>
+<header class="splash" id="top">
+  <img class="splash-art" src="img/hero.webp" srcset="img/hero-sm.webp 1056w, img/hero.webp 2112w" sizes="100vw" alt="" width="2112" height="1188" fetchpriority="high">
+  <div class="wrap splash-in">
+    <nav class="nav" aria-label="主导航">
+      <a class="brand" href="#top"><img src="img/icon.png" alt="" width="30" height="30">Atta</a>
+      <ul>
+        <li><a class="tlink" href="#core">工作台</a></li>
+        <li><a class="tlink" href="#topo">团队拓扑</a></li>
+        <li><a class="tlink" href="#fly">复盘飞轮</a></li>
+        <li><a class="tlink" href="#faq">常见问题</a></li>
+      </ul>
+      <a class="btn" href="#enter">本人登录</a>
+    </nav>
+    <div class="splash-copy">
+      <p class="kick" data-r>ATTA · 自托管 AI 工作台</p>
+      <h1 class="lines" aria-label="一个人，指挥整支 AI 团队"><span class="line" aria-hidden="true"><span style="--i:0">一个人，</span></span><span class="line" aria-hidden="true"><span style="--i:1">指挥整支</span></span><span class="line" aria-hidden="true"><span style="--i:2">AI 团队</span></span></h1>
+      <p class="splash-sub" data-r style="--i:2">所有机器上的 Agent 收进一张图。谁在干什么、最初交代了什么，一眼看清；危险的那一步，等你点头。</p>
+      <div class="hero-act" data-r style="--i:3">
+        <a class="btn" href="#enter">进入我的工作台</a>
+        <a class="tlink" href="#intro">往下看它怎么干活 ↓</a>
+      </div>
+    </div>
+  </div>
+  <div class="ticker" aria-hidden="true"><div class="ticker-in"><span>一眼看清整个团队</span><span>跨机器，一条流程</span><span>Hodor 门：危险的一步等你点头</span><span>越用越会，你说了算</span><span>自托管</span><span>不挑模型</span><span>一眼看清整个团队</span><span>跨机器，一条流程</span><span>Hodor 门：危险的一步等你点头</span><span>越用越会，你说了算</span><span>自托管</span><span>不挑模型</span></div></div>
+</header>
 
+<main>
+<section class="hero intro" id="intro" aria-label="从一堆终端到一张图">
+ <div class="stick wrap">
   <div class="grid hero-top">
     <div class="say">
       <p class="say-a lines h1like"><span class="line"><span style="--i:0">终端开满了，</span></span><span class="line"><span style="--i:1">哪个在干嘛？</span></span></p>
-      <h1 class="say-b lines" aria-label="一眼看清，你的 AI 团队"><span class="line" aria-hidden="true"><span style="--i:0">一眼看清，</span></span><span class="line" aria-hidden="true"><span style="--i:1">你的 AI 团队</span></span></h1>
+      <p class="say-b lines h1like"><span class="line"><span style="--i:0">一眼看清，</span></span><span class="line"><span style="--i:1">你的 AI 团队</span></span></p>
     </div>
     <div class="hero-side">
-      <p data-r style="--i:1">Atta 把你所有机器上的 Agent，收进一张实时的图。</p>
-      <div class="hero-act" data-r style="--i:2">
-        <a class="btn" href="#enter">进入我的工作台</a>
-        <span class="small soft">现在只给部署者本人使用</span>
-      </div>
+      <p data-r style="--i:1">往下滑：散落在各台机器上的终端，收进一张实时的图。</p>
     </div>
   </div>
 
@@ -416,9 +451,8 @@ footer{padding:var(--sec) var(--m) 32px;max-width:1440px;margin-inline:auto}
     </div>
   </div>
  </div>
-</header>
+</section>
 
-<main>
 <section class="core wrap" id="core" aria-labelledby="core-h">
   <h2 id="core-h" data-r>一张图，<br>管住整个团队</h2>
   <div class="feats" role="tablist" aria-label="Atta 能做什么">
