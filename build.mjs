@@ -155,10 +155,13 @@ function replaceBlock(html, startMark, endMark, replacement) {
 }
 
 function langAnchor(locale, href) {
-  const label = locale === 'zh' ? 'English' : '中文';
-  const lang = locale === 'zh' ? 'en' : 'zh-Hans';
-  const aria = locale === 'zh' ? 'Switch to English' : 'Switch to Chinese';
-  return `<a class="lang" href="${href}" data-alt="${href}" hreflang="${lang}" lang="${lang}" aria-label="${aria}">${label}</a>`;
+  const enItem = locale === 'zh'
+    ? `<a class="lang lang-opt" href="${href}" data-alt="${href}" hreflang="en" lang="en" aria-label="Switch to English">English</a>`
+    : `<a class="lang-opt on" href="./" lang="en" aria-current="page">English</a>`;
+  const zhItem = locale === 'zh'
+    ? `<a class="lang-opt on" href="./" lang="zh-Hans" aria-current="page">中文</a>`
+    : `<a class="lang lang-opt" href="${href}" data-alt="${href}" hreflang="zh-Hans" lang="zh-Hans" aria-label="Switch to Chinese">中文</a>`;
+  return `<div class="lang-dd"><button class="lang-btn" type="button" aria-expanded="false" aria-haspopup="true">Language</button><div class="lang-menu">${enItem}${zhItem}</div></div>`;
 }
 
 function zhHome() {
@@ -170,7 +173,7 @@ function zhHome() {
   html = html.replace('src="lang-link.js"', 'src="../lang-link.js"');
   html = html.replace('href="llms.txt"', 'href="../llms.txt"');
   html = replaceBlock(html, '<!-- seo:start -->', '<!-- seo:end -->', seoBlock({ ...HOME.zh, kind: 'home' }, 'zh'));
-  html = html.replace(/<a class="lang"[^>]*>[^<]*<\/a>/, langAnchor('zh', '../'));
+  html = html.replace(/<div class="lang-dd">[\s\S]*?<\/div><\/div>/, langAnchor('zh', '../'));
   return html;
 }
 
