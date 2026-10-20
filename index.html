@@ -1212,8 +1212,7 @@ footer{padding:var(--sec) var(--m) clamp(48px,5vw,64px);max-width:1440px;margin-
 
   /* ---------- waitlist: email input + trial code endpoint ---------- */
   {
-    // Set window.ATTA_WAITLIST_API or replace '' below once your domain email Worker is deployed
-    const API = window.ATTA_WAITLIST_API || '';
+    const API = window.ATTA_WAITLIST_API || 'https://waitlist.atta.nz/';
     const KEY = 'atta-waitlist';
     const form = $('#wl-form'), inp = $('#wl-email'), btn = $('#wl-btn'), msg = $('#wl-msg');
     const done = email => {
