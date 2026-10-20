@@ -58,6 +58,8 @@ sips -c 630 1200 img/og.jpg
 
 The official site is <https://atta.nz/>. Cloudflare serves the committed files as static hosting; its project settings are configured outside this repository and are not recorded here. There is no `CNAME` file and no DNS record managed in this repository.
 
+`_headers` sets UTF-8 response types for `llms.txt`, `robots.txt`, and `sitemap.xml`. Keep it in the published asset root. A UTF-8 file without a response charset can display incorrectly when a browser opens it as plain text.
+
 `sitemap.xml` lists the `atta.nz` URLs. `robots.txt` is served from the domain root, so its `Allow: /` rule and sitemap line apply to the official host.
 
 A copy may also remain available through GitHub Pages at the project URL <https://hugoskylight.github.io/atta-web/>. That copy is not the canonical address, and a `robots.txt` at the project path cannot control the `github.io` host.
