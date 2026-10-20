@@ -1,0 +1,258 @@
+/* Atta i18n. English is authored in index.html; ZH maps each English string (the key) to Chinese.
+   - Static DOM: every text node, aria-label, alt and meta description whose trimmed English is a ZH key
+     is snapshotted once (this file loads right before the page script) and swapped on each switch,
+     unless the page script has since rewritten it; then a binding below owns it.
+   - Dynamic UI: the page script writes through I18N.text(el, key, vars) (or key = () => string) and
+     I18N.on(fn) for composite views (drawer, tooltip). A switch repaints every live binding, and later
+     renders read the current language through I18N.t, so nothing falls back to the other language.
+   - #lang toggles; the choice persists in localStorage 'atta-lang'; first visit is English.
+   Behaviour check: `python3 -m http.server` in this folder, open /i18n-check.html. */
+(() => {
+  const ZH = {
+    // head + splash
+    'Atta — See your AI team at a glance': 'Atta — 一眼看清你的 AI 团队',
+    'Too many terminals, and you forget which agent is doing what. Atta puts every agent on every machine into one live map, and the risky step waits for your nod.': '多开终端，总会忘了哪个 Agent 在干嘛。Atta 把你所有机器上的 Agent 放进一张实时的图，危险的那一步要你点头。',
+    'Switch Atta form': '切换 Atta 形态',
+    'Main': '主导航',
+    'Workbench': '工作台',
+    'Team map': '团队拓扑',
+    'Flywheel': '复盘飞轮',
+    'FAQ': '常见问题',
+    'Owner login': '本人登录',
+    'ATTA · SELF-HOSTED AI WORKBENCH': 'ATTA · 自托管 AI 工作台',
+    'One person. A whole AI team.': '一个人，指挥整支 AI 团队',
+    'One person.': '一个人，',
+    'A whole': '指挥整支',
+    'AI team.': 'AI 团队',
+    "Every agent on every machine, in one live map. See who's doing what at a glance; risky steps wait for your nod.": '所有机器上的 Agent 收进一张图。谁在干什么、最初交代了什么，一眼看清；危险的那一步，等你点头。',
+    'Open my workbench': '进入我的工作台',
+    'See how it works ↓': '往下看它怎么干活 ↓',
+    // ticker (the first two double as feature titles)
+    'See the whole team at a glance': '一眼看清整个团队',
+    'One flow across machines': '跨机器，一条流程',
+    'Hodor gate: risky steps wait for you': 'Hodor 门：危险的一步等你点头',
+    'Gets better, on your terms': '越用越会，你说了算',
+    'Self-hosted': '自托管',
+    'Any model': '不挑模型',
+    // intro + workbench
+    'From a pile of terminals to one map': '从一堆终端到一张图',
+    'Terminals.': '终端开满了，',
+    'Who does what?': '哪个在干嘛？',
+    'One glance,': '一眼看清，',
+    'your AI team.': '你的 AI 团队',
+    'Scroll down: terminals scattered across your machines fold into one live map.': '往下滑：散落在各台机器上的终端，收进一张实时的图。',
+    'Weekly report': '周报发布',
+    '3 machines · 6 bots · click any step': '3 台机器 · 6 个 Bot · 点任一步骤看详情',
+    'Loop round 2 / 3': 'Loop 第 2 / 3 轮',
+    'Workbench: five flow steps, drafting and review form a loop; below, bots on three machines': '工作台：五个流程步骤，撰写与审校组成一个循环，下方是三台机器上的 Bot',
+    'Flow · Weekly report · run #128': '流程 · 周报发布 · run #128',
+    'Your machines': '你的机器',
+    'Loop · Draft ⇄ Review · round 2 / 3': 'Loop · 撰写 ⇄ 审校 · 第 2 / 3 轮',
+    'Laptop': '笔记本',
+    'Linux cloud': 'Linux 云主机',
+    'Idle': '空闲', 'Working': '执行中', 'Shipped': '已交付', 'Your turn': '等你',
+    'Standby': '待命', 'Your call': '等你决定', 'Decided': '已决定',
+    'Pending': '待开始', 'Running': '运行中', 'Done': '已完成',
+    'Search': '检索', 'Drafting': '撰写', 'Desk': '工作台', 'Publish': '发布', 'Build': '构建', 'Review': '审校',
+    'Explore Bot': '探索 Bot', 'Review Bot': '审校 Bot', 'Write Bot': '写作 Bot', 'Carry Bot': '搬运 Bot', 'Build Bot': '构建 Bot', 'Plan Bot': '规划 Bot',
+    'You': '你',
+    'Step {no}': '第 {no} 步',
+    'Gather': '收集素材', 'Draft': '撰写草稿', 'Hodor gate': 'Hodor 门',
+    'Done · round 2': '已完成 · 第 2 轮',
+    'Running · round 2': '运行中 · 第 2 轮',
+    'Notes · 32 items': '素材要点 · 32 条',
+    'Draft v2 · 2,140 words': '草稿 v2 · 2,140 字',
+    'Reviewing': '审校中',
+    'You decide: approve or send back': '你决定：通过或打回',
+    'None': '无',
+    'Your brief': '你交代的',
+    "This week's report, out by Friday": '本周周报，周五前发出',
+    'Reference': '参考',
+    '#weekly · 3 messages': '#周会 · 3 条消息',
+    'From the last step': '上一步发来',
+    'Review notes · round 1': '审校意见 · 第 1 轮',
+    'Intro too long': '开头太长',
+    'Draft v2 full text': '草稿 v2 全文',
+    'Review method': '审校方法',
+    'v3 · approved by you': 'v3 · 你批准过的',
+    'Shown to you': '将呈给你',
+    'Final draft and two rounds of notes': '终稿与两轮审校意见',
+    'After Hodor lets it through': 'Hodor 放行后',
+    'Full final draft': '终稿全文',
+    'Send back · next round': '打回 · 下一轮',
+    'Status': '状态', 'Assigned to': '交给', 'Output': '产出', 'Good at': '擅长',
+    'What this step received': '这一步拿到了什么',
+    'Idle · not on this run': '空闲 · 本次没分到活',
+    'Done · round 2 passed': '已完成 · 第 2 轮通过',
+    'Review passed · your call': '审校通过 · 等你决定',
+    'You approved': '你点了通过',
+    'Publishing': '发布中',
+    'Published to 3 sites': '已发布到三个平台',
+    'run #128 complete': 'run #128 已完成',
+    'forgot why I opened this': '不记得开来干嘛的',
+    '  ? what did you ask me last time': '  ? 你上次让我做什么来着',
+    // core
+    'One map for': '一张图，',
+    'the whole team.': '管住整个团队',
+    'What Atta does': 'Atta 能做什么',
+    'Who is doing what, what each was first asked, where it is stuck: all on one map.': '谁在干什么、最初交代了什么、卡在哪，都在一张图上。',
+    'Team': '团队',
+    'Weekly report · run #128': '周报发布 · run #128',
+    'Weekly report team map: you at the top, the flow below, then four bots: Explore done, Write done, Review running, Carry pending': '周报发布的团队拓扑：你在最上面，下面是流程，再下面是四个 Bot：探索已完成、写作已完成、审校运行中、搬运待开始',
+    'Asks you first': '发布前问你',
+    'Hodor gate · key calls only': 'Hodor 门 · 只在关键处拍板',
+    'Weekly report out by Friday': '周五前发出本周周报',
+    'Weekly sources': '收集本周素材',
+    'First draft': '写周报初稿',
+    'Reviews draft v2': '审校草稿 v2',
+    'Posts to 3 sites': '发布到三个平台',
+    'Mac, Linux and cloud hosts each do their part. No hopping between terminals.': 'Mac、Linux、云主机各干各的，不用在终端间来回切。',
+    'Machines': '机器', '3 online': '3 台在线', 'Online': '在线',
+    'Browser': '浏览器', 'Docs': '文档', 'Editor': '编辑器', 'Terminal': '终端',
+    'Write Bot → Review Bot': '写作 Bot → 审校 Bot',
+    ': draft v2 · direct · text only, files stay on their machine': '：草稿 v2 · 直连 · 只传文字，文件留在本机',
+    'The risky step waits for your nod': '危险的那一步，要你点头',
+    'Publish, pay, delete: the flow stops there and goes on only when you say so.': '发布、付款、删除，走到就停，你说了才继续。',
+    'Before publishing to 3 sites': '发布到三个平台之前',
+    'Final draft': '终稿', '2,140 words': '2,140 字',
+    'Two rounds of notes, all resolved': '两轮意见，已全部处理',
+    'Next': '下一步',
+    'Carry Bot publishes to 3 sites': '搬运 Bot 发布到三个平台',
+    'Approve': '通过', 'Send back': '打回',
+    'The flow stops here. Nothing goes out until you nod.': '流程停在这里。你不点头，就不会发出去。',
+    'Approved': '已通过',
+    '<b>You nodded.</b> Carry Bot starts publishing; earlier output is all kept.': '<b>你点头了。</b>搬运 Bot 开始发布，前面的产出都还在。',
+    'Sent back': '已打回',
+    '<b>Sent back.</b> Back to drafting; only this step is redone.': '<b>打回了。</b>回到撰写，只重写这一步。',
+    // topology
+    'Who answers': '谁听谁的，',
+    'to whom.': '一目了然',
+    'Each flow has its own crew. Who leads, on which machine, what each was first asked: one click away.': '每条流程有自己的小队。谁带头、谁在哪台机器、最初交代了什么，点开就有。',
+    'Switch flow': '切换流程',
+    'Dev delivery': '研发交付',
+    'Daily data': '每日数据',
+    'Team map: you at the top, flow leads below, then bots across three machines': '团队拓扑：你在最上面，下面是流程负责人，再下面是分布在三台机器上的 Bot',
+    'Signs off on key steps only': '只在关键处拍板',
+    'Review drafts, up to 3 rounds': '审校草稿，最多 3 轮',
+    'Draft from the sources': '按素材写初稿',
+    'Publish after Hodor OKs it': 'Hodor 放行后发布',
+    'Ship ticket #41': '需求 #41 合并上线',
+    'Break down the ticket': '拆解需求',
+    'Frontend': '前端实现',
+    'Backend': '服务端实现',
+    'Code review': '代码审查',
+    'Waits for you before merge': '合并前等你确认',
+    'Daily report at 08:00': '每天 08:00 出日报',
+    'Fetch and clean': '抓取与清洗',
+    'Write the report': '生成日报',
+    'Send it to you': '推送给你',
+    'First asked: {task}': '最初交代的：{task}',
+    'The flow you handed it': '你交给它的流程',
+    // self-improvement
+    'Gets better,': '越用越会，',
+    'your call.': '你说了算',
+    'In progress': '实现中',
+    'Each round changes one thing, then rescores on the same test cases. It stays only if the score rises and you approve; otherwise it rolls back.': '每一轮只改一处，再用同一组用例重新打分。分数更高、你也批准了，才留下；否则自动退回上一版。',
+    'Self-improvement': '自我改进',
+    'Weekly report · 12 eval cases': '周报发布 · 12 个评测用例',
+    'Version': '当前版本',
+    'Score': '得分',
+    'You step in, per 10': '每 10 次，你要出手',
+    'Score rises by version: v1 62, v2 74, v3 81, v4 88; two attempts that did not improve were rolled back': '得分随版本上升：v1 62 分，v2 74 分，v3 81 分，v4 88 分；两次没变好的尝试被退回',
+    'Round 1': '第 1 轮',
+    'Round {n}': '第 {n} 轮',
+    'Find issue': '找问题', 'Change one': '改一处', 'Rescore': '重新打分', 'You approve': '你批准',
+    'Waiting for eval': '等待评测',
+    'Sign off': '批准',
+    'Spots recurring cases in your calls and failure logs': '从你的拍板和失败记录里，找反复出现的情形',
+    'Edits one rule, skill or config, snapshot first': '只改一条规则、技能或配置，改前先存快照',
+    'Reruns the same cases in parallel; the score decides': '同一组用例并行重跑，分数说话',
+    'Kept only if better and you nod; else rolled back': '变好了、你点头才留下，不然自动退回',
+    'You keep cropping the cover image by hand': '封面图尺寸总被你手动裁剪',
+    '+ crop to 1200×630 before publishing': '+ 发布前统一裁成 1200×630',
+    'Intros run long and get sent back': '开头太长，常被审校打回',
+    '- open with the background': '- 开头先写清背景',
+    '+ keep the intro under 80 words': '+ 开头不超过 80 字',
+    'Review keeps raising the same note': '审校意见反复出现同一条',
+    'Sources all come from one place': '素材总是只来自一个来源',
+    '+ cross-check at least 3 sources': '+ 至少交叉核对 3 个来源',
+    'Headline style is inconsistent': '标题风格前后不统一',
+    '+ always phrase headlines as questions': '+ 标题一律用问句',
+    'Snapshot v{v} saved': '已存快照 v{v}',
+    'Ran {n}/12': '已跑 {n}/12',
+    '{s} · undone': '{s} · 退回',
+    'No better · back to v{v}': '没变好 · 退回 v{v}',
+    '{d} below last version': '比上一版低 {d} 分',
+    'Waiting for you': '等你批准',
+    '{d} above last version': '比上一版高 {d} 分',
+    'Kept · v{v}': '已保留 · v{v}',
+    // faq + close
+    'How is this different from tmux?': '和 tmux 有什么不同？',
+    'tmux manages sessions. Atta knows they work on the same job, and shows it all in one map.': 'tmux 只管会话。Atta 知道它们在为同一件事干活，一张图看全。',
+    'Can I sign up to try it?': '能注册试用吗？',
+    'Not yet. For now it is only for the person who deploys it.': '暂时不行，现在只给部署者本人用。',
+    'Which model does it use?': '用哪个模型？',
+    'Your pick. Atta runs the flow, not the model.': '随你。Atta 只管流程，不管模型。',
+    'Why Atta and Hodor?': '为什么叫 Atta 和 Hodor？',
+    'Atta is the leafcutter ant: a crew that splits the work. Hodor is Hold the door.': 'Atta 是切叶蚁，整队分工。Hodor 是 Hold the door。',
+    'Next long run?': '下一条长流程，',
+    'Hand it over.': '交给它们跑',
+    'Hand it off and go do something else. When it needs your call, it waits.': '交出去，去忙别的。要你拍板时，它会等你。',
+    'Log in to my workbench': '本人登录工作台',
+    'Your crew': '你的小队',
+    'Explorer ant with a magnifying glass': '举着放大镜的探索蚂蚁',
+    'Writer ant with a notebook': '拿着笔记本的写作蚂蚁',
+    'Reviewer ant holding a map': '捧着地图的审校蚂蚁',
+    'Builder ant with a hammer': '拿着锤子的构建蚂蚁',
+    'Carrier ant with a parcel': '扛着包裹的搬运蚂蚁',
+    'Explore': '探索', 'Write': '写作', 'Carry': '搬运',
+    'Back to top': '回到顶部',
+  };
+  const KEY = 'atta-lang';
+  let lang = 'en';
+  const t = (k, vars) => {
+    const s = lang === 'zh' && Object.hasOwn(ZH, k) ? ZH[k] : String(k);
+    return vars ? s.replace(/\{(\w+)\}/g, (_, x) => vars[x]) : s;
+  };
+
+  const statics = [];
+  const snap = (en, write) => {
+    const k = en && en.trim();
+    if (k && Object.hasOwn(ZH, k)) statics.push({ en, zh: en.replace(k, () => ZH[k]), write });
+  };
+  const tw = document.createTreeWalker(document.documentElement, NodeFilter.SHOW_TEXT);
+  for (let n; (n = tw.nextNode());) snap(n.data, v => { if (n.data === v.en || n.data === v.zh) n.data = v[lang]; });
+  for (const el of document.querySelectorAll('[aria-label],[alt],meta[name=description]'))
+    for (const a of ['aria-label', 'alt', 'content']) if (el.hasAttribute(a)) snap(el.getAttribute(a), v => { const c = el.getAttribute(a); if (c === v.en || c === v.zh) el.setAttribute(a, v[lang]); });
+
+  // live bindings; elements MUST be in the document when bound (detached ones get pruned)
+  const bound = new Set(), subs = [];
+  const text = (el, k, vars) => {
+    el._i18n = typeof k === 'function' ? k : () => t(k, vars);
+    if (bound.size > 256) for (const e of bound) if (!e.isConnected) bound.delete(e);
+    bound.add(el); el.textContent = el._i18n();
+    return el;
+  };
+  const on = fn => { subs.push(fn); };
+
+  const btn = document.getElementById('lang');
+  const set = l => {
+    lang = l === 'zh' ? 'zh' : 'en';
+    try { localStorage.setItem(KEY, lang); } catch {}
+    document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+    for (const s of statics) s.write(s);
+    for (const el of bound) el.isConnected ? (el.textContent = el._i18n()) : bound.delete(el);
+    subs.forEach(f => f());
+    // the toggle names the other language, in that language
+    btn.textContent = lang === 'zh' ? 'EN' : '中文';
+    btn.lang = lang === 'zh' ? 'en' : 'zh-CN';
+    btn.setAttribute('aria-label', lang === 'zh' ? 'Switch to English' : '切换到中文');
+  };
+  btn.addEventListener('click', () => set(lang === 'zh' ? 'en' : 'zh'));
+
+  let saved = null;
+  try { saved = localStorage.getItem(KEY); } catch {}
+  set(saved);
+
+  window.I18N = { t, text, on, set, get lang() { return lang; } };
+})();
