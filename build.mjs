@@ -141,9 +141,9 @@ function translateHtml(html) {
       });
     }
     if (skip > 0) return part;
-    const key = part.trim();
+    const key = part.trim().replace(/&amp;/g, '&');
     if (!key || !Object.hasOwn(ZH, key)) return part;
-    return part.replace(key, () => ZH[key]);
+    return part.replace(part.trim(), () => ZH[key]);
   }).join('');
 }
 
