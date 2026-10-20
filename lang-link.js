@@ -10,11 +10,9 @@
     addEventListener('hashchange', keepValidHash);
     keepValidHash();
   }
-  const dd = document.querySelector('.lang-dd'), btn = document.querySelector('.lang-btn');
-  if (dd && btn) {
-    const set = open => { dd.classList.toggle('open', open); btn.setAttribute('aria-expanded', open); };
-    btn.addEventListener('click', e => { e.stopPropagation(); set(!dd.classList.contains('open')); });
-    document.addEventListener('click', e => { if (!dd.contains(e.target)) set(false); });
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') set(false); });
+  const dd = document.querySelector('details.lang-dd');
+  if (dd) {
+    document.addEventListener('click', e => { if (dd.open && !dd.contains(e.target)) dd.open = false; });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') dd.open = false; });
   }
 })();

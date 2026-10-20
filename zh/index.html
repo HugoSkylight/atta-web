@@ -75,13 +75,12 @@ h1,h2,.h1like{font-size:var(--s-display);font-weight:700;letter-spacing:-.03em;l
 .nav .btn{height:clamp(40px,2.8vw,48px);padding:0 clamp(20px,1.5vw,26px);font-size:clamp(.875rem,.75rem + .2vw,1.0625rem)}
 /* language dropdown: stays visible on mobile, where the nav links hide */
 .lang-dd{position:relative;flex:none}
-.lang-btn{display:inline-flex;align-items:center;gap:7px;height:clamp(40px,2.8vw,48px);padding:0 clamp(14px,1.1vw,18px);border-radius:999px;border:1px solid rgba(241,240,238,.25);font-size:clamp(.875rem,.75rem + .2vw,1.0625rem);font-weight:500;transition:border-color 180ms ease,background-color 180ms ease}
-.lang-btn::after{content:"";width:6px;height:6px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:translateY(-1.5px) rotate(45deg);transition:transform 180ms ease}
-.lang-dd.open .lang-btn::after{transform:translateY(1.5px) rotate(-135deg)}
-@media (hover:hover){.lang-btn:hover{border-color:var(--ink);background:rgba(241,240,238,.08)}}
-.lang-menu{position:absolute;right:0;top:calc(100% + 8px);min-width:136px;padding:6px;border-radius:14px;background:var(--s1);border:1px solid rgba(241,240,238,.16);display:grid;gap:2px;opacity:0;visibility:hidden;transform:translateY(-6px);transition:opacity 160ms ease,transform 180ms var(--ease-out),visibility 0s 160ms;z-index:40}
-.lang-dd.open .lang-menu{opacity:1;visibility:visible;transform:none;transition:opacity 160ms ease,transform 180ms var(--ease-out)}
-.lang-opt{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;border-radius:9px;font-size:var(--s-small);font-weight:500;color:var(--soft);text-decoration:none;transition:background-color 150ms ease,color 150ms ease}
+.lang-btn{list-style:none;display:inline-flex;align-items:center;gap:6px;cursor:pointer;font-size:clamp(.875rem,.75rem + .2vw,1.0625rem)}
+.lang-btn::-webkit-details-marker{display:none}
+.lang-btn::after{content:"";width:5.5px;height:5.5px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:translateY(-1.5px) rotate(45deg);transition:transform 180ms ease}
+.lang-dd[open] .lang-btn::after{transform:translateY(1.5px) rotate(-135deg)}
+.lang-menu{position:absolute;right:0;top:calc(100% + 10px);min-width:132px;padding:6px;border-radius:12px;background:var(--s1);border:1px solid rgba(241,240,238,.16);display:grid;gap:2px;z-index:40}
+.lang-opt{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;border-radius:8px;font-size:var(--s-small);font-weight:500;color:var(--soft);text-decoration:none;transition:background-color 150ms ease,color 150ms ease}
 @media (hover:hover){.lang-opt:hover{background:var(--s2);color:var(--ink)}}
 .lang-opt.on{color:var(--lemon);background:rgba(228,213,90,.1)}
 .lang-opt.on::after{content:"";width:5px;height:5px;border-radius:50%;background:var(--lemon)}
@@ -352,15 +351,15 @@ html:not(.js) .pnl{display:block;visibility:visible;opacity:1;transform:none;mar
 .faq{padding-top:var(--sec);align-items:start}
 .faq h2{grid-column:1/5;position:sticky;top:48px}
 .faq-list{grid-column:6/13;display:grid;gap:8px}
-details{background:var(--s1);border-radius:16px;transition:background-color .25s ease}
-details[open]{background:var(--s2)}
-summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:76px;padding:20px 24px;cursor:pointer;font-size:var(--s-head);font-weight:500}
-summary::-webkit-details-marker{display:none}
-summary i{position:relative;flex:none;width:16px;height:16px}
-summary i::before,summary i::after{content:"";position:absolute;left:0;top:6.5px;width:16px;height:3px;background:currentColor;transition:transform .3s var(--ease-out)}
-summary i::after{transform:rotate(90deg)}
-details[open] summary i::after{transform:rotate(0)}
-details p{padding:0 24px 24px;color:var(--soft);max-width:44ch}
+.faq details{background:var(--s1);border-radius:16px;transition:background-color .25s ease}
+.faq details[open]{background:var(--s2)}
+.faq summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:76px;padding:20px 24px;cursor:pointer;font-size:var(--s-head);font-weight:500}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary i{position:relative;flex:none;width:16px;height:16px}
+.faq summary i::before,.faq summary i::after{content:"";position:absolute;left:0;top:6.5px;width:16px;height:3px;background:currentColor;transition:transform .3s var(--ease-out)}
+.faq summary i::after{transform:rotate(90deg)}
+.faq details[open] summary i::after{transform:rotate(0)}
+.faq details p{padding:0 24px 24px;color:var(--soft);max-width:44ch}
 
 /* close */
 .cta{padding-top:var(--sec)}
@@ -526,7 +525,7 @@ footer{padding:var(--sec) var(--m) clamp(48px,5vw,64px);max-width:1440px;margin-
         <li><a class="tlink" href="#fly">复盘飞轮</a></li>
         <li><a class="tlink" href="#faq">常见问题</a></li>
       </ul>
-      <div class="lang-dd"><button class="lang-btn" type="button" aria-expanded="false" aria-haspopup="true">Language</button><div class="lang-menu"><a class="lang lang-opt" href="../" data-alt="../" hreflang="en" lang="en" aria-label="Switch to English">English</a><a class="lang-opt on" href="./" lang="zh-Hans" aria-current="page">中文</a></div></div>
+      <details class="lang-dd"><summary class="lang-btn tlink">Language</summary><div class="lang-menu"><a class="lang lang-opt" href="../" data-alt="../" hreflang="en" lang="en" aria-label="Switch to English">English</a><a class="lang-opt on" href="./" lang="zh-Hans" aria-current="page">中文</a></div></details>
       <a class="btn" href="#enter">加入候补名单</a>
     </nav>
     <div class="splash-copy">
