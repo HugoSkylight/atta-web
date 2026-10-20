@@ -73,9 +73,18 @@ h1,h2,.h1like{font-size:var(--s-display);font-weight:700;letter-spacing:-.03em;l
 .nav ul{display:flex;gap:clamp(24px,2vw,36px);list-style:none;padding:0;margin-left:auto;font-size:clamp(.875rem,.75rem + .2vw,1.0625rem)}
 .nav ul a{text-decoration:none}
 .nav .btn{height:clamp(40px,2.8vw,48px);padding:0 clamp(20px,1.5vw,26px);font-size:clamp(.875rem,.75rem + .2vw,1.0625rem)}
-/* language toggle: stays visible on mobile, where the nav links hide */
-.lang{flex:none;display:inline-flex;align-items:center;justify-content:center;height:clamp(40px,2.8vw,48px);min-width:52px;padding:0 clamp(14px,1.1vw,20px);border-radius:999px;border:1px solid rgba(241,240,238,.35);font-size:clamp(.875rem,.75rem + .2vw,1.0625rem);font-weight:500;text-decoration:none;transition:border-color 180ms ease,background-color 180ms ease}
-@media (hover:hover){.lang:hover{border-color:var(--ink);background:rgba(241,240,238,.08)}}
+/* language dropdown: stays visible on mobile, where the nav links hide */
+.lang-dd{position:relative;flex:none}
+.lang-btn{display:inline-flex;align-items:center;gap:7px;height:clamp(40px,2.8vw,48px);padding:0 clamp(14px,1.1vw,18px);border-radius:999px;border:1px solid rgba(241,240,238,.25);font-size:clamp(.875rem,.75rem + .2vw,1.0625rem);font-weight:500;transition:border-color 180ms ease,background-color 180ms ease}
+.lang-btn::after{content:"";width:6px;height:6px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:translateY(-1.5px) rotate(45deg);transition:transform 180ms ease}
+.lang-dd.open .lang-btn::after{transform:translateY(1.5px) rotate(-135deg)}
+@media (hover:hover){.lang-btn:hover{border-color:var(--ink);background:rgba(241,240,238,.08)}}
+.lang-menu{position:absolute;right:0;top:calc(100% + 8px);min-width:136px;padding:6px;border-radius:14px;background:var(--s1);border:1px solid rgba(241,240,238,.16);display:grid;gap:2px;opacity:0;visibility:hidden;transform:translateY(-6px);transition:opacity 160ms ease,transform 180ms var(--ease-out),visibility 0s 160ms;z-index:40}
+.lang-dd.open .lang-menu{opacity:1;visibility:visible;transform:none;transition:opacity 160ms ease,transform 180ms var(--ease-out)}
+.lang-opt{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;border-radius:9px;font-size:var(--s-small);font-weight:500;color:var(--soft);text-decoration:none;transition:background-color 150ms ease,color 150ms ease}
+@media (hover:hover){.lang-opt:hover{background:var(--s2);color:var(--ink)}}
+.lang-opt.on{color:var(--lemon);background:rgba(228,213,90,.1)}
+.lang-opt.on::after{content:"";width:5px;height:5px;border-radius:50%;background:var(--lemon)}
 
 /* splash: key art first screen */
 .splash{position:relative;height:100svh;min-height:680px;overflow:hidden;isolation:isolate;display:flex;flex-direction:column}
@@ -458,7 +467,7 @@ footer{padding:var(--sec) var(--m) clamp(48px,5vw,64px);max-width:1440px;margin-
 @media (max-width:900px){
   .nav ul{display:none}
   .nav{gap:12px}
-  .nav .lang{margin-left:auto}
+  .nav .lang-dd{margin-left:auto}
   .say,.hero-side,.cta h2,.cta-side{grid-column:1/-1}
   .hero-side,.cta-side{margin-top:20px}
   .splash{height:auto;min-height:100svh;max-height:none}
@@ -517,7 +526,7 @@ footer{padding:var(--sec) var(--m) clamp(48px,5vw,64px);max-width:1440px;margin-
         <li><a class="tlink" href="#fly">复盘飞轮</a></li>
         <li><a class="tlink" href="#faq">常见问题</a></li>
       </ul>
-      <a class="lang" href="../" data-alt="../" hreflang="en" lang="en" aria-label="Switch to English">English</a>
+      <div class="lang-dd"><button class="lang-btn" type="button" aria-expanded="false" aria-haspopup="true">Language</button><div class="lang-menu"><a class="lang lang-opt" href="../" data-alt="../" hreflang="en" lang="en" aria-label="Switch to English">English</a><a class="lang-opt on" href="./" lang="zh-Hans" aria-current="page">中文</a></div></div>
       <a class="btn" href="#enter">加入候补名单</a>
     </nav>
     <div class="splash-copy">
