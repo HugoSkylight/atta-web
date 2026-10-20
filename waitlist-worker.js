@@ -51,6 +51,9 @@ export default {
       if (ct.startsWith('text/plain') && !ct.includes('charset')) {
         headers.set('content-type', 'text/plain; charset=utf-8');
       }
+      if (url.pathname.endsWith('/') || /\.(?:html|js|css)$/.test(url.pathname)) {
+        headers.set('cache-control', 'no-cache');
+      }
       return new Response(res.body, { status: res.status, headers });
     }
 
