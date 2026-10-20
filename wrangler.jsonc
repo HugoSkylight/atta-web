@@ -7,6 +7,11 @@
     { "pattern": "www.atta.nz", "custom_domain": true },
     { "pattern": "waitlist.atta.nz", "custom_domain": true }
   ],
+  "assets": {
+    "directory": ".",
+    "binding": "ASSETS",
+    "run_worker_first": ["/api/waitlist"]
+  },
   "kv_namespaces": [
     {
       "binding": "WAITLIST_KV",

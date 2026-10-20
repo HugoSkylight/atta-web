@@ -1217,7 +1217,7 @@ footer{padding:var(--sec) var(--m) clamp(48px,5vw,64px);max-width:1440px;margin-
 
   /* ---------- waitlist: email input + trial code endpoint ---------- */
   {
-    const API = window.ATTA_WAITLIST_API || 'https://waitlist.atta.nz/';
+    const API = window.ATTA_WAITLIST_API || 'https://waitlist.atta.nz/api/waitlist';
     const KEY = 'atta-waitlist';
     const form = $('#wl-form'), inp = $('#wl-email'), btn = $('#wl-btn'), msg = $('#wl-msg');
     const done = email => {
