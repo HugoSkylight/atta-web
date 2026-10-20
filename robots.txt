@@ -1,0 +1,6 @@
+# This file is served from the /atta-web/ project path. It is not the host-root
+# robots.txt for github.io, so crawlers are not required to read it there.
+User-Agent: *
+Allow: /
+
+Sitemap: https://hugoskylight.github.io/atta-web/sitemap.xml

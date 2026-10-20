@@ -5,6 +5,31 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Atta — See your AI team at a glance</title>
 <meta name="description" content="Too many terminals, and you forget which agent is doing what. Atta puts every agent on every machine into one live map, and the risky step waits for your nod.">
+<meta name="author" content="Hugo Light">
+<meta name="theme-color" content="#141016">
+<!-- seo:start -->
+<link rel="canonical" href="https://hugoskylight.github.io/atta-web/">
+<link rel="alternate" hreflang="en" href="https://hugoskylight.github.io/atta-web/">
+<link rel="alternate" hreflang="zh-Hans" href="https://hugoskylight.github.io/atta-web/zh/">
+<link rel="alternate" hreflang="x-default" href="https://hugoskylight.github.io/atta-web/">
+<link rel="alternate" type="text/markdown" href="https://hugoskylight.github.io/atta-web/llms.txt" title="llms.txt">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Atta">
+<meta property="og:title" content="Atta — See your AI team at a glance">
+<meta property="og:description" content="Too many terminals, and you forget which agent is doing what. Atta puts every agent on every machine into one live map, and the risky step waits for your nod.">
+<meta property="og:url" content="https://hugoskylight.github.io/atta-web/">
+<meta property="og:image" content="https://hugoskylight.github.io/atta-web/img/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Atta key art: a commander ant linked to agent screens on a dark background">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Atta — See your AI team at a glance">
+<meta name="twitter:description" content="Too many terminals, and you forget which agent is doing what. Atta puts every agent on every machine into one live map, and the risky step waits for your nod.">
+<meta name="twitter:image" content="https://hugoskylight.github.io/atta-web/img/og.jpg">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://hugoskylight.github.io/atta-web/#website","url":"https://hugoskylight.github.io/atta-web/","name":"Atta","description":"A self-hosted AI workbench concept that puts agents on every machine into one live map.","inLanguage":["en","zh-Hans"],"publisher":{"@type":"Person","name":"Hugo Light","url":"https://github.com/HugoSkylight"}},{"@type":"SoftwareApplication","@id":"https://hugoskylight.github.io/atta-web/#software","name":"Atta","applicationCategory":"DeveloperApplication","description":"A self-hosted AI workbench for directing a small team of AI agents across machines. Not publicly available.","url":"https://hugoskylight.github.io/atta-web/project/","isPartOf":{"@id":"https://hugoskylight.github.io/atta-web/#website"}}]}</script>
+<!-- seo:end -->
 <link rel="icon" href="img/icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -49,7 +74,7 @@ h1,h2,.h1like{font-size:var(--s-display);font-weight:700;letter-spacing:-.03em;l
 .nav ul a{text-decoration:none}
 .nav .btn{height:40px;padding:0 20px;font-size:var(--s-small)}
 /* language toggle: stays visible on mobile, where the nav links hide */
-.lang{flex:none;height:40px;min-width:52px;padding:0 14px;border-radius:999px;border:1px solid rgba(241,240,238,.35);font-size:var(--s-small);font-weight:500;text-align:center;transition:border-color 180ms ease,background-color 180ms ease}
+.lang{flex:none;display:inline-flex;align-items:center;justify-content:center;height:40px;min-width:52px;padding:0 14px;border-radius:999px;border:1px solid rgba(241,240,238,.35);font-size:var(--s-small);font-weight:500;text-decoration:none;transition:border-color 180ms ease,background-color 180ms ease}
 @media (hover:hover){.lang:hover{border-color:var(--ink);background:rgba(241,240,238,.08)}}
 
 /* splash: key art first screen */
@@ -64,6 +89,7 @@ h1,h2,.h1like{font-size:var(--s-display);font-weight:700;letter-spacing:-.03em;l
 .splash h1 .line:last-child>span{color:var(--lemon)}
 .splash-sub{margin-top:28px;max-width:25em;color:#CFC7D3;font-size:clamp(1rem,.95rem + .25vw,1.2rem)}
 .splash .hero-act{margin-top:36px}
+.demo-note{margin-top:18px;font-size:var(--s-small);color:var(--soft);max-width:30em}
 /* splash: click the ant → glitch swap (after cindy.cn chara-stage) */
 .splash::before,.splash::after,.splash-in{pointer-events:none}
 .splash-in>*{pointer-events:auto}
@@ -181,6 +207,8 @@ h1,h2,.h1like{font-size:var(--s-display);font-weight:700;letter-spacing:-.03em;l
 @media (hover:hover){.feat:not(.on) .f-btn:hover b{color:var(--ink)}}
 .pnl{grid-column:2;grid-row:1/4;align-self:center;visibility:hidden;opacity:0;transform:translateY(12px);transition:opacity .4s ease,transform .5s var(--ease-out),visibility 0s .4s}
 .feat.on .pnl{visibility:visible;opacity:1;transform:none;transition:opacity .45s ease .05s,transform .6s var(--ease-out) .05s}
+html:not(.js) .feats,html:not(.js) .feat{display:block}
+html:not(.js) .pnl{display:block;visibility:visible;opacity:1;transform:none;margin-bottom:24px}
 
 .win{background:var(--s1);border-radius:16px;overflow:hidden;font-size:14px;line-height:1.45}
 .win-bar{display:flex;gap:12px;align-items:baseline;padding:14px 20px;background:#191320;color:var(--soft);font-size:13px}
@@ -334,9 +362,13 @@ details p{padding:0 24px 24px;color:var(--soft);max-width:44ch}
 .crew img{width:clamp(120px,11vw,160px);height:clamp(120px,11vw,160px);border-radius:50%;object-fit:cover}
 footer{padding:var(--sec) var(--m) 32px;max-width:1440px;margin-inline:auto}
 .fname{font-size:clamp(6rem,24vw,21rem);font-weight:700;letter-spacing:-.05em;line-height:.8}
-.frow{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-top:40px;font-size:var(--s-small);color:var(--soft)}
-.frow ul{display:flex;gap:24px;list-style:none;padding:0}
-.frow a{text-decoration:none}
+.fgrid{display:grid;grid-template-columns:minmax(0,1.7fr) repeat(3,minmax(0,1fr));gap:clamp(28px,4vw,64px);margin-top:clamp(32px,5vw,64px)}
+.fabout p{max-width:30em;color:var(--soft);font-size:var(--s-small);line-height:1.6}
+.fabout p+p{margin-top:12px}
+.fh{font-size:12px;font-weight:500;letter-spacing:.16em;line-height:1.4;text-transform:uppercase;color:var(--lemon);margin-bottom:14px}
+.fgrid ul{list-style:none;padding:0;display:grid;gap:10px;font-size:var(--s-small);color:var(--soft)}
+.fgrid a{text-decoration:none}
+@media (hover:hover){.fgrid a:hover{text-decoration:underline;text-underline-offset:.25em}}
 
 /* motion */
 @media (prefers-reduced-motion:no-preference){
@@ -430,6 +462,12 @@ footer{padding:var(--sec) var(--m) 32px;max-width:1440px;margin-inline:auto}
   .faq-list{margin-top:32px}
   .crew{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
   .crew img{width:100%;height:auto;aspect-ratio:1}
+  .fgrid{grid-template-columns:1fr 1fr}
+  .fabout{grid-column:1/-1}
+}
+@media (max-width:560px){
+  .fgrid{grid-template-columns:1fr}
+  .fabout{grid-column:auto}
 }
 </style>
 </head>
@@ -448,17 +486,18 @@ footer{padding:var(--sec) var(--m) 32px;max-width:1440px;margin-inline:auto}
         <li><a class="tlink" href="#fly">Flywheel</a></li>
         <li><a class="tlink" href="#faq">FAQ</a></li>
       </ul>
-      <button class="lang" id="lang" type="button" lang="zh-CN" aria-label="切换到中文">中文</button>
-      <a class="btn" href="#enter">Owner login</a>
+      <a class="lang" href="zh/" data-alt="zh/" hreflang="zh-Hans" lang="zh-Hans" aria-label="Switch to Chinese">中文</a>
+      <a class="btn" href="project/">Project</a>
     </nav>
     <div class="splash-copy">
       <p class="kick" data-r>ATTA · SELF-HOSTED AI WORKBENCH</p>
       <h1 class="lines" aria-label="One person. A whole AI team."><span class="line" aria-hidden="true"><span style="--i:0">One person.</span></span><span class="line" aria-hidden="true"><span style="--i:1">A whole</span></span><span class="line" aria-hidden="true"><span style="--i:2">AI team.</span></span></h1>
       <p class="splash-sub" data-r style="--i:2">Every agent on every machine, in one live map. See who's doing what at a glance; risky steps wait for your nod.</p>
       <div class="hero-act" data-r style="--i:3">
-        <a class="btn" href="#enter">Open my workbench</a>
+        <a class="btn" href="project/">Project and availability</a>
         <a class="tlink" href="#intro">See how it works ↓</a>
       </div>
+      <p class="demo-note" data-r style="--i:4">Interactive demo with sample data. No live product instance runs here.</p>
     </div>
   </div>
   <div class="ticker" aria-hidden="true"><div class="ticker-in"><div class="ticker-g"><span>See the whole team at a glance</span><span>One flow across machines</span><span>Hodor gate: risky steps wait for you</span><span>Gets better, on your terms</span><span>Self-hosted</span><span>Any model</span></div><div class="ticker-g"><span>See the whole team at a glance</span><span>One flow across machines</span><span>Hodor gate: risky steps wait for you</span><span>Gets better, on your terms</span><span>Self-hosted</span><span>Any model</span></div><div class="ticker-g"><span>See the whole team at a glance</span><span>One flow across machines</span><span>Hodor gate: risky steps wait for you</span><span>Gets better, on your terms</span><span>Self-hosted</span><span>Any model</span></div><div class="ticker-g"><span>See the whole team at a glance</span><span>One flow across machines</span><span>Hodor gate: risky steps wait for you</span><span>Gets better, on your terms</span><span>Self-hosted</span><span>Any model</span></div><div class="ticker-g"><span>See the whole team at a glance</span><span>One flow across machines</span><span>Hodor gate: risky steps wait for you</span><span>Gets better, on your terms</span><span>Self-hosted</span><span>Any model</span></div><div class="ticker-g"><span>See the whole team at a glance</span><span>One flow across machines</span><span>Hodor gate: risky steps wait for you</span><span>Gets better, on your terms</span><span>Self-hosted</span><span>Any model</span></div></div></div>
@@ -619,7 +658,7 @@ footer{padding:var(--sec) var(--m) 32px;max-width:1440px;margin-inline:auto}
   <h2 id="faq-h" data-r>FAQ</h2>
   <div class="faq-list">
     <details name="faq" open><summary>How is this different from tmux?<i></i></summary><p>tmux manages sessions. Atta knows they work on the same job, and shows it all in one map.</p></details>
-    <details name="faq"><summary>Can I sign up to try it?<i></i></summary><p>Not yet. For now it is only for the person who deploys it.</p></details>
+    <details name="faq"><summary>Can I sign up to try it?<i></i></summary><p>No. Atta is not publicly available; the project page records current availability.</p></details>
     <details name="faq"><summary>Which model does it use?<i></i></summary><p>Your pick. Atta runs the flow, not the model.</p></details>
     <details name="faq"><summary>Why Atta and Hodor?<i></i></summary><p>Atta is the leafcutter ant: a crew that splits the work. Hodor is Hold the door.</p></details>
   </div>
@@ -630,7 +669,7 @@ footer{padding:var(--sec) var(--m) 32px;max-width:1440px;margin-inline:auto}
     <h2 id="cta-h" data-r>Next long run?<br>Hand it over.</h2>
     <div class="cta-side">
       <p data-r style="--i:1">Hand it off and go do something else. When it needs your call, it waits.</p>
-      <a class="btn" href="#" data-r style="--i:2">Log in to my workbench</a>
+      <a class="btn" href="project/#availability" data-r style="--i:2">Read availability</a>
     </div>
   </div>
   <ul class="crew" id="crew" aria-label="Your crew">
@@ -643,21 +682,46 @@ footer{padding:var(--sec) var(--m) 32px;max-width:1440px;margin-inline:auto}
 </section>
 </main>
 
-<footer>
+<footer class="site-foot">
   <div class="fname" aria-hidden="true">Atta</div>
-  <div class="frow">
-    <ul>
-      <li><a class="tlink" href="#core">Workbench</a></li>
-      <li><a class="tlink" href="#topo">Team map</a></li>
-      <li><a class="tlink" href="#fly">Flywheel</a></li>
-      <li><a class="tlink" href="#faq">FAQ</a></li>
-    </ul>
-    <a class="tlink" href="#top">Back to top</a>
+  <div class="fgrid">
+    <div class="fabout">
+      <p>Atta is a self-hosted AI workbench concept. This site is static.</p>
+      <p class="small">Website maintained by <a class="tlink" href="https://github.com/HugoSkylight">Hugo Light</a></p>
+    </div>
+    <nav aria-label="Product">
+      <h2 class="fh">Product</h2>
+      <ul>
+        <li><a class="tlink" href="#top">Overview</a></li>
+        <li><a class="tlink" href="#core">Workbench</a></li>
+        <li><a class="tlink" href="#topo">Team map</a></li>
+        <li><a class="tlink" href="#fly">Flywheel</a></li>
+        <li><a class="tlink" href="#faq">FAQ</a></li>
+      </ul>
+    </nav>
+    <nav aria-label="Project">
+      <h2 class="fh">Project</h2>
+      <ul>
+        <li><a class="tlink" href="project/">Project and availability</a></li>
+        <li><a class="tlink" href="changelog/">Changelog</a></li>
+        <li><a class="tlink" href="https://github.com/HugoSkylight/atta-web">Website source</a></li>
+        <li><a class="tlink" href="https://github.com/HugoSkylight/atta-web/issues">Issues</a></li>
+        <li><a class="tlink" href="llms.txt">llms.txt</a></li>
+      </ul>
+    </nav>
+    <nav aria-label="Legal">
+      <h2 class="fh">Legal</h2>
+      <ul>
+        <li><a class="tlink" href="privacy/">Privacy</a></li>
+        <li><a class="tlink" href="security/">Security</a></li>
+      </ul>
+    </nav>
   </div>
 </footer>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><clipPath id="av"><circle cx="30" cy="30" r="17"/></clipPath></defs></svg>
 
+<script src="lang-link.js"></script>
 <script src="i18n.js"></script>
 
 <script>
@@ -677,7 +741,7 @@ footer{padding:var(--sec) var(--m) 32px;max-width:1440px;margin-inline:auto}
     const swap = () => {
       const alt = splash.classList.toggle('alt');
       art.srcset = SETS[+alt];
-      mode.textContent = alt ? 'OVERDRIVE' : 'READY';
+      mode.textContent = alt ? tr('OVERDRIVE') : tr('READY');
     };
     const zap = () => {
       if (reduce) return swap();

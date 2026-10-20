@@ -1,62 +1,108 @@
 <!doctype html>
+<html lang="en">
+<head>
 <meta charset="utf-8">
-<title>i18n check</title>
-<!-- Behaviour check for i18n.js. Needs same-origin: `python3 -m http.server` here, open /i18n-check.html.
-     Clears the saved language, then drives index.html in an iframe. Result: PASS/FAIL list + document.title. -->
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Language URL check</title>
+<style>
+body{font:15px/1.6 ui-monospace,Menlo,monospace;background:#141016;color:#F1F0EE;margin:24px}
+pre{white-space:pre-wrap}
+iframe{width:100%;max-width:1280px;height:600px;border:1px solid #555;background:#fff}
+.note{color:#A79FAB}
+</style>
+</head>
+<body>
+<p class="note">Manual check for the real language URLs. Needs same-origin: run <code>python3 -m http.server</code> here and open <code>/i18n-check.html</code>. This page is excluded from the sitemap and marked noindex.</p>
 <pre id="out">running…</pre>
-<iframe id="f" width="1280" height="800" style="border:1px solid #888"></iframe>
+<iframe id="f" title="language check frame"></iframe>
 <script>
 const CJK = /[\u3400-\u9fff\u3000-\u303f\uff00-\uffef]/;
-const out = document.getElementById('out'), f = document.getElementById('f'), log = [];
+const out = document.getElementById('out');
+const frame = document.getElementById('f');
+const log = [];
 const ok = (cond, msg) => log.push((cond ? 'PASS ' : 'FAIL ') + msg);
 const sleep = ms => new Promise(r => setTimeout(r, ms));
-const load = () => new Promise(r => { f.onload = () => setTimeout(r, 300); f.src = 'index.html?' + Date.now(); });
-// every visible-ish string: text nodes (incl. <title>) and translatable attributes, minus the toggle itself
-const strings = d => {
-  const s = [], tw = d.createTreeWalker(d.documentElement, NodeFilter.SHOW_TEXT);
-  for (let n; (n = tw.nextNode());) if (!n.parentElement.closest('#lang, script, style')) s.push(n.data);
-  d.querySelectorAll('[aria-label],[alt],meta[name=description]').forEach(e => { if (e.id !== 'lang') s.push(e.getAttribute('aria-label') || '', e.getAttribute('alt') || '', e.getAttribute('content') || ''); });
-  return s;
+const LOCAL_BASE = location.origin + location.pathname.replace(/[^/]*$/, '');
+const localCan = path => new URL(path.replace(/index\.html$/, ''), LOCAL_BASE).href;
+
+const PAIRS = [
+  ['index.html', 'zh/index.html'],
+  ['project/index.html', 'zh/project/index.html'],
+  ['privacy/index.html', 'zh/privacy/index.html'],
+  ['security/index.html', 'zh/security/index.html'],
+  ['changelog/index.html', 'zh/changelog/index.html'],
+];
+
+const loadDoc = async path => {
+  const res = await fetch(path, { cache: 'no-store' });
+  if (!res.ok) throw new Error(path + ' returned ' + res.status);
+  return new DOMParser().parseFromString(await res.text(), 'text/html');
 };
-const cjk = d => strings(d).filter(x => CJK.test(x));
-// poke the dynamic views: workbench hover, gate decision, topology run + node, then let the lab tick
-const poke = async (d, run) => {
-  const w = d.defaultView;
-  d.querySelectorAll('#see-svg .gn')[0].dispatchEvent(new w.Event('mouseenter'));
-  d.querySelectorAll('.runs button')[run].click();
-  d.querySelector('#topo-svg .tn.hov:not(.off)').dispatchEvent(new w.Event('mouseenter'));
-  await sleep(200);
+
+const hreflang = doc => new Map([...doc.querySelectorAll('link[rel=alternate][hreflang]')].map(el => [el.getAttribute('hreflang'), el.href]));
+
+const checkPage = (doc, path, otherPath, lang, canonical, alternates) => {
+  ok(doc.documentElement.lang === lang, path + ' html lang is ' + lang);
+  ok(doc.querySelector('link[rel=canonical]')?.href === canonical, path + ' canonical is ' + canonical);
+  const alt = hreflang(doc);
+  for (const [key, href] of Object.entries(alternates)) ok(alt.get(key) === href, path + ' hreflang ' + key);
+  const link = doc.querySelector('a.lang');
+  ok(!!link, path + ' has a language link');
+  if (link) {
+    const target = new URL(link.getAttribute('href'), new URL(path, LOCAL_BASE)).href;
+    ok(target === localCan(otherPath), path + ' language link reaches ' + localCan(otherPath));
+    ok(!link.hasAttribute('data-auto') && !doc.querySelector('meta[http-equiv=refresh]'), path + ' has no language redirect');
+  }
 };
+
+const loadFrame = async path => {
+  await new Promise(resolve => {
+    frame.onload = () => setTimeout(resolve, 500);
+    frame.src = path + '?check=' + Date.now();
+  });
+  return frame.contentDocument;
+};
+
 (async () => {
-  localStorage.removeItem('atta-lang');
-  await load(); let d = f.contentDocument;
-  ok(d.documentElement.lang === 'en', 'first visit is English (html lang=en)');
-  ok(d.getElementById('lang').textContent === '中文', 'toggle offers 中文');
-  let bad = cjk(d); ok(!bad.length, 'no Chinese on first visit' + (bad.length ? ': ' + bad.slice(0, 5).join(' | ') : ''));
-  await poke(d, 1);
-  bad = cjk(d); ok(!bad.length, 'English survives interactions' + (bad.length ? ': ' + bad.slice(0, 5).join(' | ') : ''));
+  const home = await loadDoc('index.html');
+  const SITE_ROOT = new URL(home.querySelector('link[rel=canonical]').href);
+  const can = path => new URL(path.replace(/index\.html$/, ''), SITE_ROOT).href;
+  for (const [enPath, zhPath] of PAIRS) {
+    const en = await loadDoc(enPath);
+    const zh = await loadDoc(zhPath);
+    const enCanonical = can(enPath);
+    const zhCanonical = can(zhPath);
+    const alternates = { en: enCanonical, 'zh-Hans': zhCanonical, 'x-default': enCanonical };
+    checkPage(en, enPath, zhPath, 'en', enCanonical, alternates);
+    checkPage(zh, zhPath, enPath, 'zh-Hans', zhCanonical, alternates);
+    ok(en.title !== zh.title, enPath + ' and ' + zhPath + ' have different titles');
+    ok(CJK.test(zh.title), zhPath + ' title is Chinese');
+  }
 
-  d.getElementById('lang').click();
-  ok(d.documentElement.lang === 'zh-CN', 'switch sets html lang=zh-CN');
-  ok(localStorage.getItem('atta-lang') === 'zh', 'choice saved');
-  ok(d.querySelector('h1').getAttribute('aria-label') === '一个人，指挥整支 AI 团队', 'h1 aria-label translated');
-  ok(CJK.test(d.getElementById('topo-tip').textContent), 'open topology tip repainted in Chinese');
-  ok(CJK.test(d.getElementById('drawer').textContent), 'open drawer repainted in Chinese');
-  ok([...d.querySelectorAll('.ticker span')].every(s => CJK.test(s.textContent)), 'all ticker groups Chinese');
-  d.getElementById('g-pass').click();
-  ok(d.getElementById('g-chip').textContent === '已通过', 'gate decision rendered in Chinese');
-  await poke(d, 2);
-  ok(CJK.test(d.getElementById('topo-tip').textContent), 'later topology render stays Chinese');
+  const zhDoc = await loadFrame('zh/index.html');
+  ok(zhDoc.documentElement.lang === 'zh-Hans', 'zh home runs with html lang=zh-Hans');
+  ok(CJK.test(zhDoc.getElementById('drawer').textContent), 'zh demo drawer is Chinese');
+  ok(CJK.test(zhDoc.getElementById('topo-tip').textContent), 'zh topology tip is Chinese');
+  ok([...zhDoc.querySelectorAll('.ticker span')].every(s => CJK.test(s.textContent)), 'zh ticker is Chinese');
+  zhDoc.getElementById('g-pass').click();
+  ok(zhDoc.getElementById('g-chip').textContent === '已通过', 'zh gate decision is Chinese');
+  frame.contentWindow.location.hash = 'core';
+  await sleep(80);
+  ok(zhDoc.querySelector('a.lang').href.endsWith('#core'), 'zh language link keeps a valid hash');
 
-  await load(); d = f.contentDocument;
-  ok(d.documentElement.lang === 'zh-CN' && d.title.startsWith('Atta — 一眼'), 'reload remembers Chinese');
-  d.getElementById('lang').click();
-  await poke(d, 0);
-  bad = cjk(d); ok(!bad.length, 'switching back leaves no Chinese' + (bad.length ? ': ' + bad.slice(0, 5).join(' | ') : ''));
-  localStorage.removeItem('atta-lang');
+  const enDoc = await loadFrame('index.html');
+  ok(enDoc.documentElement.lang === 'en', 'en home runs with html lang=en');
+  ok(!CJK.test(enDoc.getElementById('drawer').textContent), 'en demo drawer has no Chinese');
+  ok(enDoc.querySelector('a.lang').getAttribute('href').startsWith('zh/'), 'en language link points at zh/');
 
-  const fails = log.filter(l => l.startsWith('FAIL')).length;
-  out.textContent = log.join('\n') + `\n\n${fails ? fails + ' FAILED' : 'ALL PASS'}`;
+  const fails = log.filter(line => line.startsWith('FAIL')).length;
+  out.textContent = log.join('\n') + '\n\n' + (fails ? fails + ' FAILED' : 'ALL PASS');
   document.title = fails ? 'FAIL' : 'PASS';
-})().catch(e => { out.textContent = log.join('\n') + '\nERROR ' + e.stack; document.title = 'FAIL'; });
+})().catch(error => {
+  out.textContent = log.join('\n') + '\nERROR ' + error.stack;
+  document.title = 'FAIL';
+});
 </script>
+</body>
+</html>

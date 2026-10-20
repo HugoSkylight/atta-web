@@ -1,0 +1,34 @@
+# Atta
+
+> Atta is a self-hosted AI workbench concept for directing a small team of AI agents across machines. It is not publicly available: no download, installer, hosted service, account, or sign-up exists.
+
+## Product status
+
+- Availability: private, maintained by its author. No public release date is published.
+- Public code: this website only. The product implementation is private and no product license is published.
+- Demos: the home page demos are scripted examples with sample data, not a live product.
+- Models: the concept is model-agnostic. The demos do not run a model.
+
+## Pages
+
+- [Home](https://hugoskylight.github.io/atta-web/): product concept and interactive demos.
+- [Project and availability](https://hugoskylight.github.io/atta-web/project/): what the demos show and current availability.
+- [Changelog](https://hugoskylight.github.io/atta-web/changelog/): website changes with commit links.
+- [Privacy](https://hugoskylight.github.io/atta-web/privacy/): website privacy only.
+- [Security](https://hugoskylight.github.io/atta-web/security/): website security scope and reporting.
+- [中文首页](https://hugoskylight.github.io/atta-web/zh/): Chinese home page.
+- [项目与可用性](https://hugoskylight.github.io/atta-web/zh/project/): 中文项目说明。
+- [更新日志](https://hugoskylight.github.io/atta-web/zh/changelog/): 中文网站更新记录。
+- [隐私](https://hugoskylight.github.io/atta-web/zh/privacy/): 中文网站隐私说明。
+- [安全](https://hugoskylight.github.io/atta-web/zh/security/): 中文网站安全说明。
+
+## Contact
+
+- Website issues: https://github.com/HugoSkylight/atta-web/issues
+- Maintainer: Hugo Light, https://github.com/HugoSkylight
+- No public email address is published.
+
+## Notes
+
+- The site is static HTML, CSS, and JavaScript. It has no backend, forms, accounts, or tracking code.
+- This file summarizes the public pages. It adds no private product details and no content that is hidden from readers.
