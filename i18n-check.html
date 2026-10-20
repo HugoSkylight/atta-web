@@ -1,0 +1,62 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>i18n check</title>
+<!-- Behaviour check for i18n.js. Needs same-origin: `python3 -m http.server` here, open /i18n-check.html.
+     Clears the saved language, then drives index.html in an iframe. Result: PASS/FAIL list + document.title. -->
+<pre id="out">running…</pre>
+<iframe id="f" width="1280" height="800" style="border:1px solid #888"></iframe>
+<script>
+const CJK = /[\u3400-\u9fff\u3000-\u303f\uff00-\uffef]/;
+const out = document.getElementById('out'), f = document.getElementById('f'), log = [];
+const ok = (cond, msg) => log.push((cond ? 'PASS ' : 'FAIL ') + msg);
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+const load = () => new Promise(r => { f.onload = () => setTimeout(r, 300); f.src = 'index.html?' + Date.now(); });
+// every visible-ish string: text nodes (incl. <title>) and translatable attributes, minus the toggle itself
+const strings = d => {
+  const s = [], tw = d.createTreeWalker(d.documentElement, NodeFilter.SHOW_TEXT);
+  for (let n; (n = tw.nextNode());) if (!n.parentElement.closest('#lang, script, style')) s.push(n.data);
+  d.querySelectorAll('[aria-label],[alt],meta[name=description]').forEach(e => { if (e.id !== 'lang') s.push(e.getAttribute('aria-label') || '', e.getAttribute('alt') || '', e.getAttribute('content') || ''); });
+  return s;
+};
+const cjk = d => strings(d).filter(x => CJK.test(x));
+// poke the dynamic views: workbench hover, gate decision, topology run + node, then let the lab tick
+const poke = async (d, run) => {
+  const w = d.defaultView;
+  d.querySelectorAll('#see-svg .gn')[0].dispatchEvent(new w.Event('mouseenter'));
+  d.querySelectorAll('.runs button')[run].click();
+  d.querySelector('#topo-svg .tn.hov:not(.off)').dispatchEvent(new w.Event('mouseenter'));
+  await sleep(200);
+};
+(async () => {
+  localStorage.removeItem('atta-lang');
+  await load(); let d = f.contentDocument;
+  ok(d.documentElement.lang === 'en', 'first visit is English (html lang=en)');
+  ok(d.getElementById('lang').textContent === '中文', 'toggle offers 中文');
+  let bad = cjk(d); ok(!bad.length, 'no Chinese on first visit' + (bad.length ? ': ' + bad.slice(0, 5).join(' | ') : ''));
+  await poke(d, 1);
+  bad = cjk(d); ok(!bad.length, 'English survives interactions' + (bad.length ? ': ' + bad.slice(0, 5).join(' | ') : ''));
+
+  d.getElementById('lang').click();
+  ok(d.documentElement.lang === 'zh-CN', 'switch sets html lang=zh-CN');
+  ok(localStorage.getItem('atta-lang') === 'zh', 'choice saved');
+  ok(d.querySelector('h1').getAttribute('aria-label') === '一个人，指挥整支 AI 团队', 'h1 aria-label translated');
+  ok(CJK.test(d.getElementById('topo-tip').textContent), 'open topology tip repainted in Chinese');
+  ok(CJK.test(d.getElementById('drawer').textContent), 'open drawer repainted in Chinese');
+  ok([...d.querySelectorAll('.ticker span')].every(s => CJK.test(s.textContent)), 'all ticker groups Chinese');
+  d.getElementById('g-pass').click();
+  ok(d.getElementById('g-chip').textContent === '已通过', 'gate decision rendered in Chinese');
+  await poke(d, 2);
+  ok(CJK.test(d.getElementById('topo-tip').textContent), 'later topology render stays Chinese');
+
+  await load(); d = f.contentDocument;
+  ok(d.documentElement.lang === 'zh-CN' && d.title.startsWith('Atta — 一眼'), 'reload remembers Chinese');
+  d.getElementById('lang').click();
+  await poke(d, 0);
+  bad = cjk(d); ok(!bad.length, 'switching back leaves no Chinese' + (bad.length ? ': ' + bad.slice(0, 5).join(' | ') : ''));
+  localStorage.removeItem('atta-lang');
+
+  const fails = log.filter(l => l.startsWith('FAIL')).length;
+  out.textContent = log.join('\n') + `\n\n${fails ? fails + ' FAILED' : 'ALL PASS'}`;
+  document.title = fails ? 'FAIL' : 'PASS';
+})().catch(e => { out.textContent = log.join('\n') + '\nERROR ' + e.stack; document.title = 'FAIL'; });
+</script>
