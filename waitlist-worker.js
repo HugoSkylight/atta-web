@@ -24,7 +24,11 @@ const genCode = () => {
 export default {
   async fetch(req, env) {
     const url = new URL(req.url);
-    if (req.method === 'GET' && env.ADMIN_TOKEN && url.searchParams.get('token') === env.ADMIN_TOKEN && env.WAITLIST_KV) {
+    const isWaitlistHost = url.hostname.startsWith('waitlist.');
+
+    if (req.method === 'OPTIONS') return new Response(null, { headers: CORS });
+
+    if (req.method === 'GET' && env.ADMIN_TOKEN && url.searchParams.get('token') === env.ADMIN_TOKEN && env.WAITLIST_KV && (isWaitlistHost || url.pathname === '/api/waitlist')) {
       const { keys } = await env.WAITLIST_KV.list({ limit: 1000 });
       const rows = (await Promise.all(keys.map(k => env.WAITLIST_KV.get(k.name, 'json')))).filter(Boolean);
       if (url.searchParams.get('format') === 'csv') {
@@ -33,6 +37,23 @@ export default {
       }
       return Response.json(rows);
     }
+
+    // Serve main site (atta.nz / www.atta.nz) by proxying GitHub Pages origin
+    if (!isWaitlistHost && url.pathname !== '/api/waitlist') {
+      if (url.hostname === 'www.atta.nz') {
+        url.hostname = 'atta.nz';
+        return Response.redirect(url.toString(), 301);
+      }
+      const upstream = `https://hugoskylight.github.io/atta-web${url.pathname}${url.search}`;
+      const res = await fetch(upstream, { headers: { 'User-Agent': 'Atta-Edge/1.0' } });
+      const headers = new Headers(res.headers);
+      const ct = headers.get('content-type') || '';
+      if (ct.startsWith('text/plain') && !ct.includes('charset')) {
+        headers.set('content-type', 'text/plain; charset=utf-8');
+      }
+      return new Response(res.body, { status: res.status, headers });
+    }
+
     if (req.method !== 'POST') return Response.json({ error: 'Method not allowed' }, { status: 405, headers: CORS });
 
     const { email = '', lang = 'en' } = await req.json().catch(() => ({}));

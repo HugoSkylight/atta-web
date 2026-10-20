@@ -3,6 +3,8 @@
   "main": "waitlist-worker.js",
   "compatibility_date": "2026-04-01",
   "routes": [
+    { "pattern": "atta.nz", "custom_domain": true },
+    { "pattern": "www.atta.nz", "custom_domain": true },
     { "pattern": "waitlist.atta.nz", "custom_domain": true }
   ],
   "kv_namespaces": [
