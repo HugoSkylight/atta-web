@@ -89,7 +89,8 @@ export const PAGES = [
 <section aria-labelledby="third-parties">
 <h2 id="third-parties">Third-party requests</h2>
 <p>The site loads the Jost font from Google Fonts. Your browser connects to fonts.googleapis.com and fonts.gstatic.com and shares connection information such as your IP address and browser headers. Referrer information depends on your browser's policy. See the <a href="https://policies.google.com/privacy">Google Privacy Policy</a>.</p>
-<p>The site is hosted on GitHub Pages. GitHub may process request information to operate and protect the service. This page does not specify GitHub's logging or retention settings. See the <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub Privacy Statement</a>.</p>
+<p>The official site is hosted on Cloudflare, which may process request information to deliver the site and protect the service. This page does not specify Cloudflare's logging or retention settings. See the <a href="https://www.cloudflare.com/privacypolicy/">Cloudflare Privacy Policy</a>.</p>
+<p>A copy of this site may also be available through GitHub Pages from the public repository. If that copy remains reachable, GitHub handles those requests under the <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub Privacy Statement</a>; this page does not specify GitHub's settings.</p>
 <p>Links to GitHub and other sites leave this site. Those sites apply their own policies.</p>
 </section>
 <section aria-labelledby="contact">
@@ -118,7 +119,8 @@ export const PAGES = [
 <section aria-labelledby="third-parties">
 <h2 id="third-parties">第三方请求</h2>
 <p>本站从 Google Fonts 加载 Jost 字体。浏览器连接 fonts.googleapis.com 和 fonts.gstatic.com 时，会分享 IP 地址和浏览器请求头等连接信息。来源信息取决于浏览器策略。参见 <a href="https://policies.google.com/privacy">Google 隐私政策</a>。</p>
-<p>本站托管在 GitHub Pages 上。GitHub 可能为运营和保护服务处理请求信息。本页不指定 GitHub 的日志和保留设置。参见 <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub 隐私声明</a>。</p>
+<p>正式站托管在 Cloudflare 上。Cloudflare 可能为交付网站和保护服务处理请求信息。本页不指定 Cloudflare 的日志和保留设置。参见 <a href="https://www.cloudflare.com/privacypolicy/">Cloudflare 隐私政策</a>。</p>
+<p>本站副本也可能仍通过公开仓库的 GitHub Pages 提供。若该副本仍可访问，GitHub 按其<a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub 隐私声明</a>处理请求；本页不指定 GitHub 的设置。</p>
 <p>指向 GitHub 和其他网站的链接会离开本站。那些网站适用各自的政策。</p>
 </section>
 <section aria-labelledby="contact">
@@ -145,7 +147,7 @@ export const PAGES = [
 </section>
 <section aria-labelledby="source">
 <h2 id="source">Source and dependencies</h2>
-<p>The full website source is in the <a href="https://github.com/HugoSkylight/atta-web">public repository</a>. The site loads one third-party resource, the Jost font from Google Fonts. Hosting is GitHub Pages.</p>
+<p>The full website source is in the <a href="https://github.com/HugoSkylight/atta-web">public repository</a>. The site loads one third-party resource, the Jost font from Google Fonts. The official site is hosted on Cloudflare. A GitHub Pages copy of the repository may also be available.</p>
 </section>
 <section aria-labelledby="limits">
 <h2 id="limits">What this page does not claim</h2>
@@ -173,7 +175,7 @@ export const PAGES = [
 </section>
 <section aria-labelledby="source">
 <h2 id="source">源码与依赖</h2>
-<p>完整的网站源码在<a href="https://github.com/HugoSkylight/atta-web">公开仓库</a>中。本站只加载一个第三方资源，即来自 Google Fonts 的 Jost 字体。托管方是 GitHub Pages。</p>
+<p>完整的网站源码在<a href="https://github.com/HugoSkylight/atta-web">公开仓库</a>中。本站只加载一个第三方资源，即来自 Google Fonts 的 Jost 字体。正式站托管在 Cloudflare 上；仓库的 GitHub Pages 副本也可能仍然可用。</p>
 </section>
 <section aria-labelledby="limits">
 <h2 id="limits">本页不声明什么</h2>
@@ -199,6 +201,7 @@ export const PAGES = [
       lede: 'Changes to this website. Product changes are not listed because the product is not public.',
       body: `
 <ol class="log">
+<li><time datetime="2026-10-20">20 October 2026</time><h2>Official domain</h2><p>The site now uses <a href="https://atta.nz/">https://atta.nz/</a> as its official address. Canonical links, language alternates, share metadata, the sitemap, robots.txt, and llms.txt use the new host root. The privacy and security pages now name Cloudflare as the host of the official site and separate any GitHub Pages copy, which follows GitHub's policy.</p></li>
 <li><time datetime="2026-10-20">20 October 2026</time><h2>Project information and discoverability</h2><p>Added static English and Chinese project, privacy, security, and changelog pages. Language links now use separate URLs. Added social metadata, a sitemap, and an AI-readable site summary.</p></li>
 <li>
 <time datetime="2026-10-20">20 October 2026</time>
@@ -221,6 +224,7 @@ export const PAGES = [
       lede: '本站的变化。产品尚未公开，因此不列产品变更。',
       body: `
 <ol class="log">
+<li><time datetime="2026-10-20">2026 年 10 月 20 日</time><h2>正式域名</h2><p>本站正式地址改为 <a href="https://atta.nz/">https://atta.nz/</a>。Canonical、语言替代链接、分享元数据、站点地图、robots.txt 和 llms.txt 均改用新的根域名。隐私与安全页面将正式站托管方改为 Cloudflare，并单独说明 GitHub Pages 副本适用 GitHub 的政策。</p></li>
 <li><time datetime="2026-10-20">2026 年 10 月 20 日</time><h2>项目信息与可发现性</h2><p>新增中英文静态项目、隐私、安全和更新日志页面。语言切换改用独立网址，并加入社交分享元数据、站点地图和供 AI 阅读的网站摘要。</p></li>
 <li>
 <time datetime="2026-10-20">2026 年 10 月 20 日</time>
