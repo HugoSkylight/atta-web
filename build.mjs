@@ -167,10 +167,9 @@ function langAnchor(locale, href) {
 function zhHome() {
   let html = translateHtml(read('index.html'));
   html = html.replace('<html lang="en">', '<html lang="zh-Hans">');
-  // The zh home lives one directory down. Rewrite local assets, including paths inside the demo script.
   html = html.replaceAll('img/', '../img/');
   html = html.replace('src="i18n.js"', 'src="../i18n.js"');
-  html = html.replace('src="lang-link.js"', 'src="../lang-link.js"');
+  html = html.replace('src="lang-link.js?v=2"', 'src="../lang-link.js?v=2"');
   html = html.replace('href="llms.txt"', 'href="../llms.txt"');
   html = replaceBlock(html, '<!-- seo:start -->', '<!-- seo:end -->', seoBlock({ ...HOME.zh, kind: 'home' }, 'zh'));
   html = html.replace(/<details class="lang-dd">[\s\S]*?<\/details>/, langAnchor('zh', '../'));
@@ -264,7 +263,7 @@ ${seoBlock(page, locale)}
   <p class="updated">${isZh ? '最后更新：<time datetime="2026-10-20">2026 年 10 月 20 日</time>。' : 'Last updated <time datetime="2026-10-20">20 October 2026</time>.'}</p>
 </main>
 ${footer(locale, asset, home)}
-<script src="${asset}lang-link.js"></script>
+<script src="${asset}lang-link.js?v=2"></script>
 </body>
 </html>
 `;
@@ -440,7 +439,7 @@ function validate() {
     if (path !== 'index.html' && path !== 'zh/index.html') {
       const scripts = [...html.matchAll(/<script\b[^>]*>/g)].map(m => m[0]);
       for (const tag of scripts) {
-        if (!/application\/ld\+json/.test(tag) && !/src="(?:\.\.\/)+lang-link\.js"/.test(tag)) {
+        if (!/application\/ld\+json/.test(tag) && !/src="(?:\.\.\/)+lang-link\.js\?v=2"/.test(tag)) {
           errors.push(`${path}: unexpected script ${tag}`);
         }
       }
