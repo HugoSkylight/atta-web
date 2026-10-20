@@ -25,6 +25,11 @@
     'Website maintained by': '网站维护者',
     'Interactive demo with sample data. No live product instance runs here.': '交互演示，数据为示例。这里没有运行中的产品实例。',
     'ATTA · SELF-HOSTED AI WORKBENCH': 'ATTA · 自托管 AI 工作台',
+    'Chapters': '章节导航',
+    'Live map': '实时总览',
+    'Waitlist': '候补名单',
+    'Join the waitlist': '加入候补名单',
+    'CLOSED BETA · SELF-HOSTED AI WORKBENCH': '内测开放中 · 自托管 AI 工作台',
     'READY': '就绪',
     'OVERDRIVE': '超频',
     'One person. A whole AI team.': '一个人，指挥整支 AI 团队',
@@ -197,6 +202,7 @@
     'tmux manages sessions. Atta knows they work on the same job, and shows it all in one map.': 'tmux 只管会话。Atta 知道它们在为同一件事干活，一张图看全。',
     'Can I sign up to try it?': '能注册试用吗？',
     'No. Atta is not publicly available; the project page records current availability.': '不行。Atta 尚未公开，当前可用性写在项目页。',
+    'Atta is in closed beta. Join the waitlist with your email and we will send your trial code as spots open up.': 'Atta 正在内测。留下邮箱加入候补名单，名额开放后我们会把试用码发送到你的邮箱。',
     'Which model does it use?': '用哪个模型？',
     'Your pick. Atta runs the flow, not the model.': '随你。Atta 只管流程，不管模型。',
     'Why Atta and Hodor?': '为什么叫 Atta 和 Hodor？',
@@ -204,6 +210,15 @@
     'Next long run?': '下一条长流程，',
     'Hand it over.': '交给它们跑',
     'Hand it off and go do something else. When it needs your call, it waits.': '交出去，去忙别的。要你拍板时，它会等你。',
+    'Atta is in closed beta. Leave your email and we will send your trial code as spots open up.': 'Atta 正在内测。留下邮箱，名额开放后我们会把试用码发送到你的邮箱。',
+    'Email address': '邮箱地址',
+    'you@domain.com': '你的邮箱地址',
+    'Trial codes go out by email in batches.': '试用码将分批通过邮件发放。',
+    'On the waitlist': '已在候补名单中',
+    'You are on the list. We will send your trial code to {email}.': '已加入候补名单，试用码将发送至 {email}。',
+    'Please enter a valid email address.': '请输入有效的邮箱地址。',
+    'Joining…': '提交中…',
+    'Could not join right now. Please try again.': '暂时无法提交，请稍后再试。',
     'Your crew': '你的小队',
     'Explorer ant with a magnifying glass': '举着放大镜的探索蚂蚁',
     'Writer ant with a notebook': '拿着笔记本的写作蚂蚁',
@@ -226,8 +241,8 @@
   };
   const tw = document.createTreeWalker(document.documentElement, NodeFilter.SHOW_TEXT);
   for (let n; (n = tw.nextNode());) snap(n.data, v => { if (n.data === v.en || n.data === v.zh) n.data = v[lang]; });
-  for (const el of document.querySelectorAll('[aria-label],[alt],meta[name=description]'))
-    for (const a of ['aria-label', 'alt', 'content']) if (el.hasAttribute(a)) snap(el.getAttribute(a), v => { const c = el.getAttribute(a); if (c === v.en || c === v.zh) el.setAttribute(a, v[lang]); });
+  for (const el of document.querySelectorAll('[aria-label],[alt],[placeholder],meta[name=description]'))
+    for (const a of ['aria-label', 'alt', 'placeholder', 'content']) if (el.hasAttribute(a)) snap(el.getAttribute(a), v => { const c = el.getAttribute(a); if (c === v.en || c === v.zh) el.setAttribute(a, v[lang]); });
 
   // live bindings; elements MUST be in the document when bound (detached ones get pruned)
   const bound = new Set(), subs = [];
