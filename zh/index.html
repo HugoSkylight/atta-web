@@ -349,6 +349,26 @@ html:not(.js) .pnl{display:block;visibility:visible;opacity:1;transform:none;mar
 .fsteps li b{display:block;font-size:16px;font-weight:500;margin-bottom:2px}
 .fsteps li.on{color:var(--ink);border-color:var(--lemon);background:var(--s2)}
 
+.pricing{padding-top:var(--sec)}
+.pr-head{align-items:end;margin-bottom:clamp(40px,4.5vw,64px)}
+.pr-head h2{grid-column:1/8}
+.pr-head p{grid-column:8/13;color:var(--soft);max-width:26em}
+.pgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--gut)}
+.pcard{display:flex;flex-direction:column;padding:28px;border-radius:20px;background:var(--s1);border:1px solid rgba(241,240,238,.08)}
+.pcard.hi{background:var(--s2);border-color:rgba(228,213,90,.45)}
+.ptop{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.ptop h3{font-size:var(--s-head);font-weight:600}
+.pprice{margin-top:18px;display:flex;align-items:baseline;gap:6px}
+.pprice b{font-size:clamp(2.25rem,1.6rem + 1.8vw,3.25rem);font-weight:700;letter-spacing:-.03em;line-height:1}
+.pprice span{color:var(--soft);font-size:var(--s-small)}
+.pdesc{margin-top:10px;color:var(--soft);font-size:var(--s-small)}
+.plist{list-style:none;padding:0;margin:22px 0 28px;display:grid;gap:10px;font-size:15px}
+.plist li{display:flex;align-items:baseline;gap:10px}
+.plist li::before{content:"";flex:none;width:6px;height:6px;border-radius:50%;background:var(--lemon);transform:translateY(-2px)}
+.pcard .btn,.pcard .pbtn{margin-top:auto;justify-content:center;width:100%}
+.pbtn{display:inline-flex;align-items:center;height:52px;padding:0 28px;border-radius:999px;border:1px solid rgba(241,240,238,.22);color:var(--ink);font-weight:500;text-decoration:none;transition:border-color 180ms ease,background-color 180ms ease}
+@media (hover:hover){.pbtn:hover{border-color:var(--ink);background:rgba(241,240,238,.06)}}
+
 /* faq */
 .faq{padding-top:var(--sec);align-items:start}
 .faq h2{grid-column:1/5;position:sticky;top:48px}
@@ -495,6 +515,9 @@ footer{padding:var(--sec) var(--m) clamp(48px,5vw,64px);max-width:1440px;margin-
   .faq h2,.faq-list{grid-column:1/-1}
   .faq h2{position:static}
   .faq-list{margin-top:32px}
+  .pr-head h2,.pr-head p{grid-column:1/-1}
+  .pr-head p{margin-top:16px}
+  .pgrid{grid-template-columns:1fr}
   .crew{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
   .crew img{width:100%;height:auto;aspect-ratio:1}
   .fgrid{grid-template-columns:1fr 1fr}
@@ -521,6 +544,7 @@ footer{padding:var(--sec) var(--m) clamp(48px,5vw,64px);max-width:1440px;margin-
         <li><a class="tlink" href="#core">工作台</a></li>
         <li><a class="tlink" href="#topo">团队拓扑</a></li>
         <li><a class="tlink" href="#fly">复盘飞轮</a></li>
+        <li><a class="tlink" href="#pricing">定价</a></li>
         <li><a class="tlink" href="#faq">常见问题</a></li>
       </ul>
       <details class="lang-dd"><summary class="lang-btn tlink">Language</summary><div class="lang-menu"><a class="lang lang-opt" href="../" data-alt="../" hreflang="en" lang="en" aria-label="Switch to English">English</a><a class="lang-opt on" href="./" lang="zh-Hans" aria-current="page">中文</a></div></details>
@@ -546,8 +570,9 @@ footer{padding:var(--sec) var(--m) clamp(48px,5vw,64px);max-width:1440px;margin-
     <li><a class="rail-link" href="#core"><span class="rail-n">02</span><span class="rail-lbl">工作台</span></a></li>
     <li><a class="rail-link" href="#topo"><span class="rail-n">03</span><span class="rail-lbl">团队拓扑</span></a></li>
     <li><a class="rail-link" href="#fly"><span class="rail-n">04</span><span class="rail-lbl">复盘飞轮</span></a></li>
-    <li><a class="rail-link" href="#faq"><span class="rail-n">05</span><span class="rail-lbl">常见问题</span></a></li>
-    <li><a class="rail-link" href="#enter"><span class="rail-n">06</span><span class="rail-lbl">候补名单</span></a></li>
+    <li><a class="rail-link" href="#pricing"><span class="rail-n">05</span><span class="rail-lbl">定价</span></a></li>
+    <li><a class="rail-link" href="#faq"><span class="rail-n">06</span><span class="rail-lbl">常见问题</span></a></li>
+    <li><a class="rail-link" href="#enter"><span class="rail-n">07</span><span class="rail-lbl">候补名单</span></a></li>
   </ol>
 </nav>
 
@@ -587,7 +612,7 @@ footer{padding:var(--sec) var(--m) clamp(48px,5vw,64px);max-width:1440px;margin-
       <button class="f-btn" role="tab" aria-selected="true" aria-controls="p1" id="t1"><b>一眼看清整个团队</b><span>谁在干什么、最初交代了什么、卡在哪，都在一张图上。</span></button>
       <div class="pnl" role="tabpanel" id="p1" aria-labelledby="t1">
         <div class="win" data-ui>
-          <div class="win-bar"><b>团队</b><span>周报发布 · run #128</span></div>
+          <div class="win-bar"><b>Team</b><span>周报发布 · run #128</span></div>
           <div class="win-body">
             <svg class="mini" viewBox="0 0 560 340" role="img" aria-label="周报发布的团队拓扑：你在最上面，下面是流程，再下面是四个 Bot：探索已完成、写作已完成、审校运行中、搬运待开始">
               <path class="tl" d="M280 64C280 82 280 82 280 100"/>
@@ -706,6 +731,51 @@ footer{padding:var(--sec) var(--m) clamp(48px,5vw,64px);max-width:1440px;margin-
   </div>
 </section>
 
+<section class="pricing wrap" id="pricing" aria-labelledby="pr-h">
+  <div class="grid pr-head">
+    <h2 id="pr-h" data-r>单机免费起步，<br>按需扩展到团队。</h2>
+    <p data-r style="--i:1">自带模型与 API 密钥，永不抽成 Token。封闭内测期间凭邀请码免费使用。</p>
+  </div>
+  <div class="pgrid" data-ui>
+    <article class="pcard" data-r style="--i:1">
+      <div class="ptop"><h3>免费版</h3><span class="chip idle">本地单机</span></div>
+      <div class="pprice"><b>$0</b><span>永久免费</span></div>
+      <p class="pdesc">适合单台电脑本地运行。</p>
+      <ul class="plist">
+        <li>1 台设备（仅限本机）</li>
+        <li>Unlimited local bots &amp; live map</li>
+        <li>Local Hodor gates &amp; briefings</li>
+        <li>自带模型与 API 密钥</li>
+      </ul>
+      <a class="pbtn" href="#enter">加入候补名单</a>
+    </article>
+    <article class="pcard hi" data-r style="--i:2">
+      <div class="ptop"><h3>Pro</h3><span class="chip wait">内测期凭码免费</span></div>
+      <div class="pprice"><b>$12</b><span>/ 月</span></div>
+      <p class="pdesc">适合一个人跨多台机器调度 Bot。</p>
+      <ul class="plist">
+        <li>最多 3 台设备组网入图</li>
+        <li>Cross-machine flows &amp; Hodor briefings</li>
+        <li>Self-improvement eval loop &amp; rollback</li>
+        <li>加密指令中继，文件留在原地</li>
+      </ul>
+      <a class="btn" href="#enter">加入候补名单</a>
+    </article>
+    <article class="pcard" data-r style="--i:3">
+      <div class="ptop"><h3>Team</h3><span class="chip run">即将推出</span></div>
+      <div class="pprice"><b>$29</b><span>/ 月</span></div>
+      <p class="pdesc">适合多人协作把门的团队。</p>
+      <ul class="plist">
+        <li>拉不同成员进入协作 Hodor 把门</li>
+        <li>按角色或步骤分派审批人</li>
+        <li>最多 10 台共享设备组网</li>
+        <li>Approval history &amp; audit trail</li>
+      </ul>
+      <a class="pbtn" href="#enter">加入候补名单</a>
+    </article>
+  </div>
+</section>
+
 <section class="faq wrap grid" id="faq" aria-labelledby="faq-h">
   <h2 id="faq-h" data-r>常见问题</h2>
   <div class="faq-list">
@@ -761,6 +831,7 @@ footer{padding:var(--sec) var(--m) clamp(48px,5vw,64px);max-width:1440px;margin-
         <li><a class="tlink" href="#core">工作台</a></li>
         <li><a class="tlink" href="#topo">团队拓扑</a></li>
         <li><a class="tlink" href="#fly">复盘飞轮</a></li>
+        <li><a class="tlink" href="#pricing">定价</a></li>
         <li><a class="tlink" href="#faq">常见问题</a></li>
       </ul>
     </nav>
