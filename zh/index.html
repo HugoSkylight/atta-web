@@ -593,10 +593,10 @@ footer{padding:var(--sec) var(--m) clamp(48px,5vw,64px);max-width:1440px;margin-
               <text class="gl" x="462" y="110">发布前问你</text>
               <g transform="translate(180 10)"><g class="c"><rect class="me" width="200" height="54" rx="14"/><text class="nm" x="100" y="24" text-anchor="middle">你</text><text class="sb" x="100" y="42" text-anchor="middle">Hodor 门 · 只在关键处拍板</text></g></g>
               <g transform="translate(180 100)"><g class="c"><rect class="ld" width="200" height="50" rx="14"/><text class="nm" x="100" y="22" text-anchor="middle">周报发布 · run #128</text><text class="sb" x="100" y="39" text-anchor="middle">周五前发出本周周报</text></g></g>
-              <g transform="translate(14 200)"><g class="c"><rect width="124" height="128" rx="12"/><image href="../img/01-explore.jpg" width="60" height="60" clip-path="url(#av)"/><text class="nm" x="14" y="72">探索 Bot</text><text class="sb" x="14" y="91">收集本周素材</text><text class="sb" x="14" y="108">Mac mini</text><circle class="ok" cx="108" cy="22" r="5"/></g></g>
-              <g transform="translate(150 200)"><g class="c"><rect width="124" height="128" rx="12"/><image href="../img/05-write.jpg" width="60" height="60" clip-path="url(#av)"/><text class="nm" x="14" y="72">写作 Bot</text><text class="sb" x="14" y="91">写周报初稿</text><text class="sb" x="14" y="108">笔记本</text><circle class="ok" cx="108" cy="22" r="5"/></g></g>
-              <g transform="translate(286 200)"><g class="c on"><rect width="124" height="128" rx="12"/><image href="../img/04-plan.jpg" width="60" height="60" clip-path="url(#av)"/><text class="nm" x="14" y="72">审校 Bot</text><text class="sb" x="14" y="91">审校草稿 v2</text><text class="sb" x="14" y="108">Mac mini</text><circle class="run" cx="108" cy="22" r="5"/></g></g>
-              <g transform="translate(422 200)"><g class="c"><rect width="124" height="128" rx="12"/><image href="../img/07-carry.jpg" width="60" height="60" clip-path="url(#av)"/><text class="nm" x="14" y="72">搬运 Bot</text><text class="sb" x="14" y="91">发布到三个平台</text><text class="sb" x="14" y="108">Linux 云主机</text><circle class="idle" cx="108" cy="22" r="5"/></g></g>
+              <g transform="translate(14 200)"><g class="c"><rect width="124" height="128" rx="12"/><image href="../img/01-explore.jpg" x="14" y="14" width="40" height="40" clip-path="url(#av)"/><text class="nm" x="14" y="72">探索 Bot</text><text class="sb" x="14" y="91">收集本周素材</text><text class="sb" x="14" y="108">Mac mini</text><circle class="ok" cx="108" cy="22" r="5"/></g></g>
+              <g transform="translate(150 200)"><g class="c"><rect width="124" height="128" rx="12"/><image href="../img/05-write.jpg" x="14" y="14" width="40" height="40" clip-path="url(#av)"/><text class="nm" x="14" y="72">写作 Bot</text><text class="sb" x="14" y="91">写周报初稿</text><text class="sb" x="14" y="108">笔记本</text><circle class="ok" cx="108" cy="22" r="5"/></g></g>
+              <g transform="translate(286 200)"><g class="c on"><rect width="124" height="128" rx="12"/><image href="../img/04-plan.jpg" x="14" y="14" width="40" height="40" clip-path="url(#av)"/><text class="nm" x="14" y="72">审校 Bot</text><text class="sb" x="14" y="91">审校草稿 v2</text><text class="sb" x="14" y="108">Mac mini</text><circle class="run" cx="108" cy="22" r="5"/></g></g>
+              <g transform="translate(422 200)"><g class="c"><rect width="124" height="128" rx="12"/><image href="../img/07-carry.jpg" x="14" y="14" width="40" height="40" clip-path="url(#av)"/><text class="nm" x="14" y="72">搬运 Bot</text><text class="sb" x="14" y="91">发布到三个平台</text><text class="sb" x="14" y="108">Linux 云主机</text><circle class="idle" cx="108" cy="22" r="5"/></g></g>
             </svg>
           </div>
         </div>
@@ -814,7 +814,7 @@ footer{padding:var(--sec) var(--m) clamp(48px,5vw,64px);max-width:1440px;margin-
     const g = mk('g', { class: 'gn', 'data-s': n.s, transform: `translate(${n.x} ${n.y})` }, svg);
     mk('rect', { class: 'gn-box', width: W, height: H, rx: 15 }, g);
     mk('circle', { class: 'gn-ring', cx: 34, cy: 34, r: 24 }, g);
-    if (n.img) mk('image', { href: n.img, x: 11, y: 11, width: 46, height: 46, 'clip-path': 'url(#av)', preserveAspectRatio: 'xMidYMid slice' }, g);
+    if (n.img) mk('image', { href: n.img, x: 14, y: 14, width: 40, height: 40, 'clip-path': 'url(#av)', preserveAspectRatio: 'xMidYMid slice' }, g);
     else { mk('circle', { class: 'gn-me', cx: 34, cy: 34, r: 20 }, g); txt({ class: 'gn-me-t', x: 34, y: 40, 'text-anchor': 'middle' }, 'You', g); }
     mk('circle', { class: 'gn-dot', cx: W - 14, cy: 15, r: 4 }, g);
     txt({ class: 'gn-t', x: 66, y: 31 }, n.t, g);
