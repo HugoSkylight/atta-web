@@ -138,7 +138,7 @@ h1,h2,.h1like{font-size:var(--s-display);font-weight:700;letter-spacing:-.03em;l
 .say{grid-column:1/8;position:relative}
 .say-a{display:none}
 .hero-side{grid-column:8/13;padding-bottom:.4rem}
-.hero-side p{max-width:19em}
+.hero-side p{max-width:26em}
 .hero-act{display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin-top:28px}
 .stage-wrap{position:relative;margin-top:clamp(64px,7vw,112px)}
 .terms{display:none}
@@ -525,9 +525,9 @@ footer{padding:var(--sec) var(--m) clamp(48px,5vw,64px);max-width:1440px;margin-
       <a class="btn" href="#enter">Join the waitlist</a>
     </nav>
     <div class="splash-copy">
-      <p class="kick" data-r>CLOSED BETA · SELF-HOSTED AI WORKBENCH</p>
-      <h1 class="lines" aria-label="One person. A whole AI team."><span class="line" aria-hidden="true"><span style="--i:0">One person.</span></span><span class="line" aria-hidden="true"><span style="--i:1">A whole</span></span><span class="line" aria-hidden="true"><span style="--i:2">AI team.</span></span></h1>
-      <p class="splash-sub" data-r style="--i:2">Every agent on every machine, in one live map. See who's doing what at a glance; risky steps wait for your nod.</p>
+      <p class="kick" data-r>WATCH THE AGENT · CLOSED BETA</p>
+      <h1 class="lines" aria-label="Don't trust your agents. Watch them."><span class="line" aria-hidden="true"><span style="--i:0">Don't trust</span></span><span class="line" aria-hidden="true"><span style="--i:1">your agents.</span></span><span class="line" aria-hidden="true"><span style="--i:2">Watch them.</span></span></h1>
+      <p class="splash-sub" data-r style="--i:2">Black-box agents leave you guessing and praying. Atta puts every bot across every machine on one live map — and before anything risky ships, Hodor briefs you and waits for your nod.</p>
       <div class="hero-act" data-r style="--i:3">
         <a class="btn" href="#enter">Join the waitlist</a>
         <a class="tlink" href="#intro">See how it works ↓</a>
@@ -554,11 +554,11 @@ footer{padding:var(--sec) var(--m) clamp(48px,5vw,64px);max-width:1440px;margin-
  <div class="stick wrap">
   <div class="grid hero-top">
     <div class="say">
-      <p class="say-a lines h1like"><span class="line"><span style="--i:0">Terminals.</span></span><span class="line"><span style="--i:1">Who does what?</span></span></p>
-      <p class="say-b lines h1like"><span class="line"><span style="--i:0">One glance,</span></span><span class="line"><span style="--i:1">your AI team.</span></span></p>
+      <p class="say-a lines h1like"><span class="line"><span style="--i:0">Sound</span></span><span class="line"><span style="--i:1">familiar?</span></span></p>
+      <p class="say-b lines h1like"><span class="line"><span style="--i:0">All your runs,</span></span><span class="line"><span style="--i:1">one live canvas.</span></span></p>
     </div>
     <div class="hero-side">
-      <p data-r style="--i:1">Scroll down: terminals scattered across your machines fold into one live map.</p>
+      <p data-r style="--i:1">Twelve terminal windows. One is called "final", two are called "final2". You alt-tab through them like security camera feeds — until Atta folds every window into one live canvas.</p>
     </div>
   </div>
 
@@ -630,7 +630,7 @@ footer{padding:var(--sec) var(--m) clamp(48px,5vw,64px);max-width:1440px;margin-
     </div>
 
     <div class="feat">
-      <button class="f-btn" role="tab" aria-selected="false" aria-controls="p3" id="t3"><b>The risky step waits for your nod</b><span>Publish, pay, delete: the flow stops there and goes on only when you say so.</span></button>
+      <button class="f-btn" role="tab" aria-selected="false" aria-controls="p3" id="t3"><b>Hodor briefs you before anything ships</b><span>Usually you feed context to AI; at a Hodor gate, AI feeds the context back to you: what happened, why it needs your call, and what each choice means.</span></button>
       <div class="pnl" role="tabpanel" id="p3" aria-labelledby="t3">
         <div class="win" data-ui>
           <div class="win-bar"><b>Hodor gate</b><span>Weekly report · run #128</span></div>
@@ -653,7 +653,7 @@ footer{padding:var(--sec) var(--m) clamp(48px,5vw,64px);max-width:1440px;margin-
 <section class="topo wrap" id="topo" aria-labelledby="topo-h">
   <div class="grid topo-head">
     <h2 id="topo-h" data-r>Who answers<br>to whom.</h2>
-    <p data-r style="--i:1">Each flow has its own crew. Who leads, on which machine, what each was first asked: one click away.</p>
+    <p data-r style="--i:1">Every flow has a crew: who leads, which machine they're on, what they were first asked. When a run stalls, you know whose desk it died on.</p>
   </div>
   <div class="runs" role="group" aria-label="Switch flow" data-r style="--i:2">
     <button aria-pressed="true" data-run="0">Weekly report</button>
@@ -704,6 +704,8 @@ footer{padding:var(--sec) var(--m) clamp(48px,5vw,64px);max-width:1440px;margin-
   <h2 id="faq-h" data-r>FAQ</h2>
   <div class="faq-list">
     <details name="faq" open><summary>How is this different from tmux?<i></i></summary><p>tmux manages sessions. Atta knows they work on the same job, and shows it all in one map.</p></details>
+    <details name="faq"><summary>Other agent tools already have logs. Why Atta?<i></i></summary><p>Logs tell you what happened. Atta shows you what's happening — and what's about to happen unless you stop it.</p></details>
+    <details name="faq"><summary>What exactly happens at a Hodor gate?<i></i></summary><p>The flow pauses and Hodor hands you a briefing: what just happened, why this step needs your call, and what each option means. Say no, and it rolls back or reroutes; say go, and it moves.</p></details>
     <details name="faq"><summary>Can I sign up to try it?<i></i></summary><p>Atta is in closed beta. Join the waitlist with your email and we will send your trial code as spots open up.</p></details>
     <details name="faq"><summary>Which model does it use?<i></i></summary><p>Your pick. Atta runs the flow, not the model.</p></details>
     <details name="faq"><summary>Why Atta and Hodor?<i></i></summary><p>Atta is the leafcutter ant: a crew that splits the work. Hodor is Hold the door.</p></details>
@@ -712,7 +714,7 @@ footer{padding:var(--sec) var(--m) clamp(48px,5vw,64px);max-width:1440px;margin-
 
 <section class="cta wrap" aria-labelledby="cta-h">
   <div class="grid cta-top">
-    <h2 id="cta-h" data-r>Next long run?<br>Hand it over.</h2>
+    <h2 id="cta-h" data-r>Stop trusting the black box.<br>Watch it work.</h2>
     <div class="cta-side">
       <p data-r style="--i:1">Hand it off and go do something else. When it needs your call, it waits.</p>
     </div>
@@ -967,7 +969,7 @@ footer{padding:var(--sec) var(--m) clamp(48px,5vw,64px);max-width:1440px;margin-
       { k: 'review',  at: [.39, .02, -1.5], h: 'codex · mac-mini · ~/review', log: ['› review weekly.md', '  intro too long', '› send back: round 2', '› review weekly.md'] },
       { k: 'build',   at: [.57, .44,  3], h: 'claude · linux · ~/site',       log: ['$ pnpm build', '  132 modules, 4.2s', '$ pnpm test', '  48 passed'] },
       { k: 'carry',   at: [.75, .07, -2], h: 'claude · linux · ~/publish',    log: ['› publish --all', '  ready: 3 platforms', '› wait for approval?', '  …'] },
-      { k: null,      at: [.33, .60,  1], h: 'zsh · forgot why I opened this',  log: ['$ claude', '  ? what did you ask me last time', '$ ', '$ '] },
+      { k: null,      at: [.33, .60,  1], h: 'tmux · final2 · forgot why I opened this',  log: ['$ claude', '  ? what did you ask me last time', '$ ', '$ '] },
     ];
     T.forEach(t => {
       t.el = document.createElement('div'); t.el.className = 'term'; t.el.setAttribute('data-ui', '');

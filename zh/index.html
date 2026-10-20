@@ -138,7 +138,7 @@ h1,h2,.h1like{font-size:var(--s-display);font-weight:700;letter-spacing:-.03em;l
 .say{grid-column:1/8;position:relative}
 .say-a{display:none}
 .hero-side{grid-column:8/13;padding-bottom:.4rem}
-.hero-side p{max-width:19em}
+.hero-side p{max-width:26em}
 .hero-act{display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin-top:28px}
 .stage-wrap{position:relative;margin-top:clamp(64px,7vw,112px)}
 .terms{display:none}
@@ -525,9 +525,9 @@ footer{padding:var(--sec) var(--m) clamp(48px,5vw,64px);max-width:1440px;margin-
       <a class="btn" href="#enter">加入候补名单</a>
     </nav>
     <div class="splash-copy">
-      <p class="kick" data-r>内测开放中 · 自托管 AI 工作台</p>
-      <h1 class="lines" aria-label="一个人，指挥整支 AI 团队"><span class="line" aria-hidden="true"><span style="--i:0">一个人，</span></span><span class="line" aria-hidden="true"><span style="--i:1">指挥整支</span></span><span class="line" aria-hidden="true"><span style="--i:2">AI 团队</span></span></h1>
-      <p class="splash-sub" data-r style="--i:2">所有机器上的 Agent 收进一张图。谁在干什么、最初交代了什么，一眼看清；危险的那一步，等你点头。</p>
+      <p class="kick" data-r>看着 AI 干活 · 封闭内测</p>
+      <h1 class="lines" aria-label="别去盲信你的 AI，盯着它干活。"><span class="line" aria-hidden="true"><span style="--i:0">别去盲信</span></span><span class="line" aria-hidden="true"><span style="--i:1">你的 AI，</span></span><span class="line" aria-hidden="true"><span style="--i:2">盯着它干活。</span></span></h1>
+      <p class="splash-sub" data-r style="--i:2">黑盒 Agent 只能让你交出任务听天由命。Atta 把每台机器上的 Bot 摊在一张活地图上；到了危险动作前，Hodor 先向你递交简报，你点头才放行。</p>
       <div class="hero-act" data-r style="--i:3">
         <a class="btn" href="#enter">加入候补名单</a>
         <a class="tlink" href="#intro">往下看它怎么干活 ↓</a>
@@ -554,11 +554,11 @@ footer{padding:var(--sec) var(--m) clamp(48px,5vw,64px);max-width:1440px;margin-
  <div class="stick wrap">
   <div class="grid hero-top">
     <div class="say">
-      <p class="say-a lines h1like"><span class="line"><span style="--i:0">终端开满了，</span></span><span class="line"><span style="--i:1">哪个在干嘛？</span></span></p>
-      <p class="say-b lines h1like"><span class="line"><span style="--i:0">一眼看清，</span></span><span class="line"><span style="--i:1">你的 AI 团队</span></span></p>
+      <p class="say-a lines h1like"><span class="line"><span style="--i:0">这些场景</span></span><span class="line"><span style="--i:1">眼熟吗？</span></span></p>
+      <p class="say-b lines h1like"><span class="line"><span style="--i:0">所有任务，</span></span><span class="line"><span style="--i:1">一张实时画布。</span></span></p>
     </div>
     <div class="hero-side">
-      <p data-r style="--i:1">往下滑：散落在各台机器上的终端，收进一张实时的图。</p>
+      <p data-r style="--i:1">十二个终端窗口，一个叫 "final"，两个叫 "final2"。你像翻监控画面一样来回 alt-tab——直到 Atta 把所有窗口收进一张实时画布。</p>
     </div>
   </div>
 
@@ -630,7 +630,7 @@ footer{padding:var(--sec) var(--m) clamp(48px,5vw,64px);max-width:1440px;margin-
     </div>
 
     <div class="feat">
-      <button class="f-btn" role="tab" aria-selected="false" aria-controls="p3" id="t3"><b>危险的那一步，要你点头</b><span>发布、付款、删除，走到就停，你说了才继续。</span></button>
+      <button class="f-btn" role="tab" aria-selected="false" aria-controls="p3" id="t3"><b>出门之前，Hodor 先向你简报</b><span>平时是你给 AI 喂上下文；在 Hodor 关卡，AI 把上下文整理好喂回给你：刚才发生了什么、为什么需要你拍板。</span></button>
       <div class="pnl" role="tabpanel" id="p3" aria-labelledby="t3">
         <div class="win" data-ui>
           <div class="win-bar"><b>Hodor 门</b><span>周报发布 · run #128</span></div>
@@ -653,7 +653,7 @@ footer{padding:var(--sec) var(--m) clamp(48px,5vw,64px);max-width:1440px;margin-
 <section class="topo wrap" id="topo" aria-labelledby="topo-h">
   <div class="grid topo-head">
     <h2 id="topo-h" data-r>谁听谁的，<br>一目了然</h2>
-    <p data-r style="--i:1">每条流程有自己的小队。谁带头、谁在哪台机器、最初交代了什么，点开就有。</p>
+    <p data-r style="--i:1">每条流水线都有自己的班组：谁牵头、在哪台机器上、最初领了什么指令。任务卡住时，你立刻知道它死在了谁的工位上。</p>
   </div>
   <div class="runs" role="group" aria-label="切换流程" data-r style="--i:2">
     <button aria-pressed="true" data-run="0">周报发布</button>
@@ -704,6 +704,8 @@ footer{padding:var(--sec) var(--m) clamp(48px,5vw,64px);max-width:1440px;margin-
   <h2 id="faq-h" data-r>常见问题</h2>
   <div class="faq-list">
     <details name="faq" open><summary>和 tmux 有什么不同？<i></i></summary><p>tmux 只管会话。Atta 知道它们在为同一件事干活，一张图看全。</p></details>
+    <details name="faq"><summary>别的 Agent 工具也有日志，为什么要 Atta？<i></i></summary><p>日志告诉你“发生过什么”。Atta 让你看见“正在发生什么”——以及“如果你不拦，即将发生什么”。</p></details>
+    <details name="faq"><summary>Hodor 把门时具体会发生什么？<i></i></summary><p>流程暂停，Hodor 递给你一份简报：刚才发生了什么、为什么这一步需要你拍板、每个选项意味着什么。说不，它就回滚或改道；说行，它才继续。</p></details>
     <details name="faq"><summary>能注册试用吗？<i></i></summary><p>Atta 正在内测。留下邮箱加入候补名单，名额开放后我们会把试用码发送到你的邮箱。</p></details>
     <details name="faq"><summary>用哪个模型？<i></i></summary><p>随你。Atta 只管流程，不管模型。</p></details>
     <details name="faq"><summary>为什么叫 Atta 和 Hodor？<i></i></summary><p>Atta 是切叶蚁，整队分工。Hodor 是 Hold the door。</p></details>
@@ -712,7 +714,7 @@ footer{padding:var(--sec) var(--m) clamp(48px,5vw,64px);max-width:1440px;margin-
 
 <section class="cta wrap" aria-labelledby="cta-h">
   <div class="grid cta-top">
-    <h2 id="cta-h" data-r>下一条长流程，<br>交给它们跑</h2>
+    <h2 id="cta-h" data-r>别再盲信黑盒，<br>亲眼看着它干活。</h2>
     <div class="cta-side">
       <p data-r style="--i:1">交出去，去忙别的。要你拍板时，它会等你。</p>
     </div>
@@ -967,7 +969,7 @@ footer{padding:var(--sec) var(--m) clamp(48px,5vw,64px);max-width:1440px;margin-
       { k: 'review',  at: [.39, .02, -1.5], h: 'codex · mac-mini · ~/review', log: ['› review weekly.md', '  intro too long', '› send back: round 2', '› review weekly.md'] },
       { k: 'build',   at: [.57, .44,  3], h: 'claude · linux · ~/site',       log: ['$ pnpm build', '  132 modules, 4.2s', '$ pnpm test', '  48 passed'] },
       { k: 'carry',   at: [.75, .07, -2], h: 'claude · linux · ~/publish',    log: ['› publish --all', '  ready: 3 platforms', '› wait for approval?', '  …'] },
-      { k: null,      at: [.33, .60,  1], h: 'zsh · forgot why I opened this',  log: ['$ claude', '  ? what did you ask me last time', '$ ', '$ '] },
+      { k: null,      at: [.33, .60,  1], h: 'tmux · final2 · forgot why I opened this',  log: ['$ claude', '  ? what did you ask me last time', '$ ', '$ '] },
     ];
     T.forEach(t => {
       t.el = document.createElement('div'); t.el.className = 'term'; t.el.setAttribute('data-ui', '');
