@@ -1,0 +1,12 @@
+.git
+.github
+.wrangler
+.audit
+.taste-skill
+node_modules
+build.mjs
+pages.mjs
+waitlist-worker.js
+wrangler.jsonc
+README.md
+i18n-check.html

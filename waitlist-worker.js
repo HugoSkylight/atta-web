@@ -38,23 +38,12 @@ export default {
       return Response.json(rows);
     }
 
-    // Serve main site (atta.nz / www.atta.nz) by proxying GitHub Pages origin
     if (!isWaitlistHost && url.pathname !== '/api/waitlist') {
       if (url.hostname === 'www.atta.nz') {
         url.hostname = 'atta.nz';
         return Response.redirect(url.toString(), 301);
       }
-      const upstream = `https://hugoskylight.github.io/atta-web${url.pathname}${url.search}`;
-      const res = await fetch(upstream, { headers: { 'User-Agent': 'Atta-Edge/1.0' } });
-      const headers = new Headers(res.headers);
-      const ct = headers.get('content-type') || '';
-      if (ct.startsWith('text/plain') && !ct.includes('charset')) {
-        headers.set('content-type', 'text/plain; charset=utf-8');
-      }
-      if (url.pathname.endsWith('/') || /\.(?:html|js|css)$/.test(url.pathname)) {
-        headers.set('cache-control', 'no-cache');
-      }
-      return new Response(res.body, { status: res.status, headers });
+      return env.ASSETS.fetch(req);
     }
 
     if (req.method !== 'POST') return Response.json({ error: 'Method not allowed' }, { status: 405, headers: CORS });

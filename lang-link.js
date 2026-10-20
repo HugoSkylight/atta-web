@@ -17,6 +17,10 @@
       lastY = scrollY;
     }, { passive: true });
     keepValidHash();
+    const prefetch = document.createElement('link');
+    prefetch.rel = 'prefetch';
+    prefetch.href = link.dataset.alt;
+    document.head.append(prefetch);
   }
   const dd = document.querySelector('details.lang-dd');
   if (dd) {
