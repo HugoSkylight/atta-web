@@ -1,0 +1,14 @@
+{
+  "name": "atta-waitlist",
+  "main": "waitlist-worker.js",
+  "compatibility_date": "2026-04-01",
+  "routes": [
+    { "pattern": "waitlist.atta.nz", "custom_domain": true }
+  ],
+  "kv_namespaces": [
+    {
+      "binding": "WAITLIST_KV",
+      "id": "29cdbcc5800b44f486b8a8712baa9e3e"
+    }
+  ]
+}
