@@ -161,7 +161,7 @@ function langAnchor(locale, href) {
   const zhItem = locale === 'zh'
     ? `<a class="lang-opt on" href="./" lang="zh-Hans" aria-current="page">中文</a>`
     : `<a class="lang lang-opt" href="${href}" data-alt="${href}" hreflang="zh-Hans" lang="zh-Hans" aria-label="Switch to Chinese">中文</a>`;
-  return `<div class="lang-dd"><button class="lang-btn" type="button" aria-expanded="false" aria-haspopup="true">Language</button><div class="lang-menu">${enItem}${zhItem}</div></div>`;
+  return `<details class="lang-dd"><summary class="lang-btn tlink">Language</summary><div class="lang-menu">${enItem}${zhItem}</div></details>`;
 }
 
 function zhHome() {
@@ -173,7 +173,7 @@ function zhHome() {
   html = html.replace('src="lang-link.js"', 'src="../lang-link.js"');
   html = html.replace('href="llms.txt"', 'href="../llms.txt"');
   html = replaceBlock(html, '<!-- seo:start -->', '<!-- seo:end -->', seoBlock({ ...HOME.zh, kind: 'home' }, 'zh'));
-  html = html.replace(/<div class="lang-dd">[\s\S]*?<\/div><\/div>/, langAnchor('zh', '../'));
+  html = html.replace(/<details class="lang-dd">[\s\S]*?<\/details>/, langAnchor('zh', '../'));
   return html;
 }
 
