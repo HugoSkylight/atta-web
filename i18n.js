@@ -1,12 +1,4 @@
-/* Atta i18n. English is authored in index.html; ZH maps each English string (the key) to Chinese.
-   - Static DOM: every text node, aria-label, alt and meta description whose trimmed English is a ZH key
-     is snapshotted once (this file loads right before the page script) and swapped on each switch,
-     unless the page script has since rewritten it; then a binding below owns it.
-   - Dynamic UI: the page script writes through I18N.text(el, key, vars) (or key = () => string) and
-     I18N.on(fn) for composite views (drawer, tooltip). A switch repaints every live binding, and later
-     renders read the current language through I18N.t, so nothing falls back to the other language.
-   - #lang toggles; the choice persists in localStorage 'atta-lang'; first visit is English.
-   Behaviour check: `python3 -m http.server` in this folder, open /i18n-check.html. */
+/* Static language follows the URL. I18N bindings translate the interactive demos. */
 (() => {
   const ZH = {
     // head + splash
@@ -18,14 +10,28 @@
     'Team map': '团队拓扑',
     'Flywheel': '复盘飞轮',
     'FAQ': '常见问题',
-    'Owner login': '本人登录',
+    'Project': '项目',
+    'Project and availability': '项目与可用性',
+    'Read availability': '查看可用性',
+    'Product': '产品',
+    'Overview': '概览',
+    'Changelog': '更新日志',
+    'Website source': '网站源码',
+    'Issues': '问题反馈',
+    'Legal': '法律',
+    'Privacy': '隐私',
+    'Security': '安全',
+    'Atta is a self-hosted AI workbench concept. This site is static.': 'Atta 是自托管 AI 工作台概念。本站是静态站点。',
+    'Website maintained by': '网站维护者',
+    'Interactive demo with sample data. No live product instance runs here.': '交互演示，数据为示例。这里没有运行中的产品实例。',
     'ATTA · SELF-HOSTED AI WORKBENCH': 'ATTA · 自托管 AI 工作台',
+    'READY': '就绪',
+    'OVERDRIVE': '超频',
     'One person. A whole AI team.': '一个人，指挥整支 AI 团队',
     'One person.': '一个人，',
     'A whole': '指挥整支',
     'AI team.': 'AI 团队',
     "Every agent on every machine, in one live map. See who's doing what at a glance; risky steps wait for your nod.": '所有机器上的 Agent 收进一张图。谁在干什么、最初交代了什么，一眼看清；危险的那一步，等你点头。',
-    'Open my workbench': '进入我的工作台',
     'See how it works ↓': '往下看它怎么干活 ↓',
     // ticker (the first two double as feature titles)
     'See the whole team at a glance': '一眼看清整个团队',
@@ -190,7 +196,7 @@
     'How is this different from tmux?': '和 tmux 有什么不同？',
     'tmux manages sessions. Atta knows they work on the same job, and shows it all in one map.': 'tmux 只管会话。Atta 知道它们在为同一件事干活，一张图看全。',
     'Can I sign up to try it?': '能注册试用吗？',
-    'Not yet. For now it is only for the person who deploys it.': '暂时不行，现在只给部署者本人用。',
+    'No. Atta is not publicly available; the project page records current availability.': '不行。Atta 尚未公开，当前可用性写在项目页。',
     'Which model does it use?': '用哪个模型？',
     'Your pick. Atta runs the flow, not the model.': '随你。Atta 只管流程，不管模型。',
     'Why Atta and Hodor?': '为什么叫 Atta 和 Hodor？',
@@ -198,7 +204,6 @@
     'Next long run?': '下一条长流程，',
     'Hand it over.': '交给它们跑',
     'Hand it off and go do something else. When it needs your call, it waits.': '交出去，去忙别的。要你拍板时，它会等你。',
-    'Log in to my workbench': '本人登录工作台',
     'Your crew': '你的小队',
     'Explorer ant with a magnifying glass': '举着放大镜的探索蚂蚁',
     'Writer ant with a notebook': '拿着笔记本的写作蚂蚁',
@@ -206,10 +211,9 @@
     'Builder ant with a hammer': '拿着锤子的构建蚂蚁',
     'Carrier ant with a parcel': '扛着包裹的搬运蚂蚁',
     'Explore': '探索', 'Write': '写作', 'Carry': '搬运',
-    'Back to top': '回到顶部',
   };
-  const KEY = 'atta-lang';
-  let lang = 'en';
+  const initial = document.documentElement.lang.toLowerCase().startsWith('zh') ? 'zh' : 'en';
+  let lang = initial;
   const t = (k, vars) => {
     const s = lang === 'zh' && Object.hasOwn(ZH, k) ? ZH[k] : String(k);
     return vars ? s.replace(/\{(\w+)\}/g, (_, x) => vars[x]) : s;
@@ -235,24 +239,14 @@
   };
   const on = fn => { subs.push(fn); };
 
-  const btn = document.getElementById('lang');
   const set = l => {
     lang = l === 'zh' ? 'zh' : 'en';
-    try { localStorage.setItem(KEY, lang); } catch {}
-    document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+    document.documentElement.lang = lang === 'zh' ? 'zh-Hans' : 'en';
     for (const s of statics) s.write(s);
     for (const el of bound) el.isConnected ? (el.textContent = el._i18n()) : bound.delete(el);
     subs.forEach(f => f());
-    // the toggle names the other language, in that language
-    btn.textContent = lang === 'zh' ? 'EN' : '中文';
-    btn.lang = lang === 'zh' ? 'en' : 'zh-CN';
-    btn.setAttribute('aria-label', lang === 'zh' ? 'Switch to English' : '切换到中文');
   };
-  btn.addEventListener('click', () => set(lang === 'zh' ? 'en' : 'zh'));
-
-  let saved = null;
-  try { saved = localStorage.getItem(KEY); } catch {}
-  set(saved);
+  set(initial);
 
   window.I18N = { t, text, on, set, get lang() { return lang; } };
 })();

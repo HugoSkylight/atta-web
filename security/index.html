@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Security - Atta website</title>
+<meta name="description" content="Security scope for the static Atta website, its third-party dependencies, and how to report a problem.">
+<meta name="author" content="Hugo Light">
+<meta name="theme-color" content="#141016">
+<link rel="icon" href="../img/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../site.css">
+<!-- seo:start -->
+<link rel="canonical" href="https://hugoskylight.github.io/atta-web/security/">
+<link rel="alternate" hreflang="en" href="https://hugoskylight.github.io/atta-web/security/">
+<link rel="alternate" hreflang="zh-Hans" href="https://hugoskylight.github.io/atta-web/zh/security/">
+<link rel="alternate" hreflang="x-default" href="https://hugoskylight.github.io/atta-web/security/">
+<link rel="alternate" type="text/markdown" href="https://hugoskylight.github.io/atta-web/llms.txt" title="llms.txt">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Atta">
+<meta property="og:title" content="Security - Atta website">
+<meta property="og:description" content="Security scope for the static Atta website, its third-party dependencies, and how to report a problem.">
+<meta property="og:url" content="https://hugoskylight.github.io/atta-web/security/">
+<meta property="og:image" content="https://hugoskylight.github.io/atta-web/img/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Atta key art: a commander ant linked to agent screens on a dark background">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Security - Atta website">
+<meta name="twitter:description" content="Security scope for the static Atta website, its third-party dependencies, and how to report a problem.">
+<meta name="twitter:image" content="https://hugoskylight.github.io/atta-web/img/og.jpg">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Security - Atta website","description":"Security scope for the static Atta website, its third-party dependencies, and how to report a problem.","url":"https://hugoskylight.github.io/atta-web/security/","inLanguage":"en","isPartOf":{"@type":"WebSite","@id":"https://hugoskylight.github.io/atta-web/#website","url":"https://hugoskylight.github.io/atta-web/","name":"Atta"},"publisher":{"@type":"Person","name":"Hugo Light","url":"https://github.com/HugoSkylight"}}</script>
+<!-- seo:end -->
+</head>
+<body>
+<header class="site-head">
+  <div class="wrap head-row">
+    <a class="brand" href="../"><img src="../img/icon.png" alt="" width="30" height="30">Atta</a>
+    <nav aria-label="Main"><ul><li><a href="../project/">Project</a></li><li><a href="../changelog/">Changelog</a></li><li><a href="../privacy/">Privacy</a></li><li><a aria-current="page" href="../security/">Security</a></li></ul></nav>
+    <a class="lang" href="../zh/security/" data-alt="../zh/security/" hreflang="zh-Hans" lang="zh-Hans" aria-label="Switch to Chinese">中文</a>
+  </div>
+</header>
+<main class="wrap prose" id="main">
+  <p class="crumb"><a href="../">Atta</a> / Security</p>
+  <h1>Security</h1>
+  <p class="lede">This page covers the public website. It is not a security assessment of the Atta product.</p>
+  
+<section aria-labelledby="scope">
+<h2 id="scope">Scope</h2>
+<p>The site is static HTML, CSS, and JavaScript. It has no application backend, login, database, user accounts, payments, file uploads, forms, or text inputs.</p>
+</section>
+<section aria-labelledby="source">
+<h2 id="source">Source and dependencies</h2>
+<p>The full website source is in the <a href="https://github.com/HugoSkylight/atta-web">public repository</a>. The site loads one third-party resource, the Jost font from Google Fonts. Hosting is GitHub Pages.</p>
+</section>
+<section aria-labelledby="limits">
+<h2 id="limits">What this page does not claim</h2>
+<p>No audit, certification, or bug bounty is published. Nothing here is a claim about the security of the Atta product, its encryption, logging, model training, or data retention. Those properties depend on a deployment, and the product code is not public.</p>
+</section>
+<section aria-labelledby="report">
+<h2 id="report">Reporting a problem</h2>
+<p>Open an issue in the <a href="https://github.com/HugoSkylight/atta-web/issues">website repository</a> for website problems. Do not include exploit details, credentials, personal data, or other secrets in a public issue.</p>
+<p>No private security contact or encryption key is published. If a report needs a private channel, open an issue without sensitive details and ask the maintainer how to proceed.</p>
+</section>
+<section aria-labelledby="versions">
+<h2 id="versions">Supported version</h2>
+<p>The website has no versioned releases. Its published source history is available in the <a href="https://github.com/HugoSkylight/atta-web/commits/main/">website repository</a>.</p>
+</section>
+  <p class="updated">Last updated <time datetime="2026-10-20">20 October 2026</time>.</p>
+</main>
+<footer class="site-foot">
+  <div class="fname" aria-hidden="true">Atta</div>
+  <div class="fgrid">
+    <div class="fabout">
+      <p>Atta is a self-hosted AI workbench concept. This site is static.</p>
+      <p class="small">Website maintained by <a class="tlink" href="https://github.com/HugoSkylight">Hugo Light</a></p>
+    </div>
+    <nav aria-label="Product">
+      <h2 class="fh">Product</h2>
+      <ul>
+        <li><a class="tlink" href="../">Overview</a></li>
+        <li><a class="tlink" href="../#core">Workbench</a></li>
+        <li><a class="tlink" href="../#topo">Team map</a></li>
+        <li><a class="tlink" href="../#fly">Flywheel</a></li>
+        <li><a class="tlink" href="../#faq">FAQ</a></li>
+      </ul>
+    </nav>
+    <nav aria-label="Project">
+      <h2 class="fh">Project</h2>
+      <ul>
+        <li><a class="tlink" href="../project/">Project and availability</a></li>
+        <li><a class="tlink" href="../changelog/">Changelog</a></li>
+        <li><a class="tlink" href="https://github.com/HugoSkylight/atta-web">Website source</a></li>
+        <li><a class="tlink" href="https://github.com/HugoSkylight/atta-web/issues">Issues</a></li>
+        <li><a class="tlink" href="../llms.txt">llms.txt</a></li>
+      </ul>
+    </nav>
+    <nav aria-label="Legal">
+      <h2 class="fh">Legal</h2>
+      <ul>
+        <li><a class="tlink" href="../privacy/">Privacy</a></li>
+        <li><a class="tlink" href="../security/">Security</a></li>
+      </ul>
+    </nav>
+  </div>
+</footer>
+<script src="../lang-link.js"></script>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>安全 - Atta</title>
+<meta name="description" content="静态 Atta 网站的安全范围、第三方依赖，以及如何报告问题。">
+<meta name="author" content="Hugo Light">
+<meta name="theme-color" content="#141016">
+<link rel="icon" href="../../img/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../site.css">
+<!-- seo:start -->
+<link rel="canonical" href="https://hugoskylight.github.io/atta-web/zh/security/">
+<link rel="alternate" hreflang="en" href="https://hugoskylight.github.io/atta-web/security/">
+<link rel="alternate" hreflang="zh-Hans" href="https://hugoskylight.github.io/atta-web/zh/security/">
+<link rel="alternate" hreflang="x-default" href="https://hugoskylight.github.io/atta-web/security/">
+<link rel="alternate" type="text/markdown" href="https://hugoskylight.github.io/atta-web/llms.txt" title="llms.txt">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Atta">
+<meta property="og:title" content="安全 - Atta">
+<meta property="og:description" content="静态 Atta 网站的安全范围、第三方依赖，以及如何报告问题。">
+<meta property="og:url" content="https://hugoskylight.github.io/atta-web/zh/security/">
+<meta property="og:image" content="https://hugoskylight.github.io/atta-web/img/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Atta 主视觉：暗色背景中，指挥官蚂蚁连接着多个 Agent 窗口">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:locale:alternate" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="安全 - Atta">
+<meta name="twitter:description" content="静态 Atta 网站的安全范围、第三方依赖，以及如何报告问题。">
+<meta name="twitter:image" content="https://hugoskylight.github.io/atta-web/img/og.jpg">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"安全 - Atta","description":"静态 Atta 网站的安全范围、第三方依赖，以及如何报告问题。","url":"https://hugoskylight.github.io/atta-web/zh/security/","inLanguage":"zh-Hans","isPartOf":{"@type":"WebSite","@id":"https://hugoskylight.github.io/atta-web/#website","url":"https://hugoskylight.github.io/atta-web/","name":"Atta"},"publisher":{"@type":"Person","name":"Hugo Light","url":"https://github.com/HugoSkylight"}}</script>
+<!-- seo:end -->
+</head>
+<body>
+<header class="site-head">
+  <div class="wrap head-row">
+    <a class="brand" href="../"><img src="../../img/icon.png" alt="" width="30" height="30">Atta</a>
+    <nav aria-label="主导航"><ul><li><a href="../project/">项目</a></li><li><a href="../changelog/">更新日志</a></li><li><a href="../privacy/">隐私</a></li><li><a aria-current="page" href="../security/">安全</a></li></ul></nav>
+    <a class="lang" href="../../security/" data-alt="../../security/" hreflang="en" lang="en" aria-label="Switch to English">English</a>
+  </div>
+</header>
+<main class="wrap prose" id="main">
+  <p class="crumb"><a href="../">Atta</a> / 安全</p>
+  <h1>安全</h1>
+  <p class="lede">本页覆盖公开网站。它不是对 Atta 产品的安全评估。</p>
+  
+<section aria-labelledby="scope">
+<h2 id="scope">范围</h2>
+<p>本站是静态 HTML、CSS 和 JavaScript，没有应用后端、登录、数据库、用户账户、支付、文件上传、表单或文本输入框。</p>
+</section>
+<section aria-labelledby="source">
+<h2 id="source">源码与依赖</h2>
+<p>完整的网站源码在<a href="https://github.com/HugoSkylight/atta-web">公开仓库</a>中。本站只加载一个第三方资源，即来自 Google Fonts 的 Jost 字体。托管方是 GitHub Pages。</p>
+</section>
+<section aria-labelledby="limits">
+<h2 id="limits">本页不声明什么</h2>
+<p>没有公布审计、认证或漏洞赏金。本页不声明 Atta 产品的安全性、加密、日志、模型训练或数据保留。这些属性取决于具体部署，产品代码不公开。</p>
+</section>
+<section aria-labelledby="report">
+<h2 id="report">报告问题</h2>
+<p>网站问题请在<a href="https://github.com/HugoSkylight/atta-web/issues">网站仓库</a>开 Issue。不要在公开 Issue 中包含漏洞细节、凭据、个人数据或其他机密。</p>
+<p>没有公布私有安全联系人或加密密钥。如果报告需要私下渠道，请先开一个不含敏感细节的 Issue，询问维护者如何继续。</p>
+</section>
+<section aria-labelledby="versions">
+<h2 id="versions">支持的版本</h2>
+<p>网站没有版本化发布。已发布源码的历史可在<a href="https://github.com/HugoSkylight/atta-web/commits/main/">网站仓库</a>查看。</p>
+</section>
+  <p class="updated">最后更新：<time datetime="2026-10-20">2026 年 10 月 20 日</time>。</p>
+</main>
+<footer class="site-foot">
+  <div class="fname" aria-hidden="true">Atta</div>
+  <div class="fgrid">
+    <div class="fabout">
+      <p>Atta 是自托管 AI 工作台概念。本站是静态站点。</p>
+      <p class="small">网站维护者 <a class="tlink" href="https://github.com/HugoSkylight">Hugo Light</a></p>
+    </div>
+    <nav aria-label="产品">
+      <h2 class="fh">产品</h2>
+      <ul>
+        <li><a class="tlink" href="../">概览</a></li>
+        <li><a class="tlink" href="../#core">工作台</a></li>
+        <li><a class="tlink" href="../#topo">团队拓扑</a></li>
+        <li><a class="tlink" href="../#fly">复盘飞轮</a></li>
+        <li><a class="tlink" href="../#faq">常见问题</a></li>
+      </ul>
+    </nav>
+    <nav aria-label="项目">
+      <h2 class="fh">项目</h2>
+      <ul>
+        <li><a class="tlink" href="../project/">项目与可用性</a></li>
+        <li><a class="tlink" href="../changelog/">更新日志</a></li>
+        <li><a class="tlink" href="https://github.com/HugoSkylight/atta-web">网站源码</a></li>
+        <li><a class="tlink" href="https://github.com/HugoSkylight/atta-web/issues">问题反馈</a></li>
+        <li><a class="tlink" href="../../llms.txt">llms.txt</a></li>
+      </ul>
+    </nav>
+    <nav aria-label="法律">
+      <h2 class="fh">法律</h2>
+      <ul>
+        <li><a class="tlink" href="../privacy/">隐私</a></li>
+        <li><a class="tlink" href="../security/">安全</a></li>
+      </ul>
+    </nav>
+  </div>
+</footer>
+<script src="../../lang-link.js"></script>
+</body>
+</html>

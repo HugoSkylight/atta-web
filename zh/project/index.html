@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>项目与可用性 - Atta</title>
+<meta name="description" content="了解 Atta 是什么、首页演示展示了什么，以及这个自托管 AI 工作台目前的可用状态。">
+<meta name="author" content="Hugo Light">
+<meta name="theme-color" content="#141016">
+<link rel="icon" href="../../img/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../site.css">
+<!-- seo:start -->
+<link rel="canonical" href="https://hugoskylight.github.io/atta-web/zh/project/">
+<link rel="alternate" hreflang="en" href="https://hugoskylight.github.io/atta-web/project/">
+<link rel="alternate" hreflang="zh-Hans" href="https://hugoskylight.github.io/atta-web/zh/project/">
+<link rel="alternate" hreflang="x-default" href="https://hugoskylight.github.io/atta-web/project/">
+<link rel="alternate" type="text/markdown" href="https://hugoskylight.github.io/atta-web/llms.txt" title="llms.txt">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Atta">
+<meta property="og:title" content="项目与可用性 - Atta">
+<meta property="og:description" content="了解 Atta 是什么、首页演示展示了什么，以及这个自托管 AI 工作台目前的可用状态。">
+<meta property="og:url" content="https://hugoskylight.github.io/atta-web/zh/project/">
+<meta property="og:image" content="https://hugoskylight.github.io/atta-web/img/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Atta 主视觉：暗色背景中，指挥官蚂蚁连接着多个 Agent 窗口">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:locale:alternate" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="项目与可用性 - Atta">
+<meta name="twitter:description" content="了解 Atta 是什么、首页演示展示了什么，以及这个自托管 AI 工作台目前的可用状态。">
+<meta name="twitter:image" content="https://hugoskylight.github.io/atta-web/img/og.jpg">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"项目与可用性 - Atta","description":"了解 Atta 是什么、首页演示展示了什么，以及这个自托管 AI 工作台目前的可用状态。","url":"https://hugoskylight.github.io/atta-web/zh/project/","inLanguage":"zh-Hans","isPartOf":{"@type":"WebSite","@id":"https://hugoskylight.github.io/atta-web/#website","url":"https://hugoskylight.github.io/atta-web/","name":"Atta"},"publisher":{"@type":"Person","name":"Hugo Light","url":"https://github.com/HugoSkylight"}}</script>
+<!-- seo:end -->
+</head>
+<body>
+<header class="site-head">
+  <div class="wrap head-row">
+    <a class="brand" href="../"><img src="../../img/icon.png" alt="" width="30" height="30">Atta</a>
+    <nav aria-label="主导航"><ul><li><a aria-current="page" href="../project/">项目</a></li><li><a href="../changelog/">更新日志</a></li><li><a href="../privacy/">隐私</a></li><li><a href="../security/">安全</a></li></ul></nav>
+    <a class="lang" href="../../project/" data-alt="../../project/" hreflang="en" lang="en" aria-label="Switch to English">English</a>
+  </div>
+</header>
+<main class="wrap prose" id="main">
+  <p class="crumb"><a href="../">Atta</a> / 项目与可用性</p>
+  <h1>项目与可用性</h1>
+  <p class="lede">Atta 是一个自托管 AI 工作台的概念。本页说明公开网站展示了什么、怎样理解交互演示，以及今天能得到什么、不能得到什么。</p>
+  
+<section aria-labelledby="what">
+<h2 id="what">Atta 是什么</h2>
+<p>Atta 是一个自托管 AI 工作台的概念。它把运行在不同机器上的 Agent 放进一张实时图。每条流程有若干步骤，每个步骤属于一个 Agent；发布、付款、删除这类危险步骤会停在名为 Hodor 的门前，等所有者批准。</p>
+<p>名字来自切叶蚁。设计面向一个人指挥一支小型 Agent 团队，而不是盯着许多终端。</p>
+<p>本站展示的是概念，不是运行中的产品实例。</p>
+</section>
+<section aria-labelledby="demos">
+<h2 id="demos">演示展示了什么</h2>
+<p>首页演示是带示例数据的脚本化交互。周报、三台机器、Bot、分数和版本都是示例，不是实时数据。</p>
+<p>你可以点步骤、切换流程、批准门禁，并观察自我改进循环。演示在浏览器里运行，不向服务器发送任何内容。</p>
+<p>自我改进面板模拟设想的循环：只改一条规则，用同一组评测用例重跑，只有分数上升且所有者批准，改动才保留。</p>
+</section>
+<section aria-labelledby="availability">
+<h2 id="availability">可用性</h2>
+<p>Atta 尚未公开。本站不提供下载、安装包、托管服务、账户或注册，也不提供公开安装说明。</p>
+<p>尚未公布公开发布日期。</p>
+</section>
+<section aria-labelledby="repo">
+<h2 id="repo">公开仓库包含什么</h2>
+<p><a href="https://github.com/HugoSkylight/atta-web">公开的 GitHub 仓库</a>包含这个网站：HTML、CSS、JavaScript、图片和这些页面的生成脚本。它不包含产品实现，也没有发布产品许可证。</p>
+</section>
+<section aria-labelledby="contact">
+<h2 id="contact">联系</h2>
+<p>问题和更正请使用<a href="https://github.com/HugoSkylight/atta-web/issues">网站仓库的 Issues</a>。维护者是 <a href="https://github.com/HugoSkylight">Hugo Light</a>。没有公布公开电子邮箱。</p>
+<p>Issues 是公开的。不要发布 API 密钥、令牌、私有日志、客户数据或其他机密。维护者可以更正本站的错误。本站不提供产品支持。</p>
+</section>
+  <p class="updated">最后更新：<time datetime="2026-10-20">2026 年 10 月 20 日</time>。</p>
+</main>
+<footer class="site-foot">
+  <div class="fname" aria-hidden="true">Atta</div>
+  <div class="fgrid">
+    <div class="fabout">
+      <p>Atta 是自托管 AI 工作台概念。本站是静态站点。</p>
+      <p class="small">网站维护者 <a class="tlink" href="https://github.com/HugoSkylight">Hugo Light</a></p>
+    </div>
+    <nav aria-label="产品">
+      <h2 class="fh">产品</h2>
+      <ul>
+        <li><a class="tlink" href="../">概览</a></li>
+        <li><a class="tlink" href="../#core">工作台</a></li>
+        <li><a class="tlink" href="../#topo">团队拓扑</a></li>
+        <li><a class="tlink" href="../#fly">复盘飞轮</a></li>
+        <li><a class="tlink" href="../#faq">常见问题</a></li>
+      </ul>
+    </nav>
+    <nav aria-label="项目">
+      <h2 class="fh">项目</h2>
+      <ul>
+        <li><a class="tlink" href="../project/">项目与可用性</a></li>
+        <li><a class="tlink" href="../changelog/">更新日志</a></li>
+        <li><a class="tlink" href="https://github.com/HugoSkylight/atta-web">网站源码</a></li>
+        <li><a class="tlink" href="https://github.com/HugoSkylight/atta-web/issues">问题反馈</a></li>
+        <li><a class="tlink" href="../../llms.txt">llms.txt</a></li>
+      </ul>
+    </nav>
+    <nav aria-label="法律">
+      <h2 class="fh">法律</h2>
+      <ul>
+        <li><a class="tlink" href="../privacy/">隐私</a></li>
+        <li><a class="tlink" href="../security/">安全</a></li>
+      </ul>
+    </nav>
+  </div>
+</footer>
+<script src="../../lang-link.js"></script>
+</body>
+</html>

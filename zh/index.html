@@ -1,0 +1,1142 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Atta — 一眼看清你的 AI 团队</title>
+<meta name="description" content="多开终端，总会忘了哪个 Agent 在干嘛。Atta 把你所有机器上的 Agent 放进一张实时的图，危险的那一步要你点头。">
+<meta name="author" content="Hugo Light">
+<meta name="theme-color" content="#141016">
+<!-- seo:start -->
+<link rel="canonical" href="https://hugoskylight.github.io/atta-web/zh/">
+<link rel="alternate" hreflang="en" href="https://hugoskylight.github.io/atta-web/">
+<link rel="alternate" hreflang="zh-Hans" href="https://hugoskylight.github.io/atta-web/zh/">
+<link rel="alternate" hreflang="x-default" href="https://hugoskylight.github.io/atta-web/">
+<link rel="alternate" type="text/markdown" href="https://hugoskylight.github.io/atta-web/llms.txt" title="llms.txt">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Atta">
+<meta property="og:title" content="Atta — 一眼看清你的 AI 团队">
+<meta property="og:description" content="多开终端，总会忘了哪个 Agent 在干嘛。Atta 把你所有机器上的 Agent 放进一张实时的图，危险的那一步要你点头。">
+<meta property="og:url" content="https://hugoskylight.github.io/atta-web/zh/">
+<meta property="og:image" content="https://hugoskylight.github.io/atta-web/img/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Atta 主视觉：暗色背景中，指挥官蚂蚁连接着多个 Agent 窗口">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:locale:alternate" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Atta — 一眼看清你的 AI 团队">
+<meta name="twitter:description" content="多开终端，总会忘了哪个 Agent 在干嘛。Atta 把你所有机器上的 Agent 放进一张实时的图，危险的那一步要你点头。">
+<meta name="twitter:image" content="https://hugoskylight.github.io/atta-web/img/og.jpg">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://hugoskylight.github.io/atta-web/#website","url":"https://hugoskylight.github.io/atta-web/","name":"Atta","description":"把每台机器上的 Agent 收进一张实时图的自托管 AI 工作台概念。","inLanguage":["en","zh-Hans"],"publisher":{"@type":"Person","name":"Hugo Light","url":"https://github.com/HugoSkylight"}},{"@type":"SoftwareApplication","@id":"https://hugoskylight.github.io/atta-web/#software","name":"Atta","applicationCategory":"DeveloperApplication","description":"用于跨机器指挥小型 AI Agent 团队的自托管 AI 工作台。尚未公开。","url":"https://hugoskylight.github.io/atta-web/zh/project/","isPartOf":{"@id":"https://hugoskylight.github.io/atta-web/#website"}}]}</script>
+<!-- seo:end -->
+<link rel="icon" href="../img/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;700&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js')</script>
+<style>
+:root{
+  --bg:#141016; --s1:#1E1724; --s2:#2B2133; --s3:#372A40;
+  --ink:#F1F0EE; --soft:#A79FAB; --lemon:#E4D55A;
+  --run:#A99BFF; --ok:#9BE3B4; --bad:#E8837A;
+  --sans:"Jost","PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,sans-serif;
+  --s-display:clamp(2.5rem,1.5rem + 4vw,5rem);
+  --s-head:clamp(1.25rem,1.1rem + .5vw,1.5rem);
+  --s-body:clamp(1.0625rem,1rem + .2vw,1.1875rem);
+  --s-small:.875rem;
+  --m:clamp(16px,2.2vw,32px); --gut:clamp(12px,1.6vw,24px); --sec:clamp(160px,13vw,200px);
+  --ease-out:cubic-bezier(.22,1,.36,1); --ease-io:cubic-bezier(.76,0,.24,1); --ease-soft:cubic-bezier(.33,1,.68,1);
+}
+*{box-sizing:border-box;margin:0}
+body{font-family:var(--sans);font-size:var(--s-body);line-height:1.55;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none;padding:0;text-align:inherit}
+h1,h2,.h1like{font-size:var(--s-display);font-weight:700;letter-spacing:-.03em;line-height:1.05}
+.soft{color:var(--soft)}
+.small{font-size:var(--s-small)}
+.wrap{padding-inline:var(--m);max-width:1440px;margin-inline:auto}
+.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gut)}
+:focus-visible{outline:3px solid var(--lemon);outline-offset:3px}
+
+.btn{display:inline-flex;align-items:center;height:52px;padding:0 28px;border-radius:999px;background:var(--lemon);color:var(--bg);font-weight:500;text-decoration:none;white-space:nowrap;transition:transform 140ms var(--ease-out),background-color 180ms ease}
+.btn:active{transform:scale(.97)}
+@media (hover:hover){.btn:hover{background:#F0E37C}}
+.tlink{text-decoration:underline;text-decoration-color:transparent;text-underline-offset:.25em;transition:text-decoration-color 180ms ease}
+@media (hover:hover){.tlink:hover{text-decoration-color:currentColor}}
+
+/* nav */
+.nav{display:flex;align-items:center;gap:32px;height:80px}
+.brand{display:flex;align-items:center;gap:10px;font-size:var(--s-head);font-weight:700;text-decoration:none;letter-spacing:-.02em}
+.brand img{width:30px;height:30px;border-radius:8px}
+.nav ul{display:flex;gap:28px;list-style:none;padding:0;margin-left:auto;font-size:var(--s-small)}
+.nav ul a{text-decoration:none}
+.nav .btn{height:40px;padding:0 20px;font-size:var(--s-small)}
+/* language toggle: stays visible on mobile, where the nav links hide */
+.lang{flex:none;display:inline-flex;align-items:center;justify-content:center;height:40px;min-width:52px;padding:0 14px;border-radius:999px;border:1px solid rgba(241,240,238,.35);font-size:var(--s-small);font-weight:500;text-decoration:none;transition:border-color 180ms ease,background-color 180ms ease}
+@media (hover:hover){.lang:hover{border-color:var(--ink);background:rgba(241,240,238,.08)}}
+
+/* splash: key art first screen */
+.splash{position:relative;height:100svh;min-height:680px;max-height:1100px;overflow:hidden;isolation:isolate;display:flex;flex-direction:column}
+@supports (overflow:clip){.splash{overflow:clip}}
+.splash-art{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:72% 50%;z-index:-2}
+.splash::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,#08050C 0%,rgba(8,5,12,.85) 28%,rgba(8,5,12,0) 58%),linear-gradient(0deg,var(--bg) 0%,rgba(20,16,22,0) 22%)}
+.splash-in{flex:1;display:flex;flex-direction:column;width:100%}
+.splash-copy{margin-block:auto;max-width:min(46vw,720px);padding-bottom:40px}
+.kick{font-size:13px;letter-spacing:.18em;color:var(--lemon);font-weight:500}
+.splash h1{margin-top:20px;font-size:clamp(3rem,min(1.4rem + 5.4vw,7.2vw),6.75rem);line-height:1;letter-spacing:-.04em}
+.splash h1 .line:last-child>span{color:var(--lemon)}
+.splash-sub{margin-top:28px;max-width:25em;color:#CFC7D3;font-size:clamp(1rem,.95rem + .25vw,1.2rem)}
+.splash .hero-act{margin-top:36px}
+.demo-note{margin-top:18px;font-size:var(--s-small);color:var(--soft);max-width:30em}
+/* splash: click the ant → glitch swap (after cindy.cn chara-stage) */
+.splash::before,.splash::after,.splash-in{pointer-events:none}
+.splash-in>*{pointer-events:auto}
+.splash-art{cursor:pointer}
+.splash.glitching .splash-art{animation:artGlitch .7s step-end both}
+.splash::after{content:"";position:absolute;inset:0;z-index:-1;opacity:0;mix-blend-mode:screen;background:repeating-linear-gradient(0deg,rgba(228,213,90,.2) 0 2px,transparent 2px 6px),repeating-linear-gradient(90deg,rgba(169,155,255,.12) 0 1px,transparent 1px 7px)}
+.splash.glitching::after{animation:artNoise .7s steps(9,end) both}
+.scan{position:absolute;left:52%;right:8%;top:12%;height:2px;z-index:-1;opacity:0;pointer-events:none;background:linear-gradient(90deg,transparent,rgba(228,213,90,.85),rgba(169,155,255,.6),transparent);animation:scan 6s linear infinite}
+.chara-tag{position:absolute;left:51%;bottom:30%;padding:9px 16px;font-size:12px;line-height:1.2;letter-spacing:.14em;font-weight:500;color:var(--ink);background:rgba(15,10,20,.8);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);border:1px solid rgba(241,240,238,.2);border-left:3px solid var(--lemon)}
+.chara-tag b{color:var(--lemon);font-weight:500}
+.chara-tag::after{content:"_";color:var(--lemon);margin-left:3px;animation:caret 1.1s step-end infinite}
+@keyframes caret{50%{opacity:0}}
+@keyframes scan{0%{opacity:0;top:12%}5%{opacity:.9}42%{opacity:.8;top:86%}48%,100%{opacity:0;top:88%}}
+@keyframes artGlitch{
+  0%{filter:none;clip-path:none;transform:none}
+  8%{clip-path:inset(4% 0 62%);filter:hue-rotate(-60deg) saturate(2.2);transform:translate(-9px,3px)}
+  16%{clip-path:inset(55% 0 10%);filter:hue-rotate(35deg) contrast(1.6);transform:translate(7px,-2px)}
+  24%{clip-path:inset(28% 0 33%);filter:invert(.85) hue-rotate(140deg);transform:translate(-4px,6px)}
+  32%{clip-path:none;filter:saturate(.2) brightness(1.7);transform:translate(10px,-5px)}
+  40%{clip-path:inset(12% 0 44%);filter:hue-rotate(-120deg) saturate(3);transform:translate(-12px)}
+  48%{clip-path:inset(66% 0 4%);filter:invert(1) hue-rotate(180deg);transform:translate(5px,4px)}
+  56%{clip-path:none;filter:contrast(2.2) brightness(.7);transform:translate(-6px,-7px)}
+  66%{clip-path:inset(20% 0 52%);filter:hue-rotate(90deg) saturate(1.8);transform:translate(8px,2px)}
+  76%{clip-path:inset(46% 0 18%);filter:brightness(1.4);transform:translate(-3px,1px)}
+  86%{clip-path:none;filter:hue-rotate(-20deg);transform:translate(2px,-1px)}
+  100%{filter:none;clip-path:none;transform:none}
+}
+@keyframes artNoise{0%{opacity:0}12%{opacity:1;transform:translateY(-6px)}30%{opacity:.35;transform:translateY(8px)}46%{opacity:1;transform:translateY(-3px) scaleY(1.04)}64%{opacity:.5;transform:translateY(5px)}82%{opacity:.9;transform:none}100%{opacity:0}}
+.ticker{position:relative;flex:none;background:var(--lemon);color:var(--bg);overflow:hidden;white-space:nowrap;transform:rotate(-1.2deg);margin:0 -2vw 28px;padding:12px 0;font-weight:600;font-size:15px}
+/* 6 identical groups; loop shifts exactly one group so the seam is invisible. 5 groups stay off-screen on ultra-wide */
+.ticker-in{display:inline-flex;flex:none;width:max-content}
+.ticker-g{display:flex;flex:none}
+.ticker span{flex:none;padding-inline:28px;position:relative}
+.ticker span::after{content:"◆";position:absolute;right:-6px;font-size:10px;top:50%;transform:translateY(-50%)}
+.hero-top{padding-top:clamp(56px,8vw,120px);align-items:end}
+.say{grid-column:1/8;position:relative}
+.say-a{display:none}
+.hero-side{grid-column:8/13;padding-bottom:.4rem}
+.hero-side p{max-width:19em}
+.hero-act{display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin-top:28px}
+.stage-wrap{position:relative;margin-top:clamp(64px,7vw,112px)}
+.terms{display:none}
+.term{position:absolute;width:300px;background:#0D0A10;border-radius:10px;overflow:hidden;transform-origin:0 0;will-change:transform,opacity}
+.term header{display:flex;gap:10px;align-items:baseline;padding:8px 12px;background:#231A29;font-size:13px;color:var(--soft)}
+.term header b{color:var(--ink);font-weight:500}
+.term[data-ui] pre{margin:0;padding:10px 12px;height:132px;overflow:hidden;font:12.5px/1.65 ui-monospace,Menlo,monospace;color:#CFC7D3;white-space:pre-wrap;display:flex;flex-direction:column;justify-content:flex-end}
+.term[data-ui] pre span{display:block}
+.term[data-ui] pre span:last-child{color:var(--ink)}
+.term.lost header b{color:var(--bad)}
+
+/* workbench (interface fragment) */
+.wb{background:var(--s1);border-radius:16px;overflow:hidden}
+.wb-bar{display:flex;align-items:center;gap:14px;padding:14px 20px;font-size:13px;color:var(--soft);background:#191320}
+.wb-bar b{color:var(--ink);font-weight:500;font-size:14px}
+.wb-bar .loopst{margin-left:auto;color:var(--run);white-space:nowrap}
+.cv-body{display:grid;grid-template-columns:minmax(0,1fr) 320px}
+.cscroll{overflow-x:auto}
+.gsvg{display:block;width:100%;height:auto;min-width:820px;font-family:var(--sans)}
+.drawer{padding:20px 22px 24px;background:#191320;font-size:14px;line-height:1.5}
+.dr-crumb{font-size:13px;color:var(--soft)}
+.drawer h4{font-size:20px;font-weight:500;margin:4px 0 12px}
+.drawer dl{display:grid;grid-template-columns:auto 1fr;gap:6px 14px}
+.drawer dt{color:var(--soft)}
+.drawer h5{font-size:13px;font-weight:500;color:var(--soft);margin:18px 0 8px}
+.ctx{list-style:none;padding:0;display:grid;gap:6px}
+.ctx li{display:flex;flex-direction:column;padding:8px 10px;border-radius:8px;background:var(--s2)}
+.ctx small{font-size:13px;color:var(--soft)}
+.gn{transition:opacity .35s}
+.gn-box{fill:var(--s2);stroke:rgba(241,240,238,.1);transition:stroke .4s}
+.gn-t{fill:var(--ink);font-size:14px;font-weight:500}
+.gn-s{fill:var(--soft);font-size:11px}
+.gn-ring{fill:none;stroke:rgba(241,240,238,.18);stroke-width:2;transform-box:fill-box;transform-origin:center}
+.gn-dot{fill:rgba(241,240,238,.25)}
+.gn-me{fill:var(--lemon)} .gn-me-t{fill:var(--bg);font-size:15px;font-weight:700}
+.gn[data-s=run] .gn-box{stroke:rgba(169,155,255,.55)}
+.gn[data-s=run] .gn-ring{stroke:var(--run);stroke-dasharray:20 9;animation:spin 1.3s linear infinite}
+.gn[data-s=run] .gn-dot{fill:var(--run);animation:blink 1s infinite}
+.gn[data-s=done] .gn-ring{stroke:rgba(155,227,180,.85)} .gn[data-s=done] .gn-dot{fill:var(--ok)}
+.gn[data-s=wait] .gn-box{stroke:var(--lemon)}
+.gn[data-s=wait] .gn-ring{stroke:var(--lemon);animation:breathe 1.2s ease-in-out infinite}
+.gn[data-s=wait] .gn-dot{fill:var(--lemon);animation:blink .8s infinite}
+@keyframes breathe{50%{transform:scale(1.15);opacity:.5}}
+.gn.sel .gn-box{stroke:var(--ink);stroke-width:1.5}
+.gn.hov{cursor:pointer}
+.ge{fill:none;stroke:rgba(241,240,238,.16);stroke-width:1.6;stroke-linecap:round;transition:opacity .35s}
+.ge.on{stroke:var(--run);stroke-dasharray:3 7;animation:flow .5s linear infinite}
+.ge.done{stroke:rgba(241,240,238,.4)}
+.ge.back{stroke:var(--bad);stroke-dasharray:4 6;animation:flow .6s linear infinite reverse}
+.back-t{fill:var(--bad);font-size:11px}
+.gp{fill:var(--lemon)}
+.glbl{fill:var(--soft);font-size:12px}
+.greg rect{fill:rgba(241,240,238,.015);stroke:rgba(241,240,238,.12);stroke-dasharray:4 5;transition:stroke .3s}
+.greg .pill{fill:var(--s2);stroke:none}
+.greg text{fill:var(--ink);font-size:11.5px;font-weight:500}
+.greg.lit rect:first-child{stroke:rgba(241,240,238,.5)}
+.greg.loop rect:first-child{stroke:rgba(169,155,255,.45)}
+.gm{fill:none;stroke:rgba(169,155,255,.3);stroke-width:1.2;stroke-dasharray:2 5;stroke-linecap:round;transition:opacity .35s}
+.gm.lit{stroke:var(--ink);animation:flow .5s linear infinite}
+.focus .gn:not(.lit),.focus .ge,.focus .gm:not(.lit),.focus .greg:not(.lit){opacity:.22}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes blink{50%{opacity:.25}}
+@keyframes flow{to{stroke-dashoffset:-10}}
+
+/* core: list left, one panel right */
+.core{padding-top:var(--sec)}
+.core h2{max-width:9em}
+.feats{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);column-gap:clamp(24px,4vw,64px);margin-top:64px}
+.feat{display:contents}
+.f-btn{grid-column:1;position:relative;display:block;width:100%;padding:28px 28px 30px;border-radius:16px;transition:background-color 220ms ease}
+.feat:nth-child(1) .f-btn{grid-row:1}.feat:nth-child(2) .f-btn{grid-row:2}.feat:nth-child(3) .f-btn{grid-row:3}
+.f-btn b{display:block;font-size:var(--s-head);font-weight:500;letter-spacing:-.01em;color:var(--soft);transition:color 220ms ease}
+.f-btn span{display:block;margin-top:8px;color:var(--soft);max-width:24em}
+.feat.on .f-btn{background:var(--s1)}
+.feat.on .f-btn b{color:var(--ink)}
+@media (hover:hover){.feat:not(.on) .f-btn:hover b{color:var(--ink)}}
+.pnl{grid-column:2;grid-row:1/4;align-self:center;visibility:hidden;opacity:0;transform:translateY(12px);transition:opacity .4s ease,transform .5s var(--ease-out),visibility 0s .4s}
+.feat.on .pnl{visibility:visible;opacity:1;transform:none;transition:opacity .45s ease .05s,transform .6s var(--ease-out) .05s}
+html:not(.js) .feats,html:not(.js) .feat{display:block}
+html:not(.js) .pnl{display:block;visibility:visible;opacity:1;transform:none;margin-bottom:24px}
+
+.win{background:var(--s1);border-radius:16px;overflow:hidden;font-size:14px;line-height:1.45}
+.win-bar{display:flex;gap:12px;align-items:baseline;padding:14px 20px;background:#191320;color:var(--soft);font-size:13px}
+.win-bar b{color:var(--ink);font-weight:500;font-size:14px}
+.win-body{padding:20px;min-height:400px}
+.mini{display:block;width:100%;height:auto;font-family:var(--sans)}
+.mini rect{fill:var(--s2)}
+.mini rect.me{fill:var(--lemon)}
+.mini .c .me~text{fill:var(--bg)}
+.mini rect.ld{fill:#3A2E47}
+.mini .on rect{stroke:var(--run);stroke-width:1.5}
+.mini .nm{fill:var(--ink);font-size:14px;font-weight:500}
+.mini .sb{fill:var(--soft);font-size:12px}
+.mini .ok{fill:var(--ok)}.mini .run{fill:var(--run)}.mini .idle{fill:var(--s3)}
+.mini .gate{fill:none;stroke:rgba(228,213,90,.5);stroke-width:1.5;stroke-dasharray:3 5}
+.mini .gl{fill:var(--lemon);font-size:12px}
+.chip{font-size:13px;padding:3px 10px;border-radius:999px;white-space:nowrap}
+.chip.ok{background:rgba(155,227,180,.14);color:var(--ok)}
+.chip.run{background:rgba(169,155,255,.16);color:var(--run)}
+.chip.idle{background:rgba(241,240,238,.08);color:var(--soft)}
+.chip.wait{background:rgba(228,213,90,.16);color:var(--lemon)}
+.chip.bad{background:rgba(232,131,122,.16);color:var(--bad)}
+.machines{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.mc{background:var(--s2);border-radius:12px;padding:14px}
+.mc b{font-weight:500}
+.mc>small{display:block;font-size:13px;color:var(--ok);margin-bottom:12px}
+.mc ul{list-style:none;padding:0;display:grid;gap:8px}
+.mc li{display:flex;align-items:center;gap:10px;padding:8px;border-radius:8px;background:var(--s3)}
+.mc li img{width:32px;height:32px;border-radius:50%}
+.mc li small{display:block;font-size:13px;color:var(--soft)}
+.msg{margin-top:16px;padding:12px 14px;border-radius:10px;background:var(--s2);color:var(--soft)}
+.msg b{color:var(--ink);font-weight:500}
+.card{background:var(--s2);border-radius:12px;padding:20px}
+.card .t{font-size:20px;font-weight:500;margin-top:6px}
+.card dl{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;margin-top:16px}
+.card dt{color:var(--soft)}
+.acts{display:flex;gap:8px;margin-top:20px}
+.acts button{height:44px;padding:0 22px;border-radius:999px;background:var(--s3);transition:transform 140ms var(--ease-out),opacity .2s}
+.acts button.y{background:var(--lemon);color:var(--bg)}
+.acts button:active{transform:scale(.97)}
+.acts button:disabled{opacity:.4;cursor:default}
+.st{margin-top:14px;color:var(--soft);min-height:1.5em}
+.st b{color:var(--ink);font-weight:500}
+.f-btn b .note{display:inline;margin:0 0 0 8px;font-size:var(--s-small);font-weight:400;color:var(--soft)}
+
+/* topology */
+.topo{padding-top:var(--sec)}
+.topo-head{align-items:end}
+.topo-head h2{grid-column:1/8}
+.topo-head p{grid-column:8/13;max-width:20em;padding-bottom:.4rem}
+.runs{display:flex;gap:8px;flex-wrap:wrap;margin-top:48px}
+.runs button{height:44px;padding:0 20px;border-radius:999px;background:var(--s1);color:var(--soft);transition:background-color .2s,color .2s,transform 140ms var(--ease-out)}
+.runs button:active{transform:scale(.97)}
+.runs button[aria-pressed=true]{background:var(--ink);color:var(--bg)}
+.tmap{position:relative;margin-top:24px;background:var(--s1);border-radius:16px;overflow:hidden}
+.tmap svg{display:block;width:100%;height:auto;font-family:var(--sans)}
+.tl{fill:none;stroke:rgba(241,240,238,.22);stroke-width:1.5;transition:d .7s var(--ease-io),opacity .4s}
+.tl.hot{stroke:var(--run);stroke-dasharray:4 6;animation:flow .6s linear infinite}
+.tn{transition:transform .7s var(--ease-io),opacity .4s}
+.tn .bx{fill:var(--s2);transition:fill .3s}
+.tn text{fill:var(--ink);font-size:15px;font-weight:500}
+.tn .sub{fill:var(--soft);font-size:12.5px;font-weight:400}
+.tn.me .bx{fill:var(--lemon)} .tn.me text{fill:var(--bg)}
+.tn.lead .bx{fill:#3A2E47}
+.tn.off{opacity:0}
+.tn.hov{cursor:pointer}
+.tn.hov:hover .bx,.tn.pick .bx{fill:var(--s3)}
+.tzone rect{fill:rgba(241,240,238,.02)}
+.tzone text{fill:var(--soft);font-size:13px}
+.tip{position:absolute;left:24px;top:24px;max-width:22em;padding:14px 16px;border-radius:12px;background:var(--s2);font-size:14px;line-height:1.5}
+.tip b{font-weight:500}
+.tip small{display:block;color:var(--soft);font-size:13px;margin-top:2px}
+
+/* self-improvement lab */
+.fly{padding-top:var(--sec)}
+.fly-head{align-items:end}
+.fly-head h2{grid-column:1/8}
+.fly-head h2 .note{font-size:var(--s-small);font-weight:400;letter-spacing:0;color:var(--soft);vertical-align:middle;margin-left:10px}
+.fly-head p{grid-column:8/13;max-width:21em;padding-bottom:.4rem}
+.lab{margin-top:48px}
+.lab-body{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:12px;padding:12px}
+.lab-chart,.lab-round{background:var(--s2);border-radius:12px;padding:20px}
+.stats{display:grid;grid-template-columns:repeat(3,auto);justify-content:start;gap:8px 40px}
+.stats dt{font-size:13px;color:var(--soft)}
+.stats dd{margin:0;font-size:32px;font-weight:600;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.stats div:first-child dd{color:var(--lemon)}
+#lb-svg{display:block;width:100%;height:auto;margin-top:16px;overflow:visible;font-family:var(--sans)}
+.lg{stroke:rgba(241,240,238,.07)}
+.lt{fill:var(--soft);font-size:12px}
+.ls{stroke-width:3;stroke-linecap:round}
+@media (prefers-reduced-motion:no-preference){.ls{stroke-dasharray:1;stroke-dashoffset:1;animation:draw .7s var(--ease-out) forwards}}
+.ls.keep{stroke:var(--lemon)}
+.ls.glow{stroke:var(--lemon);stroke-width:14;opacity:.14}
+.ls.drop{stroke:var(--bad);stroke-width:2;opacity:.8}
+.ls.flat{stroke:rgba(228,213,90,.35);stroke-width:2;animation-delay:.3s}
+.lp{animation:pin .45s var(--ease-out) .45s both}
+.lp circle{stroke:var(--s2);stroke-width:3}
+.lp.keep circle{fill:var(--lemon)}
+.lp.drop circle{fill:var(--s2);stroke:var(--bad);stroke-width:2}
+.lp text{font-size:13px;font-weight:500;text-anchor:middle;fill:var(--ink)}
+.lp.drop text{fill:var(--bad);font-weight:400}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes pin{from{opacity:0;transform:translateY(6px)}}
+.lab-round{display:flex;flex-direction:column;gap:14px}
+.rd-top{display:flex;justify-content:space-between;align-items:center}
+.rd-top b{font-weight:500}
+.rd-hyp{font-size:20px;font-weight:500;line-height:1.35;min-height:2.7em}
+.rd-diff{display:flex;flex-direction:column;min-height:104px;padding:12px 14px;border-radius:10px;background:#0D0A10;font:13px/1.7 ui-monospace,Menlo,monospace}
+.rd-diff .f{display:flex;justify-content:space-between;color:var(--soft)}
+.rd-diff em{font-style:normal;color:var(--soft);opacity:.7}
+.rd-diff .add{color:var(--ok)}
+.rd-diff .del{color:var(--bad);text-decoration:line-through;text-decoration-color:rgba(232,131,122,.5)}
+.rd-diff span{animation:rise .35s var(--ease-out) both}
+.rd-cases{display:grid;grid-template-columns:repeat(12,1fr);gap:6px}
+.rd-cases i{aspect-ratio:1;border-radius:4px;background:var(--s3);transition:background-color .25s,transform .25s var(--ease-out)}
+.rd-cases i.ok{background:var(--ok);transform:scale(.86)}
+.rd-cases i.bad{background:var(--bad);transform:scale(.86)}
+.rd-foot{display:flex;align-items:baseline;justify-content:space-between}
+.rd-score{font-size:48px;font-weight:700;letter-spacing:-.03em;line-height:1;font-variant-numeric:tabular-nums}
+.rd-cs{color:var(--soft);font-size:14px}
+.lab-round .acts{margin-top:auto}
+.acts button.beg{animation:beg 1.2s ease-in-out infinite}
+@keyframes beg{50%{box-shadow:0 0 0 8px rgba(228,213,90,.18)}}
+.fsteps{list-style:none;margin:0;padding:0 12px 12px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.fsteps li{padding:14px 16px;border-radius:12px;color:var(--soft);font-size:14px;line-height:1.5;border-top:3px solid var(--s3);transition:color .3s,border-color .3s,background-color .3s}
+.fsteps li b{display:block;font-size:16px;font-weight:500;margin-bottom:2px}
+.fsteps li.on{color:var(--ink);border-color:var(--lemon);background:var(--s2)}
+
+/* faq */
+.faq{padding-top:var(--sec);align-items:start}
+.faq h2{grid-column:1/5;position:sticky;top:48px}
+.faq-list{grid-column:6/13;display:grid;gap:8px}
+details{background:var(--s1);border-radius:16px;transition:background-color .25s ease}
+details[open]{background:var(--s2)}
+summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:76px;padding:20px 24px;cursor:pointer;font-size:var(--s-head);font-weight:500}
+summary::-webkit-details-marker{display:none}
+summary i{position:relative;flex:none;width:16px;height:16px}
+summary i::before,summary i::after{content:"";position:absolute;left:0;top:6.5px;width:16px;height:3px;background:currentColor;transition:transform .3s var(--ease-out)}
+summary i::after{transform:rotate(90deg)}
+details[open] summary i::after{transform:rotate(0)}
+details p{padding:0 24px 24px;color:var(--soft);max-width:44ch}
+
+/* close */
+.cta{padding-top:var(--sec)}
+.cta-top{align-items:end}
+.cta h2{grid-column:1/8}
+.cta-side{grid-column:8/13;padding-bottom:.4rem}
+.cta-side p{max-width:18em;margin-bottom:28px}
+.crew{display:flex;flex-wrap:wrap;gap:clamp(16px,3vw,48px);list-style:none;padding:0;margin-top:clamp(64px,7vw,112px)}
+.crew li{display:flex;flex-direction:column;align-items:center;gap:12px;font-size:var(--s-small);color:var(--soft)}
+.crew img{width:clamp(120px,11vw,160px);height:clamp(120px,11vw,160px);border-radius:50%;object-fit:cover}
+footer{padding:var(--sec) var(--m) 32px;max-width:1440px;margin-inline:auto}
+.fname{font-size:clamp(6rem,24vw,21rem);font-weight:700;letter-spacing:-.05em;line-height:.8}
+.fgrid{display:grid;grid-template-columns:minmax(0,1.7fr) repeat(3,minmax(0,1fr));gap:clamp(28px,4vw,64px);margin-top:clamp(32px,5vw,64px)}
+.fabout p{max-width:30em;color:var(--soft);font-size:var(--s-small);line-height:1.6}
+.fabout p+p{margin-top:12px}
+.fh{font-size:12px;font-weight:500;letter-spacing:.16em;line-height:1.4;text-transform:uppercase;color:var(--lemon);margin-bottom:14px}
+.fgrid ul{list-style:none;padding:0;display:grid;gap:10px;font-size:var(--s-small);color:var(--soft)}
+.fgrid a{text-decoration:none}
+@media (hover:hover){.fgrid a:hover{text-decoration:underline;text-underline-offset:.25em}}
+
+/* motion */
+@media (prefers-reduced-motion:no-preference){
+  .js [data-r]{opacity:0;transform:translateY(24px);transition:opacity .7s var(--ease-out),transform .9s var(--ease-out);transition-delay:calc(var(--i,0)*80ms)}
+  .js [data-r].in{opacity:1;transform:none}
+  /* signature: lines rise from behind their baseline */
+  .lines .line{display:block;overflow:hidden;padding-bottom:.08em;margin-bottom:-.08em}
+  .lines .line>span{display:block;transition:transform .7s var(--ease-out)}
+  .js .lines .line>span{animation:line-in .9s var(--ease-out) backwards;animation-delay:calc(var(--i)*110ms + 150ms)}
+  @keyframes line-in{from{transform:translateY(105%)}}
+  .ticker-in{animation:tick 38s linear infinite}
+  @keyframes tick{to{transform:translateX(calc(-100% / 6))}}
+  .splash-art{animation:art-in 1.6s var(--ease-out) both}
+  @keyframes art-in{from{opacity:0;transform:scale(1.06)}}
+  /* intro morph (desktop): six loose terminals fly into one graph */
+  .morph{height:290svh}
+  .morph .stick{position:sticky;top:0;height:100svh;overflow:hidden}
+  .morph .hero-top{padding-top:clamp(32px,4vw,64px)}
+  .morph .stage-wrap{margin-top:clamp(40px,4vw,64px)}
+  .morph .say{display:grid}
+  .morph .say>*{grid-area:1/1}
+  .morph .say-a{display:block}
+  .morph .say-b .line>span{transform:translateY(105%)}
+  .morph.flip .say-a .line>span{transform:translateY(-105%)}
+  .morph.flip .say-b .line>span{transform:none}
+  .morph .terms{display:block;position:absolute;inset:0;z-index:2;pointer-events:none}
+  .morph .wb{opacity:var(--wb,0)}
+  .gn.pop .gn-ring{animation:pop .5s var(--ease-out)}
+  @keyframes pop{40%{transform:scale(1.25)}}
+  /* feature list advances by itself; the bar shows how long until the next */
+  .bar{position:absolute;left:28px;right:28px;bottom:12px;height:3px;border-radius:3px;background:var(--s3);overflow:hidden;opacity:0;transition:opacity .3s}
+  .bar::after{content:"";position:absolute;inset:0;background:var(--ink);transform:scaleX(0);transform-origin:left}
+  .feats.auto .feat.on .bar{opacity:1}
+  .feats.auto.run .feat.on .bar::after{animation:fill 5.5s linear forwards}
+  @keyframes fill{to{transform:scaleX(1)}}
+  .feat.on .mini .c,.feat.on .mc,.feat.on .msg,.feat.on .card>*{animation:rise .55s var(--ease-out) both}
+  .feat.on .mini g:nth-of-type(2) .c,.feat.on .mc:nth-child(2),.feat.on .card>:nth-child(2){animation-delay:70ms}
+  .feat.on .mini g:nth-of-type(3) .c,.feat.on .mc:nth-child(3),.feat.on .card>:nth-child(3){animation-delay:140ms}
+  .feat.on .mini g:nth-of-type(4) .c,.feat.on .msg,.feat.on .card>:nth-child(4){animation-delay:210ms}
+  .feat.on .mini g:nth-of-type(5) .c,.feat.on .card>:nth-child(5){animation-delay:280ms}
+  .feat.on .mini g:nth-of-type(6) .c{animation-delay:350ms}
+  @keyframes rise{from{opacity:0;transform:translateY(14px)}}
+  .chip{transition:background-color .3s ease,color .3s ease}
+  .chip.flip{animation:flip .45s var(--ease-out)}
+  @keyframes flip{40%{transform:scale(1.12)}}
+  .js .crew li{opacity:0;transform:translateY(20px);transition:opacity .6s var(--ease-out),transform .8s var(--ease-out);transition-delay:calc(var(--i,0)*90ms)}
+  .js .crew.in li{opacity:1;transform:none}
+  @media (hover:hover){.crew img{transition:transform .35s var(--ease-out)}.crew li:hover img{transform:translateY(-6px) rotate(-4deg)}}
+  @supports (animation-timeline:view()){
+    .fname{animation:wm linear both;animation-timeline:view();animation-range:entry 0% cover 45%}
+    @keyframes wm{from{transform:translateY(35%);opacity:.15}to{transform:none;opacity:1}}
+  }
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition-duration:.01ms!important}
+}
+
+@media (max-width:900px){
+  .nav ul{display:none}
+  .nav{gap:12px}
+  .nav .lang{margin-left:auto}
+  .say,.hero-side,.cta h2,.cta-side{grid-column:1/-1}
+  .hero-side,.cta-side{margin-top:20px}
+  .splash{height:auto;min-height:100svh;max-height:none}
+  .splash-art{position:relative;inset:auto;height:auto;width:170%;max-width:none;margin:-4vw 0 0 -62%;aspect-ratio:16/9;order:2;-webkit-mask-image:linear-gradient(180deg,transparent,#000 22%);mask-image:linear-gradient(180deg,transparent,#000 22%)}
+  .splash::before{display:none}
+  .scan,.chara-tag{display:none}
+  .splash-copy{max-width:none;margin-block:24px 0;padding-bottom:0}
+  .ticker{order:3}
+  .cv-body{grid-template-columns:1fr}
+  .feats{display:block;margin-top:40px}
+  .feat{display:block;margin-bottom:8px}
+  .f-btn{padding:20px}
+  .pnl{display:none;margin-top:8px}
+  .feat.on .pnl{display:block}
+  .win-body{min-height:0;padding:14px}
+  .machines{grid-template-columns:1fr}
+  .topo-head h2,.topo-head p{grid-column:1/-1}
+  .topo-head p{margin-top:16px}
+  .tmap{overflow-x:auto}
+  .tmap svg{min-width:760px}
+  .tip{position:static;margin:0 16px 16px}
+  .lab-body{grid-template-columns:1fr}
+  .lt{font-size:22px}.lp text{font-size:24px}
+  .stats{gap:8px 24px}
+  .fsteps{grid-template-columns:1fr 1fr}
+  .fly-head h2,.fly-head p{grid-column:1/-1}
+  .fly-head p{margin-top:16px}
+  .faq h2,.faq-list{grid-column:1/-1}
+  .faq h2{position:static}
+  .faq-list{margin-top:32px}
+  .crew{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+  .crew img{width:100%;height:auto;aspect-ratio:1}
+  .fgrid{grid-template-columns:1fr 1fr}
+  .fabout{grid-column:1/-1}
+}
+@media (max-width:560px){
+  .fgrid{grid-template-columns:1fr}
+  .fabout{grid-column:auto}
+}
+</style>
+</head>
+<body>
+
+<header class="splash" id="top">
+  <img class="splash-art" src="../img/hero.webp" srcset="../img/hero-sm.webp 1056w, ../img/hero.webp 2112w" sizes="100vw" alt="" width="2112" height="1188" fetchpriority="high">
+  <i class="scan" aria-hidden="true"></i>
+  <button class="chara-tag" type="button" aria-label="切换 Atta 形态">ATTA <b>//</b> <span>就绪</span></button>
+  <div class="wrap splash-in">
+    <nav class="nav" aria-label="主导航">
+      <a class="brand" href="#top"><img src="../img/icon.png" alt="" width="30" height="30">Atta</a>
+      <ul>
+        <li><a class="tlink" href="#core">工作台</a></li>
+        <li><a class="tlink" href="#topo">团队拓扑</a></li>
+        <li><a class="tlink" href="#fly">复盘飞轮</a></li>
+        <li><a class="tlink" href="#faq">常见问题</a></li>
+      </ul>
+      <a class="lang" href="../" data-alt="../" hreflang="en" lang="en" aria-label="Switch to English">English</a>
+      <a class="btn" href="project/">项目</a>
+    </nav>
+    <div class="splash-copy">
+      <p class="kick" data-r>ATTA · 自托管 AI 工作台</p>
+      <h1 class="lines" aria-label="一个人，指挥整支 AI 团队"><span class="line" aria-hidden="true"><span style="--i:0">一个人，</span></span><span class="line" aria-hidden="true"><span style="--i:1">指挥整支</span></span><span class="line" aria-hidden="true"><span style="--i:2">AI 团队</span></span></h1>
+      <p class="splash-sub" data-r style="--i:2">所有机器上的 Agent 收进一张图。谁在干什么、最初交代了什么，一眼看清；危险的那一步，等你点头。</p>
+      <div class="hero-act" data-r style="--i:3">
+        <a class="btn" href="project/">项目与可用性</a>
+        <a class="tlink" href="#intro">往下看它怎么干活 ↓</a>
+      </div>
+      <p class="demo-note" data-r style="--i:4">交互演示，数据为示例。这里没有运行中的产品实例。</p>
+    </div>
+  </div>
+  <div class="ticker" aria-hidden="true"><div class="ticker-in"><div class="ticker-g"><span>一眼看清整个团队</span><span>跨机器，一条流程</span><span>Hodor 门：危险的一步等你点头</span><span>越用越会，你说了算</span><span>自托管</span><span>不挑模型</span></div><div class="ticker-g"><span>一眼看清整个团队</span><span>跨机器，一条流程</span><span>Hodor 门：危险的一步等你点头</span><span>越用越会，你说了算</span><span>自托管</span><span>不挑模型</span></div><div class="ticker-g"><span>一眼看清整个团队</span><span>跨机器，一条流程</span><span>Hodor 门：危险的一步等你点头</span><span>越用越会，你说了算</span><span>自托管</span><span>不挑模型</span></div><div class="ticker-g"><span>一眼看清整个团队</span><span>跨机器，一条流程</span><span>Hodor 门：危险的一步等你点头</span><span>越用越会，你说了算</span><span>自托管</span><span>不挑模型</span></div><div class="ticker-g"><span>一眼看清整个团队</span><span>跨机器，一条流程</span><span>Hodor 门：危险的一步等你点头</span><span>越用越会，你说了算</span><span>自托管</span><span>不挑模型</span></div><div class="ticker-g"><span>一眼看清整个团队</span><span>跨机器，一条流程</span><span>Hodor 门：危险的一步等你点头</span><span>越用越会，你说了算</span><span>自托管</span><span>不挑模型</span></div></div></div>
+</header>
+
+<main>
+<section class="hero intro" id="intro" aria-label="从一堆终端到一张图">
+ <div class="stick wrap">
+  <div class="grid hero-top">
+    <div class="say">
+      <p class="say-a lines h1like"><span class="line"><span style="--i:0">终端开满了，</span></span><span class="line"><span style="--i:1">哪个在干嘛？</span></span></p>
+      <p class="say-b lines h1like"><span class="line"><span style="--i:0">一眼看清，</span></span><span class="line"><span style="--i:1">你的 AI 团队</span></span></p>
+    </div>
+    <div class="hero-side">
+      <p data-r style="--i:1">往下滑：散落在各台机器上的终端，收进一张实时的图。</p>
+    </div>
+  </div>
+
+  <div class="stage-wrap">
+    <div class="terms" aria-hidden="true"></div>
+    <div class="bench" id="see">
+      <div class="wb" data-ui>
+        <div class="wb-bar"><b>周报发布</b><span>3 台机器 · 6 个 Bot · 点任一步骤看详情</span><span class="loopst">Loop 第 2 / 3 轮</span></div>
+        <div class="cv-body">
+          <div class="cscroll"><svg class="gsvg" id="see-svg" viewBox="0 0 1110 430" role="img" aria-label="工作台：五个流程步骤，撰写与审校组成一个循环，下方是三台机器上的 Bot"></svg></div>
+          <aside class="drawer" id="drawer" aria-live="polite"></aside>
+        </div>
+      </div>
+    </div>
+  </div>
+ </div>
+</section>
+
+<section class="core wrap" id="core" aria-labelledby="core-h">
+  <h2 id="core-h" data-r>一张图，<br>管住整个团队</h2>
+  <div class="feats" role="tablist" aria-label="Atta 能做什么">
+
+    <div class="feat on">
+      <button class="f-btn" role="tab" aria-selected="true" aria-controls="p1" id="t1"><b>一眼看清整个团队</b><span>谁在干什么、最初交代了什么、卡在哪，都在一张图上。</span></button>
+      <div class="pnl" role="tabpanel" id="p1" aria-labelledby="t1">
+        <div class="win" data-ui>
+          <div class="win-bar"><b>团队</b><span>周报发布 · run #128</span></div>
+          <div class="win-body">
+            <svg class="mini" viewBox="0 0 560 340" role="img" aria-label="周报发布的团队拓扑：你在最上面，下面是流程，再下面是四个 Bot：探索已完成、写作已完成、审校运行中、搬运待开始">
+              <path class="tl" d="M280 64C280 82 280 82 280 100"/>
+              <path class="tl" d="M280 150C280 175 76 175 76 200"/>
+              <path class="tl" d="M280 150C280 175 212 175 212 200"/>
+              <path class="tl hot" d="M280 150C280 175 348 175 348 200"/>
+              <path class="tl" d="M280 150C280 175 484 175 484 200"/>
+              <path class="gate" d="M500 200C520 110 480 37 380 37"/>
+              <text class="gl" x="462" y="110">发布前问你</text>
+              <g transform="translate(180 10)"><g class="c"><rect class="me" width="200" height="54" rx="14"/><text class="nm" x="100" y="24" text-anchor="middle">你</text><text class="sb" x="100" y="42" text-anchor="middle">Hodor 门 · 只在关键处拍板</text></g></g>
+              <g transform="translate(180 100)"><g class="c"><rect class="ld" width="200" height="50" rx="14"/><text class="nm" x="100" y="22" text-anchor="middle">周报发布 · run #128</text><text class="sb" x="100" y="39" text-anchor="middle">周五前发出本周周报</text></g></g>
+              <g transform="translate(14 200)"><g class="c"><rect width="124" height="128" rx="12"/><image href="../img/01-explore.jpg" width="60" height="60" clip-path="url(#av)"/><text class="nm" x="14" y="72">探索 Bot</text><text class="sb" x="14" y="91">收集本周素材</text><text class="sb" x="14" y="108">Mac mini</text><circle class="ok" cx="108" cy="22" r="5"/></g></g>
+              <g transform="translate(150 200)"><g class="c"><rect width="124" height="128" rx="12"/><image href="../img/05-write.jpg" width="60" height="60" clip-path="url(#av)"/><text class="nm" x="14" y="72">写作 Bot</text><text class="sb" x="14" y="91">写周报初稿</text><text class="sb" x="14" y="108">笔记本</text><circle class="ok" cx="108" cy="22" r="5"/></g></g>
+              <g transform="translate(286 200)"><g class="c on"><rect width="124" height="128" rx="12"/><image href="../img/04-plan.jpg" width="60" height="60" clip-path="url(#av)"/><text class="nm" x="14" y="72">审校 Bot</text><text class="sb" x="14" y="91">审校草稿 v2</text><text class="sb" x="14" y="108">Mac mini</text><circle class="run" cx="108" cy="22" r="5"/></g></g>
+              <g transform="translate(422 200)"><g class="c"><rect width="124" height="128" rx="12"/><image href="../img/07-carry.jpg" width="60" height="60" clip-path="url(#av)"/><text class="nm" x="14" y="72">搬运 Bot</text><text class="sb" x="14" y="91">发布到三个平台</text><text class="sb" x="14" y="108">Linux 云主机</text><circle class="idle" cx="108" cy="22" r="5"/></g></g>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="feat">
+      <button class="f-btn" role="tab" aria-selected="false" aria-controls="p2" id="t2"><b>跨机器，一条流程</b><span>Mac、Linux、云主机各干各的，不用在终端间来回切。</span></button>
+      <div class="pnl" role="tabpanel" id="p2" aria-labelledby="t2">
+        <div class="win" data-ui>
+          <div class="win-bar"><b>机器</b><span>3 台在线</span></div>
+          <div class="win-body">
+            <div class="machines">
+              <div class="mc"><b>Mac mini</b><small>在线</small><ul>
+                <li><img src="../img/01-explore.jpg" alt="" width="32" height="32"><div>探索 Bot<small>浏览器</small></div></li>
+                <li><img src="../img/04-plan.jpg" alt="" width="32" height="32"><div>审校 Bot<small>文档</small></div></li></ul></div>
+              <div class="mc"><b>笔记本</b><small>在线</small><ul>
+                <li><img src="../img/05-write.jpg" alt="" width="32" height="32"><div>写作 Bot<small>编辑器</small></div></li></ul></div>
+              <div class="mc"><b>Linux 云主机</b><small>在线</small><ul>
+                <li><img src="../img/02-build.jpg" alt="" width="32" height="32"><div>构建 Bot<small>终端</small></div></li>
+                <li><img src="../img/07-carry.jpg" alt="" width="32" height="32"><div>搬运 Bot<small>发布</small></div></li></ul></div>
+            </div>
+            <p class="msg"><b>写作 Bot → 审校 Bot</b>：草稿 v2 · 直连 · 只传文字，文件留在本机</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="feat">
+      <button class="f-btn" role="tab" aria-selected="false" aria-controls="p3" id="t3"><b>危险的那一步，要你点头</b><span>发布、付款、删除，走到就停，你说了才继续。</span></button>
+      <div class="pnl" role="tabpanel" id="p3" aria-labelledby="t3">
+        <div class="win" data-ui>
+          <div class="win-bar"><b>Hodor 门</b><span>周报发布 · run #128</span></div>
+          <div class="win-body">
+            <div class="card">
+              <span class="chip wait" id="g-chip">等你决定</span>
+              <p class="t">发布到三个平台之前</p>
+              <dl><dt>终稿</dt><dd>2,140 字</dd><dt>审校</dt><dd>两轮意见，已全部处理</dd><dt>下一步</dt><dd>搬运 Bot 发布到三个平台</dd></dl>
+              <div class="acts"><button class="y" id="g-pass">通过</button><button id="g-back">打回</button></div>
+              <p class="st" id="g-st" aria-live="polite">流程停在这里。你不点头，就不会发出去。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="topo wrap" id="topo" aria-labelledby="topo-h">
+  <div class="grid topo-head">
+    <h2 id="topo-h" data-r>谁听谁的，<br>一目了然</h2>
+    <p data-r style="--i:1">每条流程有自己的小队。谁带头、谁在哪台机器、最初交代了什么，点开就有。</p>
+  </div>
+  <div class="runs" role="group" aria-label="切换流程" data-r style="--i:2">
+    <button aria-pressed="true" data-run="0">周报发布</button>
+    <button aria-pressed="false" data-run="1">研发交付</button>
+    <button aria-pressed="false" data-run="2">每日数据</button>
+  </div>
+  <div class="tmap" data-ui data-r style="--i:3">
+    <svg id="topo-svg" viewBox="0 0 1200 580" role="img" aria-label="团队拓扑：你在最上面，下面是流程负责人，再下面是分布在三台机器上的 Bot"></svg>
+    <div class="tip" id="topo-tip" aria-live="polite"></div>
+  </div>
+</section>
+
+<section class="fly wrap" id="fly" aria-labelledby="fly-h">
+  <div class="grid fly-head">
+    <h2 id="fly-h" data-r>越用越会，<br>你说了算<span class="note">实现中</span></h2>
+    <p data-r style="--i:1">每一轮只改一处，再用同一组用例重新打分。分数更高、你也批准了，才留下；否则自动退回上一版。</p>
+  </div>
+  <div class="lab win" data-ui data-r style="--i:2">
+    <div class="win-bar"><b>自我改进</b><span>周报发布 · 12 个评测用例</span></div>
+    <div class="lab-body">
+      <div class="lab-chart">
+        <dl class="stats">
+          <div><dt>当前版本</dt><dd id="lb-v">v1</dd></div>
+          <div><dt>得分</dt><dd id="lb-s">62</dd></div>
+          <div><dt>每 10 次，你要出手</dt><dd id="lb-h">7</dd></div>
+        </dl>
+        <svg id="lb-svg" viewBox="0 0 640 320" role="img" aria-label="得分随版本上升：v1 62 分，v2 74 分，v3 81 分，v4 88 分；两次没变好的尝试被退回"></svg>
+      </div>
+      <div class="lab-round" aria-live="polite">
+        <div class="rd-top"><b id="rd-n">第 1 轮</b><span class="chip idle" id="rd-chip">找问题</span></div>
+        <p class="rd-hyp" id="rd-hyp"></p>
+        <div class="rd-diff" id="rd-diff"></div>
+        <div class="rd-cases" id="rd-cases"></div>
+        <div class="rd-foot"><span class="rd-score" id="rd-score">–</span><span class="rd-cs" id="rd-cs">等待评测</span></div>
+        <div class="acts"><button class="y" id="rd-ok" disabled>批准</button></div>
+      </div>
+    </div>
+    <ol class="fsteps" id="fsteps">
+      <li><b>找问题</b>从你的拍板和失败记录里，找反复出现的情形</li>
+      <li><b>改一处</b>只改一条规则、技能或配置，改前先存快照</li>
+      <li><b>重新打分</b>同一组用例并行重跑，分数说话</li>
+      <li><b>你批准</b>变好了、你点头才留下，不然自动退回</li>
+    </ol>
+  </div>
+</section>
+
+<section class="faq wrap grid" id="faq" aria-labelledby="faq-h">
+  <h2 id="faq-h" data-r>常见问题</h2>
+  <div class="faq-list">
+    <details name="faq" open><summary>和 tmux 有什么不同？<i></i></summary><p>tmux 只管会话。Atta 知道它们在为同一件事干活，一张图看全。</p></details>
+    <details name="faq"><summary>能注册试用吗？<i></i></summary><p>不行。Atta 尚未公开，当前可用性写在项目页。</p></details>
+    <details name="faq"><summary>用哪个模型？<i></i></summary><p>随你。Atta 只管流程，不管模型。</p></details>
+    <details name="faq"><summary>为什么叫 Atta 和 Hodor？<i></i></summary><p>Atta 是切叶蚁，整队分工。Hodor 是 Hold the door。</p></details>
+  </div>
+</section>
+
+<section class="cta wrap" id="enter" aria-labelledby="cta-h">
+  <div class="grid cta-top">
+    <h2 id="cta-h" data-r>下一条长流程，<br>交给它们跑</h2>
+    <div class="cta-side">
+      <p data-r style="--i:1">交出去，去忙别的。要你拍板时，它会等你。</p>
+      <a class="btn" href="project/#availability" data-r style="--i:2">查看可用性</a>
+    </div>
+  </div>
+  <ul class="crew" id="crew" aria-label="你的小队">
+    <li style="--i:0"><img src="../img/01-explore.jpg" alt="举着放大镜的探索蚂蚁" width="160" height="160" loading="lazy">探索</li>
+    <li style="--i:1"><img src="../img/05-write.jpg" alt="拿着笔记本的写作蚂蚁" width="160" height="160" loading="lazy">写作</li>
+    <li style="--i:2"><img src="../img/04-plan.jpg" alt="捧着地图的审校蚂蚁" width="160" height="160" loading="lazy">审校</li>
+    <li style="--i:3"><img src="../img/02-build.jpg" alt="拿着锤子的构建蚂蚁" width="160" height="160" loading="lazy">构建</li>
+    <li style="--i:4"><img src="../img/07-carry.jpg" alt="扛着包裹的搬运蚂蚁" width="160" height="160" loading="lazy">搬运</li>
+  </ul>
+</section>
+</main>
+
+<footer class="site-foot">
+  <div class="fname" aria-hidden="true">Atta</div>
+  <div class="fgrid">
+    <div class="fabout">
+      <p>Atta 是自托管 AI 工作台概念。本站是静态站点。</p>
+      <p class="small">网站维护者 <a class="tlink" href="https://github.com/HugoSkylight">Hugo Light</a></p>
+    </div>
+    <nav aria-label="产品">
+      <h2 class="fh">产品</h2>
+      <ul>
+        <li><a class="tlink" href="#top">概览</a></li>
+        <li><a class="tlink" href="#core">工作台</a></li>
+        <li><a class="tlink" href="#topo">团队拓扑</a></li>
+        <li><a class="tlink" href="#fly">复盘飞轮</a></li>
+        <li><a class="tlink" href="#faq">常见问题</a></li>
+      </ul>
+    </nav>
+    <nav aria-label="项目">
+      <h2 class="fh">项目</h2>
+      <ul>
+        <li><a class="tlink" href="project/">项目与可用性</a></li>
+        <li><a class="tlink" href="changelog/">更新日志</a></li>
+        <li><a class="tlink" href="https://github.com/HugoSkylight/atta-web">网站源码</a></li>
+        <li><a class="tlink" href="https://github.com/HugoSkylight/atta-web/issues">问题反馈</a></li>
+        <li><a class="tlink" href="../llms.txt">llms.txt</a></li>
+      </ul>
+    </nav>
+    <nav aria-label="法律">
+      <h2 class="fh">法律</h2>
+      <ul>
+        <li><a class="tlink" href="privacy/">隐私</a></li>
+        <li><a class="tlink" href="security/">安全</a></li>
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><clipPath id="av"><circle cx="30" cy="30" r="17"/></clipPath></defs></svg>
+
+<script src="../lang-link.js"></script>
+<script src="../i18n.js"></script>
+
+<script>
+{
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+  const esc = s => String(s).replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' })[c]);
+  // i18n.js: data below holds English keys; tr() picks the current language, tx() also re-renders on switch
+  const { t: tr, text: tx, on: onLang } = I18N;
+
+  /* ---------- splash: click the ant → glitch + mode swap ---------- */
+  {
+    const splash = $('.splash'), art = $('.splash-art'), mode = $('.chara-tag span');
+    const SETS = [art.srcset, '../img/hero-x-sm.webp 1056w, ../img/hero-x.webp 2112w'];
+    // preload the alt form so the swap mid-glitch never shows a blank frame
+    addEventListener('load', () => Object.assign(new Image(), { sizes: art.sizes, srcset: SETS[1] }));
+    const swap = () => {
+      const alt = splash.classList.toggle('alt');
+      art.srcset = SETS[+alt];
+      mode.textContent = alt ? tr('OVERDRIVE') : tr('READY');
+    };
+    const zap = () => {
+      if (reduce) return swap();
+      splash.classList.remove('glitching'); void splash.offsetWidth; splash.classList.add('glitching');
+      setTimeout(swap, 300);
+    };
+    art.addEventListener('animationend', () => splash.classList.remove('glitching'));
+    art.addEventListener('click', zap);
+    $('.chara-tag').addEventListener('click', zap);
+  }
+
+  /* ---------- hero: the workbench graph ---------- */
+  const NS = 'http://www.w3.org/2000/svg', W = 168, H = 60;
+  const mk = (tag, attrs, parent) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; };
+  const txt = (attrs, s, parent) => tx(mk('text', attrs, parent), s);
+  function node(svg, n) {
+    const g = mk('g', { class: 'gn', 'data-s': n.s, transform: `translate(${n.x} ${n.y})` }, svg);
+    mk('rect', { class: 'gn-box', width: W, height: H, rx: 14 }, g);
+    mk('circle', { class: 'gn-ring', cx: 30, cy: 30, r: 21 }, g);
+    if (n.img) mk('image', { href: n.img, x: 10, y: 10, width: 40, height: 40, 'clip-path': 'url(#av)', preserveAspectRatio: 'xMidYMid slice' }, g);
+    else { mk('circle', { class: 'gn-me', cx: 30, cy: 30, r: 17 }, g); txt({ class: 'gn-me-t', x: 30, y: 35.5, 'text-anchor': 'middle' }, 'You', g); }
+    mk('circle', { class: 'gn-dot', cx: W - 14, cy: 14, r: 3.5 }, g);
+    txt({ class: 'gn-t', x: 60, y: 27 }, n.t, g);
+    n.sub = txt({ class: 'gn-s', x: 60, y: 45 }, '', g);
+    n.g = g;
+    setState(n, n.s, true);
+  }
+  function setState(n, s, quiet) {
+    n.s = s; n.g.dataset.s = s;
+    tx(n.sub, () => tr(n.where, { no: n.no }) + ' · ' + tr(n.label[n.s]));
+    if (!quiet && !reduce) { n.g.classList.remove('pop'); void n.g.getBBox(); n.g.classList.add('pop'); }
+  }
+  const curve = (a, b) => {
+    if (b.x >= a.x + W - 1) { const x1 = a.x + W, y1 = a.y + H / 2, x2 = b.x, y2 = b.y + H / 2, m = (x1 + x2) / 2; return `M${x1} ${y1}C${m} ${y1} ${m} ${y2} ${x2} ${y2}`; }
+    const x1 = a.x + W / 2, y1 = a.y + H, x2 = b.x + W / 2, y2 = b.y, m = (y1 + y2) / 2; return `M${x1} ${y1}C${x1} ${m} ${x2} ${m} ${x2} ${y2}`;
+  };
+  const vs = $('#see-svg');
+  txt({ class: 'glbl', x: 16, y: 24 }, 'Flow · Weekly report · run #128', vs);
+  txt({ class: 'glbl', x: 16, y: 226 }, 'Your machines', vs);
+  // region/loop pills hug their label in either language: CJK ≈ 12px, Latin ≈ 6.6px at 11.5px
+  const textW = s => [...s].reduce((w, c) => w + (c > '\u2e80' ? 12 : 6.6), 0);
+  const pill = (rect, key, pad) => { const f = () => rect.setAttribute('width', Math.round(textW(tr(key)) + pad)); f(); onLang(f); };
+  const loopG = mk('g', { class: 'greg loop' }, vs);
+  mk('rect', { x: 214, y: 40, width: 428, height: 140, rx: 18 }, loopG);
+  pill(mk('rect', { class: 'pill', x: 230, y: 29, height: 22, rx: 11 }, loopG), 'Loop · Draft ⇄ Review · round 2 / 3', 28);
+  txt({ x: 244, y: 44 }, 'Loop · Draft ⇄ Review · round 2 / 3', loopG);
+  const regions = { mac: { x: 8, t: 'Mac mini' }, note: { x: 380, t: 'Laptop' }, linux: { x: 752, t: 'Linux cloud' } };
+  Object.values(regions).forEach(r => {
+    r.g = mk('g', { class: 'greg' }, vs);
+    mk('rect', { x: r.x, y: 250, width: 350, height: 150, rx: 18 }, r.g);
+    pill(mk('rect', { class: 'pill', x: r.x + 16, y: 239, height: 22, rx: 11 }, r.g), r.t, 34);
+    mk('circle', { cx: r.x + 30, cy: 250, r: 3.5, fill: '#9BE3B4' }, r.g);
+    txt({ x: r.x + 40, y: 254 }, r.t, r.g);
+  });
+  const BL = { idle: 'Idle', run: 'Working', done: 'Shipped', wait: 'Your turn' };
+  const B = {
+    explore: { x: 14,  y: 300, t: 'Explore Bot', where: 'Search', img: '../img/01-explore.jpg', s: 'done', r: 'mac', label: BL },
+    review:  { x: 184, y: 300, t: 'Review Bot', where: 'Review', img: '../img/04-plan.jpg',    s: 'run',  r: 'mac', label: BL },
+    write:   { x: 386, y: 300, t: 'Write Bot', where: 'Drafting', img: '../img/05-write.jpg',  s: 'done', r: 'note', label: BL },
+    me:      { x: 556, y: 300, t: 'You',       where: 'Desk', s: 'idle', r: 'note', label: { idle: 'Standby', wait: 'Your call', done: 'Decided' } },
+    carry:   { x: 758, y: 300, t: 'Carry Bot', where: 'Publish', img: '../img/07-carry.jpg',   s: 'idle', r: 'linux', label: BL },
+    build:   { x: 928, y: 300, t: 'Build Bot', where: 'Build', img: '../img/02-build.jpg',     s: 'idle', r: 'linux', label: BL },
+  };
+  const SL = { idle: 'Pending', run: 'Running', done: 'Done', wait: 'Your call' };
+  const P = [
+    { t: 'Gather',     s: 'done', b: 'explore', x: 16,  st: 'Done', o: 'Notes · 32 items', ctx: [['Your brief', "This week's report, out by Friday"], ['Reference', '#weekly · 3 messages']] },
+    { t: 'Draft',      s: 'done', b: 'write',   x: 236, st: 'Done · round 2', o: 'Draft v2 · 2,140 words', ctx: [['From the last step', 'Notes · 32 items'], ['Review notes · round 1', 'Intro too long']] },
+    { t: 'Review',     s: 'run',  b: 'review',  x: 452, st: 'Running · round 2', o: 'Reviewing', ctx: [['From the last step', 'Draft v2 full text'], ['Review method', 'v3 · approved by you']] },
+    { t: 'Hodor gate', s: 'idle', b: 'me',      x: 676, st: 'Pending', o: 'You decide: approve or send back', ctx: [['Shown to you', 'Final draft and two rounds of notes']] },
+    { t: 'Publish',    s: 'idle', b: 'carry',   x: 906, st: 'Pending', o: 'None', ctx: [['After Hodor lets it through', 'Full final draft']] },
+  ].map((p, i) => Object.assign(p, { y: 96, where: 'Step {no}', no: i + 1, label: SL, img: B[p.b].img }));
+  P.forEach(p => node(vs, p));
+  Object.values(B).forEach(b => node(vs, b));
+  const first = P[0].g;
+  const edge = (a, b, cls) => { const p = mk('path', { class: cls, d: curve(a, b) }); vs.insertBefore(p, first); return p; };
+  const setEdge = (e, s) => {
+    e.classList.toggle('on', s === 'on'); e.classList.toggle('done', s === 'done');
+    if (s === 'on' && !reduce && !e._dot) { e._dot = mk('circle', { class: 'gp', r: 3 }, vs); mk('animateMotion', { dur: '1.1s', repeatCount: 'indefinite', path: e.getAttribute('d') }, e._dot); }
+    if (s !== 'on' && e._dot) { e._dot.remove(); e._dot = null; }
+  };
+  P.slice(1).forEach((p, i) => { p.in = edge(P[i], p, 'ge'); });
+  const wire = () => P.slice(1).forEach((p, i) => setEdge(p.in, P[i].s === 'done' ? (p.s === 'done' ? 'done' : p.s === 'idle' ? '' : 'on') : ''));
+  wire();
+  const bx1 = P[2].x + W / 2, bx2 = P[1].x + W / 2;
+  vs.insertBefore(mk('path', { class: 'ge back', d: `M${bx1} 96C${bx1} 62 ${bx2} 62 ${bx2} 96` }), first);
+  txt({ class: 'back-t', x: (bx1 + bx2) / 2, y: 66, 'text-anchor': 'middle' }, 'Send back · next round', vs);
+  P.forEach(p => { p.map = edge(p, B[p.b], 'gm'); });
+
+
+  const drawer = $('#drawer');
+  // every value is an English key, or an array of keys/literals joined, so a language switch can repaint it
+  const L = v => Array.isArray(v) ? v.map(L).join('') : tr(v);
+  let paint = null;
+  const render = (crumb, title, rows, ctx) => {
+    paint = () => { drawer.innerHTML = `<div class="dr-crumb">${esc(L(crumb))}</div><h4>${esc(L(title))}</h4>
+      <dl>${rows.map(([a, b]) => `<dt>${esc(L(a))}</dt><dd>${esc(L(b))}</dd>`).join('')}</dl>
+      <h5>${esc(tr('What this step received'))}</h5>
+      <ul class="ctx">${ctx.length ? ctx.map(([a, b]) => `<li><small>${esc(L(a))}</small>${esc(L(b))}</li>`).join('') : `<li>${esc(tr('None'))}</li>`}</ul>`; };
+    paint();
+  };
+  onLang(() => paint && paint());
+  const showStep = i => { const p = P[i], b = B[p.b];
+    render(['Weekly report', ' › ', p.t], p.t, [['Status', p.st], ['Assigned to', [b.t, ' @ ', regions[b.r].t]], ['Output', p.o]], p.ctx); };
+  let sel = 2;
+  const clearLit = () => vs.querySelectorAll('.lit').forEach(e => e.classList.remove('lit'));
+  const focus = i => { const p = P[i], b = B[p.b]; vs.classList.add('focus'); clearLit();
+    [p.g, b.g, p.map, regions[b.r].g].forEach(e => e.classList.add('lit')); if (i === 1 || i === 2) loopG.classList.add('lit'); showStep(i); };
+  const blur = () => { vs.classList.remove('focus'); clearLit(); showStep(sel); };
+  let user = false;
+  const pick = (i, auto) => { P[sel].g.classList.remove('sel'); sel = i; P[sel].g.classList.add('sel'); showStep(sel); if (!auto) user = true; };
+  P.forEach((p, i) => { p.g.classList.add('hov'); p.g.addEventListener('mouseenter', () => focus(i)); p.g.addEventListener('mouseleave', blur); p.g.addEventListener('click', () => pick(i)); });
+  Object.entries(B).forEach(([id, b]) => {
+    const i = P.findIndex(q => q.b === id);
+    b.g.classList.add('hov');
+    b.g.addEventListener('mouseenter', () => {
+      if (i >= 0) return focus(i);
+      vs.classList.add('focus'); clearLit(); b.g.classList.add('lit'); regions[b.r].g.classList.add('lit');
+      render(regions[b.r].t, b.t, [['Status', 'Idle · not on this run'], ['Good at', b.where]], []);
+    });
+    b.g.addEventListener('mouseleave', blur);
+    if (i >= 0) b.g.addEventListener('click', () => pick(i));
+  });
+  pick(2, true);
+
+  /* the run plays itself until you touch it: review passes, the gate waits for you, you nod, it publishes */
+  const loopst = $('.loopst'), bench = $('#see');
+  let hover = false, seen = false, gate = true;
+  bench.addEventListener('mouseenter', () => hover = true);
+  bench.addEventListener('mouseleave', () => hover = false);
+  const sleep = ms => new Promise(r => setTimeout(r, ms));
+  const hold = async ms => { await sleep(ms); while (hover || !seen || !gate) await sleep(300); return !user; };
+  const step = (i, s, st) => { setState(P[i], s); P[i].st = st; if (i === sel) showStep(i); };
+  const bot = (k, s) => setState(B[k], s);
+  const reset = () => {
+    step(2, 'run', 'Running · round 2'); step(3, 'idle', 'Pending'); step(4, 'idle', 'Pending');
+    bot('review', 'run'); bot('me', 'idle'); bot('carry', 'idle');
+    tx(loopst, 'Loop round 2 / 3'); wire(); pick(2, true);
+  };
+  async function play() {
+    for (;;) {
+      if (!await hold(3200)) return;
+      step(2, 'done', 'Done · round 2 passed'); bot('review', 'done');
+      step(3, 'wait', 'Your call'); bot('me', 'wait'); tx(loopst, 'Review passed · your call'); wire(); pick(3, true);
+      if (!await hold(3400)) return;
+      step(3, 'done', 'You approved'); bot('me', 'done');
+      step(4, 'run', 'Publishing'); bot('carry', 'run'); tx(loopst, 'Publishing'); wire(); pick(4, true);
+      if (!await hold(3000)) return;
+      step(4, 'done', 'Published to 3 sites'); bot('carry', 'done'); tx(loopst, 'run #128 complete'); wire();
+      if (!await hold(3600)) return;
+      reset();
+    }
+  }
+  if (!reduce) {
+    new IntersectionObserver(([e]) => { seen = e.isIntersecting; }, { threshold: .3 }).observe(bench);
+    setTimeout(play, 2400);
+  }
+
+  /* ---------- intro: the terminals you juggle today collapse into the graph ---------- */
+  const intro = $('.intro');
+  if (!reduce && matchMedia('(min-width: 901px)').matches) {
+    intro.classList.add('morph');
+    const wrap = $('.stage-wrap'), terms = $('.terms'), wb = $('.wb');
+    const T = [
+      { k: 'explore', at: [.01, .05, -3], h: 'claude · mac-mini · ~/weekly', log: ['› fetch news.example.com/weekly', '  got 32 items', '› summarize --top 32', '  wrote notes.md'] },
+      { k: 'write',   at: [.19, .36,  2], h: 'claude · laptop · ~/draft',     log: ['› read notes.md', '› draft weekly.md', '  2,140 words', '› waiting for review…'] },
+      { k: 'review',  at: [.39, .02, -1.5], h: 'codex · mac-mini · ~/review', log: ['› review weekly.md', '  intro too long', '› send back: round 2', '› review weekly.md'] },
+      { k: 'build',   at: [.57, .44,  3], h: 'claude · linux · ~/site',       log: ['$ pnpm build', '  132 modules, 4.2s', '$ pnpm test', '  48 passed'] },
+      { k: 'carry',   at: [.75, .07, -2], h: 'claude · linux · ~/publish',    log: ['› publish --all', '  ready: 3 platforms', '› wait for approval?', '  …'] },
+      { k: null,      at: [.33, .60,  1], h: 'zsh · forgot why I opened this',  log: ['$ claude', '  ? what did you ask me last time', '$ ', '$ '] },
+    ];
+    T.forEach(t => {
+      t.el = document.createElement('div'); t.el.className = 'term'; t.el.setAttribute('data-ui', '');
+      t.el.innerHTML = `<header><b>${esc(t.h.split(' · ')[0])}</b><span></span></header><pre></pre>`;
+      tx(t.el.querySelector('header span'), t.h.split(' · ').slice(1).join(' · '));
+      t.pre = t.el.querySelector('pre'); t.n = 0; terms.appendChild(t.el);
+    });
+    const tick = () => T.forEach(t => {
+      const s = t.pre.appendChild(document.createElement('span')); tx(s, t.log[t.n++ % t.log.length]);
+      while (t.pre.children.length > 6) t.pre.firstChild.remove();
+    });
+    for (let i = 0; i < 4; i++) tick();
+    let prog = 0;
+    setInterval(() => { if (prog < .2 && seen) tick(); }, 650);
+    const clamp = v => Math.min(1, Math.max(0, v));
+    const ease = v => v < .5 ? 4 * v * v * v : 1 - Math.pow(-2 * v + 2, 3) / 2;
+    // layout is read only on resize; each frame just eases toward the scroll target
+    let top0 = 0, span = 1, W0 = 0, H0 = 0, cur = 0, raf = 0;
+    const measure = () => {
+      const w = wrap.getBoundingClientRect();
+      top0 = intro.getBoundingClientRect().top + scrollY; span = intro.offsetHeight - innerHeight; W0 = w.width; H0 = w.height;
+      T.forEach(o => {
+        o.sx = o.at[0] * W0; o.sy = o.at[1] * H0;
+        if (o.k) { const n = B[o.k].g.getBoundingClientRect(); o.tx = n.left - w.left; o.ty = n.top - w.top; o.sc = n.width / 300; }
+        else { o.tx = o.sx + 40; o.ty = o.sy + 80; o.sc = .6; }
+      });
+    };
+    const frame = () => {
+      const goal = clamp((scrollY - top0) / span);
+      cur += (goal - cur) * .2; if (Math.abs(goal - cur) < .0005) cur = goal;
+      prog = cur;
+      const t = ease(clamp((cur - .1) / .55));
+      T.forEach(o => {
+        const x = o.sx + (o.tx - o.sx) * t, y = o.sy + (o.ty - o.sy) * t, s = 1 + (o.sc - 1) * t, rot = o.at[2] * (1 - t);
+        o.el.style.transform = `translate3d(${x}px,${y}px,0) rotate(${rot}deg) scale(${s})`;
+        o.el.style.opacity = o.k ? 1 - clamp((t - .78) / .2) : 1 - clamp(t / .45);
+      });
+      wb.style.setProperty('--wb', clamp((t - .45) / .45).toFixed(3));
+      intro.classList.toggle('flip', t > .5);
+      gate = cur > .72;
+      raf = cur === goal ? 0 : requestAnimationFrame(frame);
+    };
+    const kick = () => { if (!raf) raf = requestAnimationFrame(frame); };
+    addEventListener('scroll', kick, { passive: true });
+    addEventListener('resize', () => { measure(); kick(); });
+    measure(); cur = clamp((scrollY - top0) / span); frame();
+  }
+
+  /* ---------- core: one list, one panel, advancing by itself ---------- */
+  const feats = $$('.feat'), list = $('.feats');
+  let cur = 0;
+  const show = i => {
+    cur = i;
+    feats.forEach((f, j) => { f.classList.toggle('on', j === i); f.querySelector('.f-btn').setAttribute('aria-selected', j === i); });
+  };
+  feats.forEach((f, i) => {
+    const btn = f.querySelector('.f-btn');
+    const bar = document.createElement('i'); bar.className = 'bar'; bar.setAttribute('aria-hidden', 'true'); btn.appendChild(bar);
+    bar.addEventListener('animationend', () => show((cur + 1) % feats.length));
+    btn.addEventListener('click', () => { list.classList.remove('auto'); show(i); });
+  });
+  if (!reduce) {
+    list.classList.add('auto');
+    new IntersectionObserver(([e]) => list.classList.toggle('run', e.isIntersecting), { threshold: .35 }).observe(list);
+  }
+
+  const decide = (chip, st, ok, no, chipCls, chipTxt, msg) => {
+    const c = $(chip); c.className = 'chip ' + chipCls + (reduce ? '' : ' flip'); tx(c, chipTxt);
+    const paintSt = () => { $(st).innerHTML = tr(msg); }; paintSt(); onLang(paintSt);
+    $(ok).disabled = $(no).disabled = true;
+    list.classList.remove('auto');
+  };
+  $('#g-pass').addEventListener('click', () => decide('#g-chip', '#g-st', '#g-pass', '#g-back', 'ok', 'Approved', '<b>You nodded.</b> Carry Bot starts publishing; earlier output is all kept.'));
+  $('#g-back').addEventListener('click', () => decide('#g-chip', '#g-st', '#g-pass', '#g-back', 'bad', 'Sent back', '<b>Sent back.</b> Back to drafting; only this step is redone.'));
+
+  /* ---------- topology: three runs, same machines, different crews ---------- */
+  {
+    const ts = $('#topo-svg'), tip = $('#topo-tip');
+    const Z = [{ x: 40, t: 'Mac mini' }, { x: 420, t: 'Laptop' }, { x: 800, t: 'Linux cloud' }];
+    Z.forEach(z => { const g = mk('g', { class: 'tzone' }, ts); mk('rect', { x: z.x, y: 300, width: 360, height: 256, rx: 16 }, g); txt({ x: z.x + 20, y: 330 }, z.t, g); });
+    const BOTS = {
+      explore: ['Explore Bot', '01-explore'], review: ['Review Bot', '04-plan'], write: ['Write Bot', '05-write'],
+      build: ['Build Bot', '02-build'], carry: ['Carry Bot', '07-carry'], plan: ['Plan Bot', '08-direct'],
+    };
+    const RUNS = [
+      { lead: ['Weekly report', 'Weekly report out by Friday'], crew: [['explore', 0, 'Weekly sources'], ['review', 0, 'Review drafts, up to 3 rounds'], ['write', 1, 'Draft from the sources'], ['carry', 2, 'Publish after Hodor OKs it']] },
+      { lead: ['Dev delivery', 'Ship ticket #41'], crew: [['plan', 1, 'Break down the ticket'], ['explore', 0, 'Frontend'], ['build', 2, 'Backend'], ['review', 0, 'Code review'], ['carry', 2, 'Waits for you before merge']] },
+      { lead: ['Daily data', 'Daily report at 08:00'], crew: [['build', 2, 'Fetch and clean'], ['write', 2, 'Write the report'], ['carry', 2, 'Send it to you']] },
+    ];
+    const NW = 320, NH = 64;
+    const box = (cls, label, sub, img) => {
+      const g = mk('g', { class: 'tn ' + cls }, ts);
+      mk('rect', { class: 'bx', width: NW, height: NH, rx: 14 }, g);
+      if (img) { mk('image', { href: `../img/${img}.jpg`, x: 12, y: 12, width: 40, height: 40, 'clip-path': 'url(#av40)' }, g); }
+      const tx = img ? 64 : 20;
+      g._t = txt({ x: tx, y: 29 }, label, g); g._s = txt({ class: 'sub', x: tx, y: 48 }, sub, g);
+      return g;
+    };
+    const defs = mk('defs', {}, ts); const cp = mk('clipPath', { id: 'av40' }, defs); mk('circle', { cx: 32, cy: 32, r: 20 }, cp);
+    const lines = mk('g', {}, ts);
+    const me = box('me', 'You', 'Signs off on key steps only'); me.style.transform = `translate(${600 - NW / 2}px,28px)`;
+    const lead = box('lead', '', '');
+    const nodes = {}; Object.entries(BOTS).forEach(([k, [n, img]]) => { nodes[k] = box('hov off', n, '', img); nodes[k]._k = k; });
+    const L = {};
+    const path = (x1, y1, x2, y2) => { const m = (y1 + y2) / 2; return `M${x1} ${y1}C${x1} ${m} ${x2} ${m} ${x2} ${y2}`; };
+    const line = k => L[k] || (L[k] = mk('path', { class: 'tl' }, lines));
+    let tipArgs = null;
+    const paintTip = () => { const [name, task, where] = tipArgs.map(k => tr(k)); tip.innerHTML = `<b>${esc(name)}</b> · ${esc(where)}<small>${esc(tr('First asked: {task}', { task }))}</small>`; };
+    const say = (...a) => { tipArgs = a; paintTip(); };
+    onLang(paintTip);
+    let curRun = 0;
+    const draw = r => {
+      curRun = r; const R = RUNS[r];
+      tx(lead._t, R.lead[0]); tx(lead._s, R.lead[1]);
+      lead.style.transform = `translate(${600 - NW / 2}px,148px)`;
+      line('me').setAttribute('d', path(600, 28 + NH, 600, 148));
+      const per = [[], [], []]; R.crew.forEach(c => per[c[1]].push(c));
+      Object.values(nodes).forEach(n => n.classList.add('off'));
+      Object.keys(L).filter(k => k !== 'me').forEach(k => L[k].style.opacity = 0);
+      per.forEach((list, zi) => list.forEach((c, j) => {
+        const n = nodes[c[0]], nx = Z[zi].x + 20, ny = 350 + j * 76;
+        n.classList.remove('off'); n.style.transform = `translate(${nx}px,${ny}px)`;
+        tx(n._s, c[2]); n._task = c[2]; n._where = Z[zi].t;
+        const l = line(c[0]); l.style.opacity = 1; l.setAttribute('d', path(600, 148 + NH, nx + 160, ny)); l.classList.toggle('hot', c === R.crew[0]);
+      }));
+      Object.values(nodes).forEach(n => n.classList.remove('pick'));
+      say(R.lead[0], R.lead[1], 'The flow you handed it');
+      $$('.runs button').forEach(b => b.setAttribute('aria-pressed', +b.dataset.run === r));
+    };
+    Object.values(nodes).forEach(n => {
+      const on = () => { if (n.classList.contains('off')) return; Object.values(nodes).forEach(m => m.classList.toggle('pick', m === n)); say(BOTS[n._k][0], n._task, n._where); };
+      n.addEventListener('mouseenter', on); n.addEventListener('click', on);
+    });
+    lead.addEventListener('mouseenter', () => say(RUNS[curRun].lead[0], RUNS[curRun].lead[1], 'The flow you handed it'));
+    $$('.runs button').forEach(b => b.addEventListener('click', () => draw(+b.dataset.run)));
+    draw(0);
+  }
+
+  /* ---------- self-improvement: one change per round, rescored, kept only if better and approved ---------- */
+  {
+    const lsvg = $('#lb-svg'), chip = $('#rd-chip'), okb = $('#rd-ok'), steps = $$('#fsteps li'), cases = $('#rd-cases');
+    const R = [
+      { hyp: 'You keep cropping the cover image by hand', file: 'skills/publish.md', diff: ['+ crop to 1200×630 before publishing'], s: 74, keep: 1, hand: 5 },
+      { hyp: 'Intros run long and get sent back', file: 'AGENTS.md', diff: ['- open with the background', '+ keep the intro under 80 words'], s: 71, keep: 0 },
+      { hyp: 'Review keeps raising the same note', file: 'config.yaml', diff: ['- review.rounds: 3', '+ review.rounds: 2', '+ review.checklist: on'], s: 81, keep: 1, hand: 4 },
+      { hyp: 'Sources all come from one place', file: 'skills/explore.md', diff: ['+ cross-check at least 3 sources'], s: 88, keep: 1, hand: 2 },
+      { hyp: 'Headline style is inconsistent', file: 'AGENTS.md', diff: ['+ always phrase headlines as questions'], s: 84, keep: 0 },
+    ];
+    const X = i => 48 + i * 112, Y = s => 290 - (s - 58) * 6.6;
+    [60, 70, 80, 90, 100].forEach(s => { mk('line', { class: 'lg', x1: 40, x2: 620, y1: Y(s), y2: Y(s) }, lsvg); txt({ class: 'lt', x: 0, y: Y(s) + 4 }, s, lsvg); });
+    const plot = mk('g', {}, lsvg);
+    for (let i = 0; i < 12; i++) cases.appendChild(document.createElement('i'));
+    const dots = [...cases.children];
+    const set = (id, v, vars) => { tx($(id), v, vars); };
+    const phase = k => steps.forEach((s, j) => s.classList.toggle('on', j === k));
+    const chipTo = (cls, t, vars) => { chip.className = 'chip ' + cls + (reduce ? '' : ' flip'); tx(chip, t, vars); };
+    let vis = false, ver = 1, best = 62;
+    const wait = ms => reduce ? Promise.resolve() : new Promise(r => {
+      let left = ms, last = performance.now();
+      const t = () => { const now = performance.now(); if (vis) left -= now - last; last = now; left <= 0 ? r() : setTimeout(t, 80); }; t();
+    });
+    const point = (i, s, cls, label, vars) => {
+      const g = mk('g', { class: 'lp ' + cls }, plot);
+      mk('circle', { cx: X(i), cy: Y(s), r: cls === 'keep' ? 7 : 6 }, g);
+      tx(mk('text', { x: X(i), y: Y(s) + (cls === 'keep' ? -16 : 24) }, g), label, vars);
+    };
+    const seg = (i0, s0, i1, s1, cls) => {
+      if (cls === 'keep') mk('line', { class: 'ls glow', x1: X(i0), y1: Y(s0), x2: X(i1), y2: Y(s1), pathLength: 1 }, plot);
+      mk('line', { class: 'ls ' + cls, x1: X(i0), y1: Y(s0), x2: X(i1), y2: Y(s1), pathLength: 1 }, plot);
+    };
+    const reset = () => {
+      plot.replaceChildren(); ver = 1; best = 62;
+      point(0, 62, 'keep', 'v1 · 62'); set('#lb-v', 'v1'); set('#lb-s', 62); set('#lb-h', 7);
+    };
+    const count = (from, to, ms) => new Promise(r => {
+      if (reduce) { set('#rd-score', to); return r(); }
+      const t0 = performance.now();
+      const f = now => { const k = Math.min(1, (now - t0) / ms); set('#rd-score', Math.round(from + (to - from) * k)); k < 1 ? requestAnimationFrame(f) : r(); };
+      requestAnimationFrame(f);
+    });
+    const round = async (i, o) => {
+      set('#rd-n', 'Round {n}', { n: i + 1 }); set('#rd-score', '–'); set('#rd-cs', 'Waiting for eval'); okb.disabled = true; okb.classList.remove('beg');
+      $('#rd-diff').replaceChildren(); dots.forEach(d => d.className = '');
+      phase(0); chipTo('idle', 'Find issue'); set('#rd-hyp', o.hyp);
+      await wait(1100);
+      phase(1); chipTo('run', 'Change one');
+      const diff = $('#rd-diff');
+      diff.innerHTML = `<span class="f">${esc(o.file)}<em></em></span>`;
+      tx(diff.querySelector('em'), 'Snapshot v{v} saved', { v: ver });
+      for (const l of o.diff) { await wait(320); const s = document.createElement('span'); s.className = l[0] === '+' ? 'add' : 'del'; diff.appendChild(s); tx(s, l); }
+      await wait(700);
+      phase(2); chipTo('run', 'Rescore');
+      const pass = Math.round(o.s / 100 * 12), order = dots.map((_, j) => j).sort(() => Math.random() - .5);
+      const scored = count(best, o.s, 1500);
+      for (let j = 0; j < 12; j++) { await wait(110); dots[order[j]].className = j < pass ? 'ok' : 'bad'; set('#rd-cs', 'Ran {n}/12', { n: j + 1 }); }
+      await scored;
+      if (!o.keep) {
+        seg(i, best, i + 1, o.s, 'drop'); point(i + 1, o.s, 'drop', '{s} · undone', { s: o.s }); seg(i, best, i + 1, best, 'flat');
+        chipTo('bad', 'No better · back to v{v}', { v: ver }); set('#rd-cs', '{d} below last version', { d: best - o.s });
+        await wait(2200); return;
+      }
+      phase(3); chipTo('wait', 'Waiting for you'); set('#rd-cs', '{d} above last version', { d: o.s - best });
+      okb.disabled = false; okb.classList.add('beg');
+      await Promise.race([wait(2600), new Promise(r => okb.onclick = r)]);
+      okb.disabled = true; okb.classList.remove('beg'); okb.onclick = null;
+      seg(i, best, i + 1, o.s, 'keep'); best = o.s; ver++;
+      point(i + 1, o.s, 'keep', `v${ver} · ${o.s}`);
+      chipTo('ok', 'Kept · v{v}', { v: ver }); set('#lb-v', 'v' + ver); set('#lb-s', o.s); set('#lb-h', o.hand);
+      await wait(1800);
+    };
+    const loop = async () => {
+      for (;;) {
+        reset();
+        for (let i = 0; i < R.length; i++) await round(i, R[i]);
+        if (reduce) return;
+        await wait(3500);
+      }
+    };
+    new IntersectionObserver(([e]) => { vis = e.isIntersecting; }, { threshold: .25 }).observe($('.lab'));
+    loop();
+  }
+
+  /* ---------- entrances ---------- */
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -10% 0px', threshold: .1 });
+  $$('[data-r], .crew').forEach(el => io.observe(el));
+}
+</script>
+</body>
+</html>
