@@ -95,6 +95,7 @@ h1,h2,.h1like{font-size:var(--s-display);font-weight:700;letter-spacing:-.03em;l
 .kick{display:inline-flex;align-items:center;gap:10px;font-size:clamp(13px,.85vw,16px);letter-spacing:.18em;color:var(--lemon);font-weight:500}
 .kick::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--lemon);box-shadow:0 0 0 4px rgba(228,213,90,.2);animation:blink 1.8s ease-in-out infinite}
 .splash h1{margin-top:clamp(18px,1.4vw,26px);font-size:clamp(3rem,min(1.4rem + 5.2vw,11svh),8.75rem);line-height:1;letter-spacing:-.04em}
+:lang(zh-Hans) .splash h1{line-height:1.12}
 .splash h1 .line:last-child>span{color:var(--lemon)}
 .splash-sub{margin-top:clamp(24px,1.8vw,34px);max-width:26em;color:#CFC7D3;font-size:clamp(1rem,.85rem + .4vw,1.4rem)}
 .splash .hero-act{margin-top:clamp(32px,2.4vw,44px);gap:clamp(20px,1.5vw,28px)}
@@ -253,8 +254,9 @@ html:not(.js) .pnl{display:block;visibility:visible;opacity:1;transform:none;mar
 .msg b{color:var(--ink);font-weight:500}
 .card{background:var(--s2);border-radius:12px;padding:20px}
 .card .t{font-size:20px;font-weight:500;margin-top:6px}
-.card dl{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;margin-top:16px}
-.card dt{color:var(--soft)}
+.brief{list-style:none;padding:0;margin:14px 0 0;display:grid;gap:8px}
+.brief li{padding:10px 12px;border-radius:10px;background:var(--s3);font-size:14px;line-height:1.45}
+.brief small{display:block;font-size:12px;color:var(--lemon);font-weight:500;margin-bottom:2px}
 .acts{display:flex;gap:8px;margin-top:20px}
 .acts button{height:44px;padding:0 22px;border-radius:999px;background:var(--s3);transition:transform 140ms var(--ease-out),opacity .2s}
 .acts button.y{background:var(--lemon);color:var(--bg)}
@@ -412,7 +414,7 @@ footer{padding:var(--sec) var(--m) clamp(48px,5vw,64px);max-width:1440px;margin-
   .js [data-r]{opacity:0;transform:translateY(24px);transition:opacity .7s var(--ease-out),transform .9s var(--ease-out);transition-delay:calc(var(--i,0)*80ms)}
   .js [data-r].in{opacity:1;transform:none}
   /* signature: lines rise from behind their baseline */
-  .lines .line{display:block;overflow:hidden;padding-bottom:.08em;margin-bottom:-.08em}
+  .lines .line{display:block;overflow:hidden;padding-bottom:.16em;margin-bottom:-.16em}
   .lines .line>span{display:block;transition:transform .7s var(--ease-out)}
   .js .lines .line>span{animation:line-in .9s var(--ease-out) backwards;animation-delay:calc(var(--i)*110ms + 150ms)}
   @keyframes line-in{from{transform:translateY(105%)}}
@@ -633,12 +635,16 @@ footer{padding:var(--sec) var(--m) clamp(48px,5vw,64px);max-width:1440px;margin-
       <button class="f-btn" role="tab" aria-selected="false" aria-controls="p3" id="t3"><b>Hodor briefs you before anything ships</b><span>Usually you feed context to AI; at a Hodor gate, AI feeds the context back to you: what happened, why it needs your call, and what each choice means.</span></button>
       <div class="pnl" role="tabpanel" id="p3" aria-labelledby="t3">
         <div class="win" data-ui>
-          <div class="win-bar"><b>Hodor gate</b><span>Weekly report · run #128</span></div>
+          <div class="win-bar"><b>Hodor gate · Briefing</b><span>AI → You · Weekly report · run #128</span></div>
           <div class="win-body">
             <div class="card">
               <span class="chip wait" id="g-chip">Your call</span>
-              <p class="t">Before publishing to 3 sites</p>
-              <dl><dt>Final draft</dt><dd>2,140 words</dd><dt>Review</dt><dd>Two rounds of notes, all resolved</dd><dt>Next</dt><dd>Carry Bot publishes to 3 sites</dd></dl>
+              <p class="t">Publish Weekly Report to 3 live sites?</p>
+              <ul class="brief">
+                <li><small>What just happened</small>Write Bot finished Draft v2 (2,140 words); Review Bot verified all 32 sources across 2 rounds.</li>
+                <li><small>Why this needs your call</small>Carry Bot is about to post to 3 external sites. External publishing cannot be undone automatically.</li>
+                <li><small>What each choice means</small>Approve: Carry Bot publishes now · Send back: returns to Write Bot with your note.</li>
+              </ul>
               <div class="acts"><button class="y" id="g-pass">Approve</button><button id="g-back">Send back</button></div>
               <p class="st" id="g-st" aria-live="polite">The flow stops here. Nothing goes out until you nod.</p>
             </div>
@@ -869,7 +875,7 @@ footer{padding:var(--sec) var(--m) clamp(48px,5vw,64px);max-width:1440px;margin-
     { t: 'Gather',     s: 'done', b: 'explore', x: 14,  st: 'Done', o: 'Notes · 32 items', ctx: [['Your brief', "This week's report, out by Friday"], ['Reference', '#weekly · 3 messages']] },
     { t: 'Draft',      s: 'done', b: 'write',   x: 232, st: 'Done · round 2', o: 'Draft v2 · 2,140 words', ctx: [['From the last step', 'Notes · 32 items'], ['Review notes · round 1', 'Intro too long']] },
     { t: 'Review',     s: 'run',  b: 'review',  x: 450, st: 'Running · round 2', o: 'Reviewing', ctx: [['From the last step', 'Draft v2 full text'], ['Review method', 'v3 · approved by you']] },
-    { t: 'Hodor gate', s: 'idle', b: 'me',      x: 672, st: 'Pending', o: 'You decide: approve or send back', ctx: [['Shown to you', 'Final draft and two rounds of notes']] },
+    { t: 'Hodor gate', s: 'idle', b: 'me',      x: 672, st: 'Pending', o: 'You decide: approve or send back', ctx: [['What just happened', 'Draft v2 (2,140 words) passed 2 review rounds'], ['Why this needs your call', 'Carry Bot will publish to 3 external sites'], ['What each choice means', 'Approve ships now · Send back returns to Write Bot']] },
     { t: 'Publish',    s: 'idle', b: 'carry',   x: 900, st: 'Pending', o: 'None', ctx: [['After Hodor lets it through', 'Full final draft']] },
   ].map((p, i) => Object.assign(p, { y: 100, where: 'Step {no}', no: i + 1, label: SL, img: B[p.b].img }));
   P.forEach(p => node(vs, p));
@@ -897,7 +903,7 @@ footer{padding:var(--sec) var(--m) clamp(48px,5vw,64px);max-width:1440px;margin-
   const render = (crumb, title, rows, ctx) => {
     paint = () => { drawer.innerHTML = `<div class="dr-crumb">${esc(L(crumb))}</div><h4>${esc(L(title))}</h4>
       <dl>${rows.map(([a, b]) => `<dt>${esc(L(a))}</dt><dd>${esc(L(b))}</dd>`).join('')}</dl>
-      <h5>${esc(tr('What this step received'))}</h5>
+      <h5>${esc(tr(title === 'Hodor gate' ? 'Hodor context briefing' : 'What this step received'))}</h5>
       <ul class="ctx">${ctx.length ? ctx.map(([a, b]) => `<li><small>${esc(L(a))}</small>${esc(L(b))}</li>`).join('') : `<li>${esc(tr('None'))}</li>`}</ul>`; };
     paint();
   };
