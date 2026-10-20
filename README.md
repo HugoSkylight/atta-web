@@ -56,11 +56,13 @@ sips -c 630 1200 img/og.jpg
 
 ## Deployment and crawler files
 
-GitHub Pages serves the committed files from the repository. The site currently lives at <https://hugoskylight.github.io/atta-web/>. `sitemap.xml` lists those project URLs.
+The official site is <https://atta.nz/>. Cloudflare serves the committed files as static hosting; its project settings are configured outside this repository and are not recorded here. There is no `CNAME` file and no DNS record managed in this repository.
 
-`robots.txt` is written for a future custom domain at the host root. At the GitHub Pages project path, `/atta-web/robots.txt` is not the host-root `robots.txt`, so it does not control crawling of `github.io`. It is still a valid file to move to a domain root later.
+`sitemap.xml` lists the `atta.nz` URLs. `robots.txt` is served from the domain root, so its `Allow: /` rule and sitemap line apply to the official host.
 
-This project does not add crawler restrictions for search indexing, user-requested AI retrieval, or model-training crawlers. The project-path robots file cannot enforce host-wide policy. `llms.txt` is a discoverable summary, not an indexing request or a guarantee of AI recommendations. A maintainer must submit the sitemap through the relevant webmaster tools if they want submission records.
+A copy may also remain available through GitHub Pages at the project URL <https://hugoskylight.github.io/atta-web/>. That copy is not the canonical address, and a `robots.txt` at the project path cannot control the `github.io` host.
+
+This project does not add crawler restrictions for search indexing, user-requested AI retrieval, or model-training crawlers. `llms.txt` is a discoverable summary, not an indexing request or a guarantee of AI recommendations. A maintainer must submit the sitemap through the relevant webmaster tools if they want submission records.
 
 ## Content boundaries
 

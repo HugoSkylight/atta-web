@@ -11,16 +11,16 @@
 
 ## Pages
 
-- [Home](https://hugoskylight.github.io/atta-web/): product concept and interactive demos.
-- [Project and availability](https://hugoskylight.github.io/atta-web/project/): what the demos show and current availability.
-- [Changelog](https://hugoskylight.github.io/atta-web/changelog/): website changes with commit links.
-- [Privacy](https://hugoskylight.github.io/atta-web/privacy/): website privacy only.
-- [Security](https://hugoskylight.github.io/atta-web/security/): website security scope and reporting.
-- [中文首页](https://hugoskylight.github.io/atta-web/zh/): Chinese home page.
-- [项目与可用性](https://hugoskylight.github.io/atta-web/zh/project/): 中文项目说明。
-- [更新日志](https://hugoskylight.github.io/atta-web/zh/changelog/): 中文网站更新记录。
-- [隐私](https://hugoskylight.github.io/atta-web/zh/privacy/): 中文网站隐私说明。
-- [安全](https://hugoskylight.github.io/atta-web/zh/security/): 中文网站安全说明。
+- [Home](https://atta.nz/): product concept and interactive demos.
+- [Project and availability](https://atta.nz/project/): what the demos show and current availability.
+- [Changelog](https://atta.nz/changelog/): website changes with commit links.
+- [Privacy](https://atta.nz/privacy/): website privacy only.
+- [Security](https://atta.nz/security/): website security scope and reporting.
+- [中文首页](https://atta.nz/zh/): Chinese home page.
+- [项目与可用性](https://atta.nz/zh/project/): 中文项目说明。
+- [更新日志](https://atta.nz/zh/changelog/): 中文网站更新记录。
+- [隐私](https://atta.nz/zh/privacy/): 中文网站隐私说明。
+- [安全](https://atta.nz/zh/security/): 中文网站安全说明。
 
 ## Contact
 

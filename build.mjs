@@ -10,7 +10,7 @@ import vm from 'node:vm';
 import { PAGES } from './pages.mjs';
 
 const ROOT = dirname(fileURLToPath(import.meta.url));
-const SITE = 'https://hugoskylight.github.io/atta-web/';
+const SITE = 'https://atta.nz/';
 const LAST_MOD = '2026-10-20';
 const CHECK = process.argv.includes('--check');
 
@@ -329,8 +329,7 @@ const llms = `# Atta
 - This file summarizes the public pages. It adds no private product details and no content that is hidden from readers.
 `;
 
-const robots = `# This file is served from the /atta-web/ project path. It is not the host-root
-# robots.txt for github.io, so crawlers are not required to read it there.
+const robots = `# This file is served from the root of the official site.
 User-Agent: *
 Allow: /
 
@@ -415,7 +414,7 @@ function validate() {
   }
 
   for (const [path, html] of outputs) {
-    if (/(?:Owner login|Open my workbench|Log in to my workbench|href="#"|support@|atta\.nz)/.test(html)) {
+    if (/(?:Owner login|Open my workbench|Log in to my workbench|href="#"|support@)/.test(html)) {
       errors.push(`${path}: contains a removed login CTA, empty link, or unverified contact`);
     }
     for (const m of html.matchAll(/https:\/\/github\.com\/HugoSkylight\/([A-Za-z0-9_.-]+)/g)) {
@@ -461,9 +460,10 @@ function validate() {
   for (const url of locs) if (!wanted.has(url)) errors.push(`sitemap.xml: unexpected ${url}`);
   if (outputs.get('sitemap.xml').includes('i18n-check')) errors.push('sitemap.xml: test page must not be listed');
 
-  for (const m of outputs.get('llms.txt').matchAll(/\((https:\/\/hugoskylight\.github\.io\/atta-web\/[^)]*)\)/g)) {
+  for (const m of outputs.get('llms.txt').matchAll(/\((https:\/\/[^)]+)\)/g)) {
+    if (!m[1].startsWith(SITE)) continue;
     const url = new URL(m[1]);
-    let path = url.pathname.replace(/^\/atta-web\//, '').replace(/^\//, '');
+    let path = url.pathname.replace(/^\//, '');
     if (!path || path.endsWith('/')) path += 'index.html';
     if (!files.has(path) && !existsSync(join(ROOT, path))) errors.push(`llms.txt: broken page link ${m[1]}`);
   }
